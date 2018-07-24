@@ -9,6 +9,10 @@ import { ListPage } from '../pages/list/list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+//Importamos las paginas utilizadas a partir de aquí
+import { RegistrarPageModule } from '../pages/registrar/registrar.module';
+import { LoginPageModule } from '../pages/login/login.module';
+import { ContraPageModule } from '../pages/contra/contra.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +24,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    //se importan los modulos de las páginas creadas en esta sección
+    RegistrarPageModule,
+    LoginPageModule,
+    ContraPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

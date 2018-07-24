@@ -7,6 +7,9 @@ import { ListPage } from '../pages/list/list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+/*Importamos la pagina de registrar para que sea el inicio de nuestra app, y lo cambiamos en la
+parte de abajo*/
+import { RegistrarPage } from '../pages/registrar/registrar';
 
 
 @Component({
@@ -15,8 +18,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  // make HelloIonicPage the root (or first) page
-  rootPage = HelloIonicPage;
+  // make REGISTRAR the root (or first) page
+  rootPage = RegistrarPage;
   pages: Array<{title: string, component: any}>;
 
   constructor(

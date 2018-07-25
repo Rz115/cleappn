@@ -10,18 +10,18 @@
 
 <ion-content padding >
 
-  <p class="sp" align="left" (click)="enviar()">Escribe tu correo con el que te has registado
-    anteriormente  </p>
-    <ion-item>
-    <ion-input type="text" placeholder="Correo"></ion-input>
+  <p class="sp" align="left" (click)="enviar()"><span class="pregunta">Escribe tu correo con el que te has registado
+    anteriormente: </span></p>
+  <ion-item>
+    <ion-label><ion-icon name="mail"></ion-icon></ion-label> <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
+    <ion-input type="text" placeholder="Correo:"></ion-input>
   </ion-item>
-  
+
   <br>
   <br>
-      <p align="center">
-        <button ion-button  color="primary"  (click)="showAlert()">ENVIAR</button>
-      </p>
-  
-  
-  
-  </ion-content>
+
+  <p align="center">
+    <button ion-button  color="primary"  (click)="showAlert()">ENVIAR</button>
+  </p>
+
+</ion-content>

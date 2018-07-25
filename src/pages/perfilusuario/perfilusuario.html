@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Tu Perfil</ion-title>
+  </ion-navbar>
+</ion-header>
+  
+  <ion-content padding class="fondo1" >
+      <br>
+        <ion-avatar  class="position" >
+          <img  src="assets/img/drived.jpg" class="avatardeperfil">
+        </ion-avatar>
+      <br>
+      <ion-card>
+          <ion-card-header>
+            Datos de Usuario:
+          </ion-card-header>
+          <ion-card-content>
+            <ion-card>
+                <ion-card-header>
+                    Nombre:
+                  </ion-card-header>
+                  <ion-card-content>
+              <ion-item>
+                  <ion-label><ion-icon name="contact"></ion-icon></ion-label> 
+                  <ion-input type="text" value="" placeholder="Nombre completo:"></ion-input>
+                </ion-item>
+              </ion-card-content>
+              </ion-card>
+
+              <ion-card>
+                  <ion-card-header>
+                      Correo:
+                    </ion-card-header>
+                    <ion-card-content>
+                <ion-item>
+                    <ion-label><ion-icon name="mail"></ion-icon></ion-label> 
+                    <ion-input type="text" value="" placeholder="Correo:"></ion-input>
+                  </ion-item>
+                </ion-card-content>
+                </ion-card>
+
+                <ion-card>
+                    <ion-card-header>
+                        Contraseña:
+                      </ion-card-header>
+                      <ion-card-content>
+                  <ion-item>
+                      <ion-label><ion-icon name="key"></ion-icon></ion-label> 
+                      <ion-input type="password" value="" placeholder="Contraseña:"></ion-input>
+                    </ion-item>
+                  </ion-card-content>
+                  </ion-card>
+                 
+                  <ion-card>
+                      <ion-card-header>
+                          Ubicación Principal:
+                        </ion-card-header>
+                        <ion-card-content>
+                    <ion-item>
+                        <ion-label><ion-icon name="pin"></ion-icon></ion-label> 
+                        <ion-textarea type="text" value="" placeholder="Lugar que frecuentas:"></ion-textarea>
+                      </ion-item>
+                    </ion-card-content>
+                    </ion-card>         
+         
+           </ion-card-content>
+        </ion-card>
+ 
+      
+      <br>
+      <ion-row>
+        <ion-col>
+            <p align="left" > <span class="pregunta">Eliminar cuenta</span> </p>
+        </ion-col>
+        <ion-col>
+            <button ion-button small align="right"color="primary" (click)="guardar()" >Guardar Cambios</button>
+        </ion-col>
+       
+      </ion-row>
+    </ion-content>

@@ -1,0 +1,13 @@
+page-perfilusuario {
+    .avatardeperfil{
+        height: 170px;
+        width: 170px;
+        
+        border-radius: 80%;
+      }
+      .position{
+          display: flex;
+          justify-content: center;
+          padding-top: 15px;
+      }
+}

@@ -1,0 +1,59 @@
+<ion-header>
+    <ion-navbar>
+      <ion-title>Añadir Tarjeta</ion-title>
+    </ion-navbar>
+  </ion-header>
+    
+    <ion-content padding class="fondo1" >
+       
+              
+        <ion-card>
+            <ion-card-header>
+                Nombre del titular de la tarjeta:
+              </ion-card-header>
+              <ion-card-content>
+          <ion-item>
+              <ion-input type="text" value="" placeholder=""></ion-input>
+            </ion-item>
+          </ion-card-content>
+          </ion-card>
+    
+                <ion-card>
+                  <ion-card-header>
+                      Número de tarjeta:
+                    </ion-card-header>
+                    <ion-card-content>
+                <ion-item>
+                    <ion-label><ion-icon name="card"></ion-icon></ion-label> 
+                    <ion-input type="text" value="" placeholder=""></ion-input>
+                  </ion-item>
+                </ion-card-content>
+                </ion-card>
+  
+                <ion-card>
+                    <ion-card-header>
+                        Vencimiento:
+                      </ion-card-header>
+                      <ion-card-content>
+                  <ion-item>
+                      <ion-input type="text" value="" placeholder="Fecha de vencimiento:"></ion-input>
+                    </ion-item>
+                  </ion-card-content>
+                  </ion-card>
+  
+                  <ion-card>
+                      <ion-card-header>
+                          CVV:
+                        </ion-card-header>
+                        <ion-card-content>
+                    <ion-item> 
+                        <ion-input type="text" value="" placeholder="CVV"></ion-input>
+                      </ion-item>
+                    </ion-card-content>
+                    </ion-card>
+                            
+                    <p align="center"><button ion-button (click)="guardartarjeta()">Añadir una tarjeta</button></p>
+
+
+  
+      </ion-content>

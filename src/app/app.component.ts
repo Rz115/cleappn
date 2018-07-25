@@ -9,7 +9,12 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 /*Importamos la pagina de registrar para que sea el inicio de nuestra app, y lo cambiamos en la
 parte de abajo*/
 import { RegistrarPage } from '../pages/registrar/registrar';
-import { ListPage } from '../pages/list/list';
+import { PerfilusuarioPage } from '../pages/perfilusuario/perfilusuario';
+import { ViajesusuarioPage } from '../pages/viajesusuario/viajesusuario';
+import { FormadepagoPage } from '../pages/formadepago/formadepago';
+import { TerminosPage } from '../pages/terminos/terminos';
+import { AyudaPage } from '../pages/ayuda/ayuda';
+import { LoginPage } from '../pages/login/login';
 
 
 @Component({
@@ -28,16 +33,18 @@ export class MyApp {
     public statusBar: StatusBar,
     public splashScreen: SplashScreen
   ) {
+  
     this.initializeApp();
 
     // set our app's pages
     this.pages = [
-      { title: 'Inicio', component: HelloIonicPage },
-      { title: 'Perfil', component: ListPage },
-      { title: 'Viajes recientes', component: HelloIonicPage },
-      { title: 'Formas de pago', component: HelloIonicPage },
-      { title: 'Ayuda', component: HelloIonicPage },
-      { title: 'Términos y condiciones', component: HelloIonicPage }
+   
+      { title: 'Perfil', component: PerfilusuarioPage },
+      { title: 'Viajes recientes', component: ViajesusuarioPage },
+      { title: 'Formas de pago', component: FormadepagoPage },
+      { title: 'Ayuda', component: AyudaPage },
+      { title: 'Términos y condiciones', component: TerminosPage },
+      { title: 'Cerrar Sesión', component: LoginPage }
     ];
   }
 
@@ -52,14 +59,16 @@ export class MyApp {
 
   openPage(page) {
     // close the menu when clicking a link from the menu
-    this.menu.close();
-    // navigate to the new page if it is not the current page
-    this.nav.setRoot(page.component);
-
-  }
-  
-     
    
+    if(page == HelloIonicPage){
+      //this.nav.setRoot(page.component);
+      this.menu.close();
+    }
+    
+    this.nav.push(page.component);
+    this.menu.close();
+                             
+}  
                  
 
 }

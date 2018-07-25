@@ -24,7 +24,7 @@ export class LoginPage {
     this.navCtrl.push(RegistrarPage);
   }
   ingresarhome(){
-    this.navCtrl.push(HelloIonicPage);
+    this.navCtrl.setRoot(HelloIonicPage);
   }
   paginacon(){
     this.navCtrl.push(ContraPage);

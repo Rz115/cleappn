@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar >
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -7,10 +7,33 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content >
-<div #map id="map"></div>
-  
-  
+<ion-content class="page-hello-ionic">
 
+<div class="map-wrapper">
+<map> </map>
+</div>
+<div class="bottom request-controls">
+<ion-row>
+<ion-col width-50>
+<button block light (click)="paginaproceso()">
+<ion-icon name="arrow"></ion-icon>
+CONTRATAR SERVICIO
+</button>
+</ion-col>
+
+</ion-row>
+<ion-row>
+    <ion-col>
+
+    <ion-icon name="arrow-right"></ion-icon>
+   Antes de contratar nuestros servicios por favor completa tu información de forma de pago
+   en tu perfil
+  
+    </ion-col>
+    
+    </ion-row>
+
+</div>
 
 </ion-content>
+

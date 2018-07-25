@@ -21,7 +21,7 @@ export class RegistrarPage {
   }
 
   paginasiguiente(){
-    this.navCtrl.push(HelloIonicPage);
+    this.navCtrl.setRoot(HelloIonicPage);
   }
   paginadelogin(){
     this.navCtrl.push(LoginPage);

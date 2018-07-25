@@ -2,11 +2,16 @@
 
   <ion-header>
     <ion-toolbar>
-      <ion-title>Pages</ion-title>
+      <ion-title align="center">Menú</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <ion-content>
+    <br>
+      <ion-avatar  class="position" >
+          <img  src="assets/img/portada.jpg" class="avatares">
+        </ion-avatar>
+        <p class="sssp" align="center">Nombre de Perfil</p>
     <ion-list>
       <button ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}

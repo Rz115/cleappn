@@ -3,7 +3,6 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, MenuController, Nav } from 'ionic-angular';
 
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
-import { ListPage } from '../pages/list/list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -32,8 +31,12 @@ export class MyApp {
 
     // set our app's pages
     this.pages = [
-      { title: 'Hello Ionic', component: HelloIonicPage },
-      { title: 'My First List', component: ListPage }
+      { title: 'Inicio', component: HelloIonicPage },
+      { title: 'Perfil', component: HelloIonicPage },
+      { title: 'Viajes recientes', component: HelloIonicPage },
+      { title: 'Formas de pago', component: HelloIonicPage },
+      { title: 'Ayuda', component: HelloIonicPage },
+      { title: 'Términos y condiciones', component: HelloIonicPage }
     ];
   }
 
@@ -51,5 +54,11 @@ export class MyApp {
     this.menu.close();
     // navigate to the new page if it is not the current page
     this.nav.setRoot(page.component);
+
   }
+  
+     
+   
+                 
+
 }

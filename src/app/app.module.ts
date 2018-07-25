@@ -11,11 +11,15 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { RegistrarPageModule } from '../pages/registrar/registrar.module';
 import { LoginPageModule } from '../pages/login/login.module';
 import { ContraPageModule } from '../pages/contra/contra.module';
+import { ListPage } from '../pages/list/list';
+import { ItemDetailsPage } from '../pages/item-details/item-details';
 
 @NgModule({
   declarations: [
     MyApp,
-    HelloIonicPage
+    HelloIonicPage,
+    ListPage,
+    ItemDetailsPage
   ],
   imports: [
     BrowserModule,
@@ -28,7 +32,9 @@ import { ContraPageModule } from '../pages/contra/contra.module';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HelloIonicPage
+    HelloIonicPage,
+    ListPage,
+    ItemDetailsPage
   ],
   providers: [
     StatusBar,

@@ -9,6 +9,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 /*Importamos la pagina de registrar para que sea el inicio de nuestra app, y lo cambiamos en la
 parte de abajo*/
 import { RegistrarPage } from '../pages/registrar/registrar';
+import { ListPage } from '../pages/list/list';
 
 
 @Component({
@@ -32,7 +33,7 @@ export class MyApp {
     // set our app's pages
     this.pages = [
       { title: 'Inicio', component: HelloIonicPage },
-      { title: 'Perfil', component: HelloIonicPage },
+      { title: 'Perfil', component: ListPage },
       { title: 'Viajes recientes', component: HelloIonicPage },
       { title: 'Formas de pago', component: HelloIonicPage },
       { title: 'Ayuda', component: HelloIonicPage },

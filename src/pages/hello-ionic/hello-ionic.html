@@ -1,9 +1,11 @@
 <ion-header>
   <ion-navbar >
-    <button ion-button menuToggle>
+    <button ion-button menuToggle style="background: white;">
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title align="center">TransportApp</ion-title>
+<ion-title align="center">
+  <span class="tituloheader">TransportApp</span>
+</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -15,7 +17,7 @@
 <div class="bottom request-controls">
 <ion-row>
 <ion-col width-50>
-<button block light (click)="paginaproceso()">
+<button ion-button large block light (click)="paginaproceso()" class="botoncontratar">
 <ion-icon name="arrow"></ion-icon>
 CONTRATAR SERVICIO
 </button>

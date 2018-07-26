@@ -2,32 +2,41 @@
 
 </ion-header>
 
-<ion-content padding class="fondo1" >
-    <br>
-      <ion-avatar  class="position" >
-        <img  src="assets/img/drived.jpg" class="avatar">
-      </ion-avatar>
-    <br>
+<ion-content padding class="fondo1">
+  <br>
+  <ion-avatar class="position">
+    <img src="assets/img/drived.jpg" class="avatar">
+  </ion-avatar>
 
-    <ion-item>
-      <ion-label><ion-icon name="contact"></ion-icon></ion-label> <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
-      <ion-input type="text" value="" placeholder="Nombre completo:"></ion-input>
-    </ion-item>
-    <br>
-    <ion-item>
-      <ion-label><ion-icon name="mail"></ion-icon></ion-label> <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
-      <ion-input type="text" value="" placeholder="Correo: "></ion-input>
-    </ion-item>
-    <br>
-    <ion-item>
-      <ion-label><ion-icon name="key"></ion-icon></ion-label> <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
-      <ion-input type="password" placeholder="Contraseña: "></ion-input>
-    </ion-item>
+  <ion-label class="headlabel">
+    <ion-icon name="contact"></ion-icon>
+    <span class="nombre">Nombre completo:</span>
+  </ion-label>
+  <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
+  <ion-input type="text" value="" class="inputs"></ion-input>
 
-    <p align="center">
-      <button ion-button  color="primary"  (click)="paginasiguiente()">REGISTRATE</button>
-    </p>
-    <br>
-    <br>
-    <p align="center" (click)="paginadelogin()"> <span class="pregunta">¿Ya tienes una cuenta?,</span> <span class="presiona">Presione aquí.</span></p>
-  </ion-content>
+  <ion-label class="headlabel">
+    <ion-icon name="mail"></ion-icon>
+    <span class="nombre">Correo:</span>
+  </ion-label>
+  <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
+  <ion-input type="text" value="" class="inputs"></ion-input>
+
+  <ion-label class="headlabel">
+    <ion-icon name="key"></ion-icon>
+    <span class="nombre">Contraseña:</span>
+  </ion-label>
+  <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
+  <ion-input type="password" class="inputs"></ion-input>
+
+
+  <p align="center">
+    <button ion-button color="primary" (click)="paginasiguiente()">REGISTRATE</button>
+  </p>
+  <br>
+  <br>
+  <p align="center" (click)="paginadelogin()">
+    <span class="pregunta">¿Ya tienes una cuenta?,</span>
+    <span class="presiona">Presione aquí.</span>
+  </p>
+</ion-content>

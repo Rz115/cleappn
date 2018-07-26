@@ -1,10 +1,12 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Tu Perfil</ion-title>
+<ion-title>
+  <span class="tituloheader">Tu Perfil</span>
+</ion-title>
   </ion-navbar>
 </ion-header>
   
-  <ion-content padding class="fondo1" >
+  <ion-content padding class="fondoprincipal" >
       <br>
         <ion-avatar  class="position" >
           <img  src="assets/img/drived.jpg" class="avatardeperfil">
@@ -70,7 +72,9 @@
       <br>
       <ion-row>
         <ion-col>
-            <p align="left" > <span class="pregunta">Eliminar cuenta</span> </p>
+          <p align="left" style="color: red;">
+            <span>Eliminar cuenta</span>
+          </p>
         </ion-col>
         <ion-col>
             <button ion-button small align="right"color="primary" (click)="guardar()" >Guardar Cambios</button>

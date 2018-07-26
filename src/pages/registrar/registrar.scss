@@ -1,44 +1,58 @@
 page-registrar {
-  .avatar{
-  height: 170px;
-  width: 170px;
-  height: 170px;
-  border-radius: 80%;
-}
-.position{
+  .avatar {
+    height: 170px;
+    width: 170px;
+    height: 170px;
+    border-radius: 80%;
+  }
+  .position {
     display: flex;
     justify-content: center;
     padding-top: 15px;
+  }
+  .button {
+    position: center;
+  }
+  p {
+    font-size: 16px !important;
+    align-content: center;
+  }
 }
-.button{
-  position: center;
-}
-p{
-  font-size: 16px!important;
-  align-content: center;
-  opacity: 60%;
-}
-}
-.fondo1{
+
+.fondo1 {
   background: url(../assets/img/drive.jpg);
   background-size: cover;
 }
-.spdd{
-  font-size: 12px!important;
+
+.spdd {
+  font-size: 12px !important;
   align-content: center;
 }
-ion-item{
-  opacity: 0.9;
-}
-.presiona{
+
+.presiona {
   color: #5FE1FF;
   text-decoration: underline;
   font-size: 20px;
 }
-.pregunta{
+
+.pregunta {
   color: white;
   font-size: 20px;
 }
-ion-input{
+
+.inputs{
   border-bottom: 4px solid #5FE1FF;
+  color: white;
+  font-size: 20px;
+  font-family: serif;
+  height: 37px;
+}
+
+.headlabel{
+  color: white;
+}
+
+.nombre {
+  padding-left: 15px;
+  font-size: 18px;
 }

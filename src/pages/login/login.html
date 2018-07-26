@@ -9,15 +9,21 @@
       </ion-avatar>
   <br>
 
-  <ion-item>
-    <ion-label><ion-icon name="mail"></ion-icon></ion-label> <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
-    <ion-input type="text" value=""placeholder="Correo: "></ion-input>
-  </ion-item>
+
+    <ion-label class="headlabel">
+      <ion-icon name="mail"></ion-icon>
+      <span class="nombre">Correo:</span>
+    </ion-label> <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
+    <ion-input type="text" value="" class="inputs"></ion-input>
+
   <br>
-  <ion-item>
-    <ion-label><ion-icon name="key"></ion-icon></ion-label> <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
-    <ion-input type="password" placeholder="Contraseña:"></ion-input>
-  </ion-item>
+
+    <ion-label class="headlabel">
+      <ion-icon name="key"></ion-icon>
+      <span class="nombre">Contraseña:</span>
+    </ion-label> <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
+    <ion-input type="password" class="inputs"></ion-input>
+
 
   <p class="spdd" align="right" (click)="paginacon()"><span class="pregunta">¿Olvidaste la contraseña?</span></p>
     <p align="center"><button ion-button  color="primary"  (click)="ingresarhome()">INGRESAR</button></p>

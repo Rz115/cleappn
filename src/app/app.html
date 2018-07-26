@@ -2,21 +2,27 @@
 
   <ion-header>
     <ion-toolbar>
-      <ion-title align="center">Menú</ion-title>
+<ion-title align="center">
+  <span class="tituloheader">Menú</span>
+</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <ion-content class="fondo1">
+  <ion-content class="fondomenu">
+
     <br>
-      <ion-avatar  class="position" >
-          <img  src="assets/img/drived.jpg" class="avatares">
-        </ion-avatar>
-        <p class="sssp" align="center">Nombre de Perfil</p>
+
+    <ion-avatar  class="position" >
+        <img  src="assets/img/drived.jpg" class="avatares">
+    </ion-avatar>
+    <p class="sssp" align="center">Nombre de usuario</p>
+
     <ion-list>
-      <button ion-item *ngFor="let p of pages" (click)="openPage(p)">
+      <button ion-item *ngFor="let p of pages" (click)="openPage(p)" class="listamenu">
         {{p.title}}
       </button>
     </ion-list>
+
   </ion-content>
 
 </ion-menu>

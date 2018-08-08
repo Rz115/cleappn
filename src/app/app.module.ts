@@ -14,6 +14,7 @@ import { ContraPageModule } from '../pages/contra/contra.module';
 import { ListPage } from '../pages/list/list';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
 import { MapComponent } from '../components/map/map';
+import { GoogleMaps } from '@ionic-native/google-maps';
 import { ProcesandoServicioPageModule } from '../pages/procesando-servicio/procesando-servicio.module';
 import { ConductorEncontradoPageModule } from '../pages/conductor-encontrado/conductor-encontrado.module';
 import { PerfilusuarioPageModule } from '../pages/perfilusuario/perfilusuario.module';
@@ -22,6 +23,8 @@ import { FormadepagoPageModule } from '../pages/formadepago/formadepago.module';
 import { AyudaPageModule } from '../pages/ayuda/ayuda.module';
 import { TerminosPageModule } from '../pages/terminos/terminos.module';
 import { NuevaTarjetaPageModule } from '../pages/nueva-tarjeta/nueva-tarjeta.module';
+import { AuthServiceProvider } from '../providers/auth-service/auth-service';
+import { Geolocation } from '@ionic-native/geolocation';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,11 @@ import { NuevaTarjetaPageModule } from '../pages/nueva-tarjeta/nueva-tarjeta.mod
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp,{
+      scrollAssist: true,
+      autoFocusAssist: true
+    }),
+
     //se importan los modulos de las páginas creadas en esta sección
     RegistrarPageModule,
     LoginPageModule,
@@ -62,7 +69,10 @@ import { NuevaTarjetaPageModule } from '../pages/nueva-tarjeta/nueva-tarjeta.mod
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    GoogleMaps,
+    Geolocation,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AuthServiceProvider
   ]
 })
 export class AppModule {}

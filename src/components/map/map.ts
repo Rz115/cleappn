@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
+
+import { GoogleMaps, GoogleMap, MyLocation, Marker, GoogleMapsAnimation } from '@ionic-native/google-maps';
 
 /**
  * Generated class for the MapComponent component.
@@ -14,35 +16,69 @@ declare var google: any;
   templateUrl: 'map.html'
 })
 export class MapComponent implements OnInit{
-
-public map;
-
-  constructor() {
-
-  }
-
-
+ 
+  @Input() isPickupRequested: boolean;
+  @Input() destination: string;
   
-
-  ngOnInit(){
-    this.map = this.createMap();
-  }
-
-  createMap(location = new google.maps.LatLng(17.979020, -102.214614)){
-    let mapOptions = {
-      center: location, 
-      zoom: 16,
-      streetViewControl: false,
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-      disabelDefaultUI: true,
-    geolocation: true
+  map: GoogleMap;
+  
+  constructor()
       
+  {
+  
+  }
+  
+  ngOnInit() {
+    this.map = this.createMap();
+ this.map = GoogleMaps.create('map_canvas');
+    
+  }
+  
+  
+  
+ 
+  
+  createMap(location = new google.maps.LatLng(20.971294, -89.597)) {
+    let mapOptions = {
+      center: location,
+      zoom: 14,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      disableDefaultUI: true
     }
-
-    let mapEL = document.getElementById('map');
-    let map = new google.maps.Map(mapEL, mapOptions);
-
+    
+    let mapEl = document.getElementById('map');
+    let map = new google.maps.Map(mapEl, mapOptions);
+    
     return map;
   }
+  
+  getLocation() {
+    // Obtener tu ubicacion
+    this.map.getMyLocation()
+      .then((location: MyLocation) => {
+        console.log(JSON.stringify(location, null, 2));
 
-}
+        // Mover la camara con animacion
+        this.map.animateCamera({
+          target: location.latLng,
+          zoom: 17,
+          tilt: 30
+        }).then(() => {
+          let marker: Marker = this.map.addMarkerSync({
+            title: 'Tu ubicación',
+            snippet: 'Andadores',
+            position: location.latLng,
+            animation: GoogleMapsAnimation.BOUNCE
+          });
+
+          marker.showInfoWindow();
+        });
+     });
+  }
+
+
+  }
+
+
+
+

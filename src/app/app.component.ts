@@ -33,12 +33,12 @@ export class MyApp {
     public statusBar: StatusBar,
     public splashScreen: SplashScreen
   ) {
-  
+
     this.initializeApp();
 
     // set our app's pages
     this.pages = [
-   
+
       { title: 'Perfil', component: PerfilusuarioPage },
       { title: 'Viajes recientes', component: ViajesusuarioPage },
       { title: 'Formas de pago', component: FormadepagoPage },
@@ -59,16 +59,16 @@ export class MyApp {
 
   openPage(page) {
     // close the menu when clicking a link from the menu
-   
+
     if(page == HelloIonicPage){
       //this.nav.setRoot(page.component);
       this.menu.close();
     }
-    
+
     this.nav.push(page.component);
     this.menu.close();
-                             
-}  
-                 
+
+}
+
 
 }

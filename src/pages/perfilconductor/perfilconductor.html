@@ -1,0 +1,177 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>
+      <span class="tituloheader">
+        Perfil
+      </span>
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="fondoprincipal">
+
+  <ion-toolbar>
+   <ion-segment [(ngModel)]="perfil" color="primary">
+     <ion-segment-button value="conductor">
+       <ion-icon name="person"></ion-icon>Conductor
+     </ion-segment-button>
+     <ion-segment-button value="auto">
+       <ion-icon name="car"></ion-icon>Vehiculo
+     </ion-segment-button>
+   </ion-segment>
+ </ion-toolbar>
+
+  <div [ngSwitch]="perfil">
+    <div *ngSwitchCase="'conductor'">
+        <ion-card-header>
+          Datos de conductor:
+        </ion-card-header>
+
+        <ion-card-content>
+
+            <ion-card>
+              <ion-card-header>
+                  Nombre:
+              </ion-card-header>
+              <ion-card-content>
+                <ion-item>
+                  <ion-label><ion-icon name="contact"></ion-icon></ion-label>
+                  <ion-input type="text" value="" placeholder="Nombre completo:"></ion-input>
+                </ion-item>
+              </ion-card-content>
+            </ion-card>
+
+            <ion-card>
+              <ion-card-header>
+                  Correo:
+              </ion-card-header>
+              <ion-card-content>
+                <ion-item>
+                  <ion-label><ion-icon name="mail"></ion-icon></ion-label>
+                  <ion-input type="mail" value="" placeholder="Correo:"></ion-input>
+                </ion-item>
+              </ion-card-content>
+            </ion-card>
+
+            <ion-card>
+              <ion-card-header>
+                  Celular:
+              </ion-card-header>
+              <ion-card-content>
+                <ion-item>
+                  <ion-label><ion-icon name="phone-portrait"></ion-icon></ion-label>
+                  <ion-input type="text" value="" placeholder="Número:"></ion-input>
+                </ion-item>
+              </ion-card-content>
+            </ion-card>
+
+            <ion-card>
+              <ion-card-header>
+                  Dirección:
+              </ion-card-header>
+              <ion-card-content>
+                <ion-item>
+                  <ion-label><ion-icon name="navigate"></ion-icon></ion-label>
+                  <ion-input type="text" value="" placeholder="Ubicación:"></ion-input>
+                </ion-item>
+              </ion-card-content>
+            </ion-card>
+
+            <ion-card>
+              <ion-card-header>
+                  Licencia:
+              </ion-card-header>
+              <ion-card-header>
+                Vigencia:
+              </ion-card-header>
+
+              <ion-card-content>
+                <ion-item>
+                  <ion-label><ion-icon name="card"></ion-icon></ion-label>
+                  <ion-input type="text" value="" placeholder="Licencia:"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label><ion-icon name="calendar"></ion-icon></ion-label>
+                  <ion-input type="date" value="" placeholder="Vigencia:"></ion-input>
+                </ion-item>
+              </ion-card-content>
+            </ion-card>
+
+         </ion-card-content>
+      </div>
+
+    <div *ngSwitchCase="'auto'">
+        <ion-card-header>
+          Datos del vehiculo:
+        </ion-card-header>
+
+        <ion-card-content>
+
+            <ion-card>
+              <ion-card-header>
+                  Vehiculo:
+              </ion-card-header>
+              <ion-card-content>
+                <ion-item>
+                  <ion-label><ion-icon name="car"></ion-icon></ion-label>
+                  <ion-input type="text" value="" placeholder="Auto:"></ion-input>
+                </ion-item>
+              </ion-card-content>
+            </ion-card>
+
+            <ion-card>
+              <ion-card-header>
+                  Modelo:
+              </ion-card-header>
+              <ion-card-content>
+                <ion-item>
+                  <ion-label><ion-icon name="information-circle"></ion-icon></ion-label>
+                  <ion-input type="text" value="" placeholder="Modelo:"></ion-input>
+                </ion-item>
+              </ion-card-content>
+            </ion-card>
+
+            <ion-card>
+              <ion-card-header>
+                  Año:
+              </ion-card-header>
+              <ion-card-content>
+                <ion-item>
+                  <ion-label><ion-icon name="information-circle"></ion-icon></ion-label>
+                  <ion-input type="text" value="" placeholder="Año del vehiculo:"></ion-input>
+                </ion-item>
+              </ion-card-content>
+            </ion-card>
+
+            <ion-card>
+              <ion-card-header>
+                  Placas:
+              </ion-card-header>
+              <ion-card-content>
+                <ion-item>
+                  <ion-label><ion-icon name="information-circle"></ion-icon></ion-label>
+                  <ion-input type="text" value="" placeholder="Numero de placas:"></ion-input>
+                </ion-item>
+              </ion-card-content>
+            </ion-card>
+
+            <ion-card>
+              <ion-card-header>
+                  Tarjeta de circulación:
+              </ion-card-header>
+              <ion-card-content>
+                <ion-item>
+                  <ion-label><ion-icon name="card"></ion-icon></ion-label>
+                  <ion-input type="text" value="" placeholder="Circulación:"></ion-input>
+                </ion-item>
+              </ion-card-content>
+            </ion-card>
+
+         </ion-card-content>
+      </div>
+  </div>
+
+</ion-content>

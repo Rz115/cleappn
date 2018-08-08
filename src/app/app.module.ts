@@ -22,6 +22,10 @@ import { FormadepagoPageModule } from '../pages/formadepago/formadepago.module';
 import { AyudaPageModule } from '../pages/ayuda/ayuda.module';
 import { TerminosPageModule } from '../pages/terminos/terminos.module';
 import { NuevaTarjetaPageModule } from '../pages/nueva-tarjeta/nueva-tarjeta.module';
+import { HomeconductorPageModule } from '../pages/homeconductor/homeconductor.module';
+import { StatusconductorPageModule } from '../pages/statusconductor/statusconductor.module';
+import { PerfilconductorPageModule } from '../pages/perfilconductor/perfilconductor.module';
+import { TerminosconductorPageModule } from '../pages/terminosconductor/terminosconductor.module';
 
 @NgModule({
   declarations: [
@@ -45,11 +49,15 @@ import { NuevaTarjetaPageModule } from '../pages/nueva-tarjeta/nueva-tarjeta.mod
     FormadepagoPageModule,
     AyudaPageModule,
     TerminosPageModule,
-    NuevaTarjetaPageModule
-    
-    
-    
-    
+    NuevaTarjetaPageModule,
+    HomeconductorPageModule,
+    StatusconductorPageModule,
+    PerfilconductorPageModule,
+    TerminosconductorPageModule
+
+
+
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [

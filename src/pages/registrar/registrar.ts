@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-//paginas importadas 
+//paginas importadas
 import { LoginPage } from '../login/login';
 import { HelloIonicPage } from '../hello-ionic/hello-ionic';
+import { HomeconductorPage } from '../homeconductor/homeconductor';
 
 
 
@@ -25,5 +26,8 @@ export class RegistrarPage {
   }
   paginadelogin(){
     this.navCtrl.push(LoginPage);
+  }
+  paginataxista(){
+    this.navCtrl.setRoot(HomeconductorPage);
   }
 }

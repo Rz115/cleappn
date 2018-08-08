@@ -1,41 +1,37 @@
 <ion-header>
-  <ion-navbar >
+  <ion-navbar>
+
     <button ion-button menuToggle style="background: white;">
       <ion-icon name="menu"></ion-icon>
     </button>
-<ion-title align="center">
-  <span class="tituloheader">TransportApp</span>
-</ion-title>
+
+    <ion-title align="center">
+      <span class="tituloheader">TransportApp</span>
+    </ion-title>
+
   </ion-navbar>
 </ion-header>
 
 <ion-content class="page-hello-ionic">
 
-<div class="map-wrapper">
-<map> </map>
-</div>
+  <div class="map-wrapper">
+    <map> </map>
+  </div>
 <div class="bottom request-controls">
-<ion-row>
-<ion-col width-50>
-<button ion-button large block light (click)="paginaproceso()" class="botoncontratar">
-<ion-icon name="arrow"></ion-icon>
-CONTRATAR SERVICIO
-</button>
-</ion-col>
-
-</ion-row>
-<ion-row>
-    <ion-col>
-
-    <ion-icon name="arrow-right"></ion-icon>
-   Antes de contratar nuestros servicios por favor completa tu información de forma de pago
-   en tu perfil
-  
+  <ion-row>
+    <ion-col width-50>
+      <button ion-button large block light (click)="paginaproceso()" class="botoncontratar">
+        <ion-icon name="arrow"></ion-icon>
+        CONTRATAR SERVICIO
+      </button>
     </ion-col>
-    
+  </ion-row>
+    <ion-row>
+        <ion-col>
+        <ion-icon name="arrow-right"></ion-icon>
+           Antes de contratar nuestros servicios por favor completa tu información de forma de pago
+           en tu perfil
+        </ion-col>
     </ion-row>
-
 </div>
-
 </ion-content>
-

@@ -29,7 +29,7 @@ import { HomeconductorPageModule } from '../pages/homeconductor/homeconductor.mo
 import { StatusconductorPageModule } from '../pages/statusconductor/statusconductor.module';
 import { PerfilconductorPageModule } from '../pages/perfilconductor/perfilconductor.module';
 import { TerminosconductorPageModule } from '../pages/terminosconductor/terminosconductor.module';
-
+import { HttpModule } from '@angular/http';
 @NgModule({
   declarations: [
     MyApp,
@@ -40,6 +40,7 @@ import { TerminosconductorPageModule } from '../pages/terminosconductor/terminos
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp,{
       scrollAssist: true,
       autoFocusAssist: true

@@ -13,33 +13,35 @@
     <span class="nombre">Nombre completo:</span>
   </ion-label>
   <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
-  <ion-input  type="text" value="" class="inputs"></ion-input>
+  <ion-input  type="text" value="" class="inputs" [(ngModel)]="userData.name"></ion-input>
+
+  
+  <ion-label class="headlabel">
+    <ion-icon name="at"></ion-icon>
+    <span class="nombre">Correo:</span>
+  </ion-label>
+  <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
+  <ion-input  type="text" value="" class="inputs" [(ngModel)]="userData.email"></ion-input>
 
   <ion-label class="headlabel">
     <ion-icon name="person"></ion-icon>
     <span class="nombre">Nombre de usuario:</span>
   </ion-label>
   <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
-  <ion-input  type="text" value="" class="inputs"></ion-input>
+  <ion-input  type="text" value="" class="inputs" [(ngModel)]="userData.username"></ion-input>
 
-  <ion-label class="headlabel">
-    <ion-icon name="at"></ion-icon>
-    <span class="nombre">Correo:</span>
-  </ion-label>
-  <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
-  <ion-input  type="text" value="" class="inputs"></ion-input>
 
   <ion-label class="headlabel">
     <ion-icon name="key"></ion-icon>
     <span class="nombre">Contraseña:</span>
   </ion-label>
   <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
-  <ion-input  type="password" class="inputs"></ion-input>
+  <ion-input  type="password" class="inputs" [(ngModel)]="userData.password"></ion-input>
 
 
   <p align="center">
-    <button ion-button color="primary" (click)="paginasiguiente()">REGISTRATE</button>
-    <button ion-button color="primary" (click)="paginataxista()">TAXISTAS</button>
+    <button ion-button color="primary" (click)="signup()">REGISTRATE</button>
+    <button ion-button color="primary" (click)="paginataxista()">CONDUCTOR</button>
   </p>
   <p align="center" (click)="paginadelogin()">
     <span class="pregunta">¿Ya tienes una cuenta?,</span>

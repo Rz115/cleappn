@@ -63,10 +63,16 @@ export class MyApp {
     if(page == HelloIonicPage){
       //this.nav.setRoot(page.component);
       this.menu.close();
-    }
+    } else{
 
-    this.nav.push(page.component);
-    this.menu.close();
+      this.nav.push(page.component);
+      this.menu.close();
+    } 
+   /* if (page == LoginPage){
+    
+      this.platform.exitApp();
+    
+    }*/
 
 }
 

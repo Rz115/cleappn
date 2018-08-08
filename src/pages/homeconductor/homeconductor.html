@@ -1,14 +1,12 @@
 <ion-header>
   <ion-navbar>
     <ion-title align="center">
-      <span class="tituloheader">homeconductor</span>
+      <span class="tituloheader">INICIO</span>
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-
-
-<ion-content padding>
+<ion-content padding class="no-scroll">
   <ion-card class="barraestado">
     <ion-card-header align="center">
       Barra de estado
@@ -18,7 +16,15 @@
     </ion-card-content>
   </ion-card>
 
-  <div class="inferior">
-    <button ion-button full color="primary"  (click)="presentActionSheet()">MENÚ</button>
-  </div>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar align="center">
+    <ion-buttons>
+      <button ion-button  color="dark" (click)="presentActionSheet()">
+        
+        <ion-icon name="arrow-dropup-circle"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

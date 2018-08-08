@@ -28,6 +28,6 @@ export class HelloIonicPage {
  paginaproceso(){
     this.navCtrl.push(ProcesandoServicioPage);
   }
-
+  
 
 }

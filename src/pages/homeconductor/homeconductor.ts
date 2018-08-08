@@ -4,6 +4,7 @@ import { ActionSheetController } from 'ionic-angular';
 import { StatusconductorPage } from '../statusconductor/statusconductor';
 import { PerfilconductorPage } from '../perfilconductor/perfilconductor';
 import { TerminosconductorPage } from '../terminosconductor/terminosconductor';
+import { LoginPage } from '../login/login';
 
 @IonicPage()
 @Component({
@@ -44,7 +45,7 @@ export class HomeconductorPage {
         {
           text: 'Salir de la cuenta',
           handler: () => {
-            console.log('Archive clicked');
+            this.navCtrl.setRoot(LoginPage);
           }
         }
       ]

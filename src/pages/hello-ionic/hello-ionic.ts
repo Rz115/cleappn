@@ -6,18 +6,13 @@ import { ProcesandoServicioPage } from '../procesando-servicio/procesando-servic
 @Component({
   selector: 'page-hello-ionic',
   templateUrl: 'hello-ionic.html',
-  
-  
 })
-
 
 export class HelloIonicPage {
 
-
-  
   constructor(public navCtrl: NavController) {
-
   }
+  
  //pasar a pantalla para solicitar servicio
  paginaproceso(){
     this.navCtrl.push(ProcesandoServicioPage);

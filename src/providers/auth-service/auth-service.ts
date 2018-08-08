@@ -1,6 +1,5 @@
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/map';
 
 /*
   Generated class for the AuthServiceProvider provider.
@@ -11,7 +10,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AuthServiceProvider {
 
-  constructor(public http: Http) {
+  constructor(public http: HttpClient) {
     console.log('Hello AuthServiceProvider Provider');
   }
 

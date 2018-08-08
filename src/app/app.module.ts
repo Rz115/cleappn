@@ -72,6 +72,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     GoogleMaps,
     Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AuthServiceProvider,
     AuthServiceProvider
   ]
 })

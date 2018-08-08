@@ -25,6 +25,10 @@ import { TerminosPageModule } from '../pages/terminos/terminos.module';
 import { NuevaTarjetaPageModule } from '../pages/nueva-tarjeta/nueva-tarjeta.module';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { Geolocation } from '@ionic-native/geolocation';
+import { HomeconductorPageModule } from '../pages/homeconductor/homeconductor.module';
+import { StatusconductorPageModule } from '../pages/statusconductor/statusconductor.module';
+import { PerfilconductorPageModule } from '../pages/perfilconductor/perfilconductor.module';
+import { TerminosconductorPageModule } from '../pages/terminosconductor/terminosconductor.module';
 
 @NgModule({
   declarations: [

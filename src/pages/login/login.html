@@ -9,15 +9,15 @@
       </ion-avatar>
   <br>
 
-    <ion-input type="text"  class="inputs" [(ngModel)]="userData.username" id="medidaiphone4" placeholder="Nombre de usuario:"></ion-input>
-    <ion-input type="password" class="inputs" [(ngModel)]="userData.password" id="medidaiphone4" placeholder="Contraseña:"></ion-input>
+    <ion-input type="text" value="" class="inputs" [(ngModel)]="userData.username" id="medidaiphone4" placeholder="Nombre de usuario:" required></ion-input>
+<ion-input type="password" class="inputs" [(ngModel)]="userData.password" id="medidaiphone4" placeholder="Contraseña:" required></ion-input>
 
 
     <ion-label class="headlabel">
       <ion-icon name="mail"></ion-icon>
       <span class="nombre">Usuario:</span>
     </ion-label> <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
-    <ion-input type="text" value="" class="inputs" [(ngModel)]="userData.username" id="desaparecereni4"></ion-input>
+    <ion-input type="text" value="" class="inputs" [(ngModel)]="userData.username" id="desaparecereni4" required></ion-input>
 
   <br>
 
@@ -25,7 +25,7 @@
       <ion-icon name="key"></ion-icon>
       <span class="nombre">Contraseña:</span>
     </ion-label> <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
-    <ion-input type="password" class="inputs" [(ngModel)]="userData.password" id="desaparecereni4"></ion-input>
+    <ion-input type="password" class="inputs" [(ngModel)]="userData.password" id="desaparecereni4" required></ion-input>
 
 
   <p class="spdd" align="right" (click)="send()"><span class="pregunta">¿Olvidaste la contraseña?</span></p>

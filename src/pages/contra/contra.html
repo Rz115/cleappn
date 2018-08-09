@@ -8,20 +8,20 @@
 </ion-header>
 
 
-<ion-content padding class="fondo1" >
+<ion-content padding class="fondos" >
 
   <p class="sp" align="left" ><span class="pregunta">Escribe tu correo con el que te has registado
     anteriormente: </span></p>
   <ion-item>
     <ion-label><ion-icon name="mail"></ion-icon></ion-label> 
-    <ion-input type="text" placeholder="Correo:"></ion-input>
+    <ion-input [(ngModel)]="subject" type="text" placeholder="Correo:"></ion-input>
   </ion-item>
 
   <br>
   <br>
 
   <p align="center">
-    <button ion-button  color="primary"  (click)="showAlert()">ENVIAR</button>
+    <button ion-button  color="primary"  (click)="send()">ENVIAR</button>
   </p>
 
 </ion-content>

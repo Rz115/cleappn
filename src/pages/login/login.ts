@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 //paginas importadas para uso en funciones
 import { RegistrarPage } from '../registrar/registrar';
 import { HelloIonicPage } from '../hello-ionic/hello-ionic';
 import { ContraPage } from '../contra/contra';
+//importamos el modulo para conectar y hacer la autenticación
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 
 @IonicPage()
@@ -13,7 +15,10 @@ import { ContraPage } from '../contra/contra';
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  responseData : any;
+  userData = {"username": "","password": ""};
+
+  constructor(public navCtrl: NavController, public authService: AuthServiceProvider) {
   }
 
   ionViewDidLoad() {
@@ -23,9 +28,20 @@ export class LoginPage {
   paginaregistro(){
     this.navCtrl.push(RegistrarPage);
   }
-  ingresarhome(){
+  login(){
+    this.authService.postData(this.userData,'login').then((result) => {
+      this.responseData = result;
+      if(this.responseData.userData){
+      console.log(this.responseData);
+      localStorage.setItem('userData', JSON.stringify(this.responseData));
     this.navCtrl.setRoot(HelloIonicPage);
   }
+  else{ console.log("User already exists"); }
+}, (err) => {
+  // Error log
+});
+
+}
   paginacon(){
     this.navCtrl.push(ContraPage);
   }

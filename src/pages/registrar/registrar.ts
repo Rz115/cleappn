@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 //paginas importadas
 import { LoginPage } from '../login/login';
 import { HelloIonicPage } from '../hello-ionic/hello-ionic';
 import { HomeconductorPage } from '../homeconductor/homeconductor';
-
+//importamos el modulo para conectar y hacer la autenticación
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 
 @IonicPage()
@@ -13,17 +14,34 @@ import { HomeconductorPage } from '../homeconductor/homeconductor';
   templateUrl: 'registrar.html',
 })
 export class RegistrarPage {
+  responseData : any;
+  userData = {"username": "","password": "", "name": "","email": ""};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public authService: AuthServiceProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegistrarPage');
   }
 
-  paginasiguiente(){
-    this.navCtrl.setRoot(HelloIonicPage);
-  }
+  signup(){
+    this.authService.postData(this.userData,'signup').then((result) => {
+     this.responseData = result;
+     if(this.responseData.userData){
+     console.log(this.responseData);
+     localStorage.setItem('userData', JSON.stringify(this.responseData));
+     this.navCtrl.setRoot(HelloIonicPage);
+     }
+     else{ console.log("User already exists"); }
+   }, (err) => {
+     // Error log
+   });
+
+ }
+
+
+
+
   paginadelogin(){
     this.navCtrl.push(LoginPage);
   }

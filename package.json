@@ -21,6 +21,7 @@
     "@angular/platform-browser": "5.2.11",
     "@angular/platform-browser-dynamic": "5.2.11",
     "@ionic-native/core": "~4.10.0",
+    "@ionic-native/email-composer": "^4.11.0",
     "@ionic-native/geolocation": "^4.11.0",
     "@ionic-native/google-maps": "^4.9.1",
     "@ionic-native/native-page-transitions": "^4.10.0",
@@ -31,6 +32,7 @@
     "@types/google-maps": "^3.2.0",
     "cordova-android": "~6.3.0",
     "cordova-plugin-device": "^2.0.2",
+    "cordova-plugin-email-composer": "^0.8.15",
     "cordova-plugin-geolocation": "^4.0.1",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
     "cordova-plugin-ionic-webview": "^1.1.19",
@@ -57,7 +59,8 @@
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-geolocation": {
         "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
-      }
+      },
+      "cordova-plugin-email-composer": {}
     },
     "platforms": [
       "android"

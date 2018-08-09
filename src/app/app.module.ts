@@ -29,6 +29,10 @@ import { HomeconductorPageModule } from '../pages/homeconductor/homeconductor.mo
 import { StatusconductorPageModule } from '../pages/statusconductor/statusconductor.module';
 import { PerfilconductorPageModule } from '../pages/perfilconductor/perfilconductor.module';
 import { TerminosconductorPageModule } from '../pages/terminosconductor/terminosconductor.module';
+//acceso a los archivos json y conexiones
+import { HttpModule } from '@angular/http';
+//correo plugin
+import { EmailComposer } from '@ionic-native/email-composer';
 
 @NgModule({
   declarations: [
@@ -40,6 +44,7 @@ import { TerminosconductorPageModule } from '../pages/terminosconductor/terminos
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp,{
       scrollAssist: true,
       autoFocusAssist: true
@@ -62,9 +67,6 @@ import { TerminosconductorPageModule } from '../pages/terminosconductor/terminos
     PerfilconductorPageModule,
     TerminosconductorPageModule
 
-
-
-
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -79,7 +81,9 @@ import { TerminosconductorPageModule } from '../pages/terminosconductor/terminos
     SplashScreen,
     GoogleMaps,
     Geolocation,
+    EmailComposer,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AuthServiceProvider,
     AuthServiceProvider
   ]
 })

@@ -16,7 +16,7 @@
       <ion-icon name="mail"></ion-icon>
       <span class="nombre">Usuario:</span>
     </ion-label> <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
-    <ion-input type="text" value="" class="inputs" id="desaparecereni4"></ion-input>
+    <ion-input type="text" value="" class="inputs" [(ngModel)]="userData.username"></ion-input>
 
   <br>
 
@@ -24,12 +24,12 @@
       <ion-icon name="key"></ion-icon>
       <span class="nombre">Contraseña:</span>
     </ion-label> <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
-    <ion-input type="password" class="inputs" id="desaparecereni4"></ion-input>
+    <ion-input type="password" class="inputs" [(ngModel)]="userData.password"></ion-input>
 
 
   <p class="spdd" align="right" (click)="paginacon()"><span class="pregunta">¿Olvidaste la contraseña?</span></p>
-    <p align="center"><button ion-button  color="primary"  (click)="ingresarhome()">INGRESAR</button></p>
-
+  <br> 
+  <p align="center"><button ion-button  color="primary"  (click)="login()">INGRESAR</button></p>
 
     <p align="center" (click)="paginaregistro()"> <span class="pregunta">¿Áun no te has registrado?,</span> <span class="presiona">Ingresa aquí.</span></p>
 

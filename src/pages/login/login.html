@@ -9,12 +9,14 @@
       </ion-avatar>
   <br>
 
+  <ion-input  type="email" value="" class="inputs" id="medidaiphone4" placeholder="Nombre de usuario:"></ion-input>
+  <ion-input  type="text" value="" class="inputs" id="medidaiphone4" placeholder="Correo:"></ion-input>
 
     <ion-label class="headlabel">
       <ion-icon name="mail"></ion-icon>
-      <span class="nombre">Correo:</span>
+      <span class="nombre">Usuario:</span>
     </ion-label> <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
-    <ion-input type="text" value="" class="inputs"></ion-input>
+    <ion-input type="text" value="" class="inputs" id="desaparecereni4"></ion-input>
 
   <br>
 
@@ -22,14 +24,13 @@
       <ion-icon name="key"></ion-icon>
       <span class="nombre">Contraseña:</span>
     </ion-label> <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
-    <ion-input type="password" class="inputs"></ion-input>
+    <ion-input type="password" class="inputs" id="desaparecereni4"></ion-input>
 
 
   <p class="spdd" align="right" (click)="paginacon()"><span class="pregunta">¿Olvidaste la contraseña?</span></p>
     <p align="center"><button ion-button  color="primary"  (click)="ingresarhome()">INGRESAR</button></p>
 
-    <br>
-    <br>
+
     <p align="center" (click)="paginaregistro()"> <span class="pregunta">¿Áun no te has registrado?,</span> <span class="presiona">Ingresa aquí.</span></p>
 
   </ion-content>

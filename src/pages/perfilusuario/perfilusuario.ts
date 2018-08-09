@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
-
+import { IonicPage, NavController, NavParams, LoadingController, AlertController, MenuController } from 'ionic-angular';
+import { LoginPage } from '../login/login';
 /**
  * Generated class for the PerfilusuarioPage page.
  *
@@ -15,10 +15,14 @@ import { IonicPage, NavController, NavParams, LoadingController, AlertController
 })
 export class PerfilusuarioPage {
 
-  constructor(public navCtrl: NavController, 
+rootPage:any = LoginPage;
+
+  constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public loadingCtrl: LoadingController,
-    private alertCtrl: AlertController) {
+    private alertCtrl: AlertController,
+    public menu: MenuController
+  ) {
   }
 
   ionViewDidLoad() {
@@ -27,9 +31,9 @@ export class PerfilusuarioPage {
 
   guardar(){
     this.presentLoading();
-    
+
   }
- 
+
 
 
   presentLoading() {
@@ -38,7 +42,7 @@ export class PerfilusuarioPage {
       duration: 2000
     });
     loader.present();
-    
+
   }
 
 
@@ -49,5 +53,10 @@ export class PerfilusuarioPage {
       buttons: ['Dismiss']
     });
     alert.present();
+  }
+
+  logout(){
+    this.navCtrl.setRoot(this.rootPage);
+    this.menu.enable(false);
   }
 }

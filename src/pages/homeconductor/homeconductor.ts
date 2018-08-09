@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { ActionSheetController } from 'ionic-angular';
 import { StatusconductorPage } from '../statusconductor/statusconductor';
 import { PerfilconductorPage } from '../perfilconductor/perfilconductor';
@@ -12,7 +12,11 @@ import { TerminosconductorPage } from '../terminosconductor/terminosconductor';
 })
 export class HomeconductorPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, private menu: MenuController) {
+  }
+
+  ionViewDidEnter(){
+    this.menu.swipeEnable(false);
   }
 
   ionViewDidLoad() {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, AlertController } from 'ionic-angular';
 //paginas importadas para uso en funciones
 import { RegistrarPage } from '../registrar/registrar';
 import { HelloIonicPage } from '../hello-ionic/hello-ionic';
@@ -25,8 +25,10 @@ to='raul7_@gmail.com';
   responseData : any;
   userData = {"username": "","password": ""};
 
-  constructor(public navCtrl: NavController, public authService: AuthServiceProvider,
-    public EmailComposer: EmailComposer) {
+  constructor(public navCtrl: NavController, 
+    public authService: AuthServiceProvider,
+    public EmailComposer: EmailComposer,
+    public alertCtrl: AlertController,) {
   }
 
   ionViewDidLoad() {
@@ -36,6 +38,8 @@ to='raul7_@gmail.com';
   paginaregistro(){
     this.navCtrl.push(RegistrarPage);
   }
+
+  
   login(){
     this.authService.postData(this.userData,'login').then((result) => {
       this.responseData = result;
@@ -44,7 +48,9 @@ to='raul7_@gmail.com';
       localStorage.setItem('userData', JSON.stringify(this.responseData));
     this.navCtrl.setRoot(HelloIonicPage);
   }
-  else{ console.log("User already exists"); }
+  else{ console.log("Datos incorrectos"); 
+this.showAlert();
+}
 }, (err) => {
   // Error log
 });
@@ -63,6 +69,13 @@ to='raul7_@gmail.com';
     }
     this.EmailComposer.open(email);
   }
-
+  showAlert() {
+    const alert = this.alertCtrl.create({
+      title: 'Datos incorrectos',
+      subTitle: 'Por favor introduce datos válidos',
+      buttons: ['De acuerdo']
+    });
+    alert.present();
+  }
 
 }

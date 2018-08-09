@@ -15,9 +15,8 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 .avatares{
-    height: 150px;
-    width: 150px;
-    height: 150px;
+    height: 100px;
+    width: 100px;
     border-radius: 80%;
     justify-content: center;
 
@@ -77,10 +76,18 @@
     .tituloheader {
         color: white;
     }
+    @media only screen and(max-width: 320px) {
+        .tituloheader {
+          font-size: 12px;
+        }
+    }
     @import '../components/map/map';
     @import '../pages/hello-ionic/hello-ionic';
     scroll-content { 
         position : initial !important;
-       }
+    }
+    ion-content{
+        overflow-y: hidden;
+    }
 
     

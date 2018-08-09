@@ -8,17 +8,17 @@
     <img src="assets/img/drived.jpg" class="avatar">
   </ion-avatar>
 
-  <ion-input type="text" value="" class="inputs" [(ngModel)]="userData.name" id="medidaiphone4" placeholder="Nombre completo:"></ion-input>
-  <ion-input type="text" value="" class="inputs" [(ngModel)]="userData.email" id="medidaiphone4" placeholder="correo:"></ion-input>
-  <ion-input type="text" value="" class="inputs" [(ngModel)]="userData.username" id="medidaiphone4" placeholder="Nombre de usuario:"></ion-input>
-  <ion-input type="password" class="inputs" [(ngModel)]="userData.password" id="medidaiphone4" placeholder="Contraseña:"></ion-input>
+  <ion-input type="text" value="" class="inputs" [(ngModel)]="userData.name" id="medidaiphone4" placeholder="Nombre completo:" required></ion-input>
+  <ion-input type="email" value="" class="inputs" [(ngModel)]="userData.email" id="medidaiphone4" placeholder="correo:" required></ion-input>
+  <ion-input type="text" value="" class="inputs" [(ngModel)]="userData.username" id="medidaiphone4" placeholder="Nombre de usuario:" required></ion-input>
+  <ion-input type="password" class="inputs" [(ngModel)]="userData.password" id="medidaiphone4" placeholder="Contraseña:" required></ion-input>
 
   <ion-label class="headlabel">
     <ion-icon name="contact"></ion-icon>
     <span class="nombre sklj">Nombre completo:</span>
   </ion-label>
   <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
-  <ion-input  type="text" value="" class="inputs" [(ngModel)]="userData.name" id="desaparecereni4"></ion-input>
+  <ion-input  type="text" value="" class="inputs" [(ngModel)]="userData.name" id="desaparecereni4" required></ion-input>
 
   
   <ion-label class="headlabel">
@@ -26,14 +26,14 @@
     <span class="nombre">Correo:</span>
   </ion-label>
   <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
-  <ion-input  type="text" value="" class="inputs" [(ngModel)]="userData.email" id="desaparecereni4"></ion-input>
+  <ion-input  type="email" value="" class="inputs" [(ngModel)]="userData.email" id="desaparecereni4" required></ion-input>
 
   <ion-label class="headlabel">
     <ion-icon name="person"></ion-icon>
     <span class="nombre">Nombre de usuario:</span>
   </ion-label>
   <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
-  <ion-input  type="text" value="" class="inputs" [(ngModel)]="userData.username" id="desaparecereni4"></ion-input>
+  <ion-input  type="text" value="" class="inputs" [(ngModel)]="userData.username" id="desaparecereni4" required></ion-input>
 
 
   <ion-label class="headlabel">
@@ -41,7 +41,7 @@
     <span class="nombre sklj">Contraseña:</span>
   </ion-label>
   <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
-  <ion-input  type="password" class="inputs" [(ngModel)]="userData.password" id="desaparecereni4"></ion-input>
+  <ion-input  type="password" class="inputs" [(ngModel)]="userData.password" id="desaparecereni4" required></ion-input>
 
 <br>
   <p align="center">

@@ -3,9 +3,9 @@ import { IonicPage, NavController } from 'ionic-angular';
 //paginas importadas para uso en funciones
 import { RegistrarPage } from '../registrar/registrar';
 import { HelloIonicPage } from '../hello-ionic/hello-ionic';
-import { ContraPage } from '../contra/contra';
 //importamos el modulo para conectar y hacer la autenticación
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { EmailComposer } from '@ionic-native/email-composer';
 
 
 @IonicPage()
@@ -15,10 +15,18 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 })
 export class LoginPage {
 
+
+//datos de correo
+subject='Recuperar contraseña';
+body ='Quisiera recuperar mi contraseña, este es mi correo.';
+to='raul7_@gmail.com';
+
+//variables para traer datos
   responseData : any;
   userData = {"username": "","password": ""};
 
-  constructor(public navCtrl: NavController, public authService: AuthServiceProvider) {
+  constructor(public navCtrl: NavController, public authService: AuthServiceProvider,
+    public EmailComposer: EmailComposer) {
   }
 
   ionViewDidLoad() {
@@ -42,8 +50,19 @@ export class LoginPage {
 });
 
 }
-  paginacon(){
-    this.navCtrl.push(ContraPage);
+
+  send(){
+    let email = {
+      to: this.to,
+      cc: [],
+      bcc: [],
+      attachment: [],
+      subject: this.subject,
+      body: this.body,
+      isHtml: false,
+    }
+    this.EmailComposer.open(email);
   }
+
 
 }

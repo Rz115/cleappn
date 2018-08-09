@@ -9,14 +9,15 @@
       </ion-avatar>
   <br>
 
-  <ion-input  type="email" value="" class="inputs" id="medidaiphone4" placeholder="Nombre de usuario:"></ion-input>
-  <ion-input  type="text" value="" class="inputs" id="medidaiphone4" placeholder="Correo:"></ion-input>
+    <ion-input type="text" value="" class="inputs" [(ngModel)]="userData.username" id="medidaiphone4" placeholder="Nombre de usuario:"></ion-input>
+    <ion-input type="password" class="inputs" [(ngModel)]="userData.password" id="medidaiphone4" placeholder="Contraseña:"></ion-input>
+
 
     <ion-label class="headlabel">
       <ion-icon name="mail"></ion-icon>
       <span class="nombre">Usuario:</span>
     </ion-label> <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
-    <ion-input type="text" value="" class="inputs" [(ngModel)]="userData.username"></ion-input>
+    <ion-input type="text" value="" class="inputs" [(ngModel)]="userData.username" id="desaparecereni4"></ion-input>
 
   <br>
 
@@ -24,7 +25,7 @@
       <ion-icon name="key"></ion-icon>
       <span class="nombre">Contraseña:</span>
     </ion-label> <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
-    <ion-input type="password" class="inputs" [(ngModel)]="userData.password"></ion-input>
+    <ion-input type="password" class="inputs" [(ngModel)]="userData.password" id="desaparecereni4"></ion-input>
 
 
   <p class="spdd" align="right" (click)="paginacon()"><span class="pregunta">¿Olvidaste la contraseña?</span></p>

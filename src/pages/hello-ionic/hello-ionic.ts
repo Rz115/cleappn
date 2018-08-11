@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ToastController } from 'ionic-angular';
 import { ProcesandoServicioPage } from '../procesando-servicio/procesando-servicio';
 //importamos el modulo para conectar y hacer la autenticación
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
@@ -20,7 +20,11 @@ export class HelloIonicPage implements OnInit{
 
   userPostData = {"user_id":"","token":""};
 
-  constructor(public navCtrl: NavController, public authService:AuthServiceProvider) {
+  constructor(public navCtrl: NavController, 
+    public authService:AuthServiceProvider,
+    public toastCtrl: ToastController
+  ) {
+
   const data = JSON.parse(localStorage.getItem('userData'));
   this.userDetails = data.userData;
 
@@ -32,6 +36,8 @@ export class HelloIonicPage implements OnInit{
 ngOnInit() {
   this.map = this.createMap();
 this.map = GoogleMaps.create('map_canvas');
+this.getLocation();
+this.presentToast();
   
 }
 
@@ -55,8 +61,7 @@ createMap(location = new google.maps.LatLng(20.971294, -89.597)) {
   }
   getLocation() {
     // Obtener tu ubicacion
-    this.map.getMyLocation()
-      .then((location: MyLocation) => {
+    this.map.getMyLocation().then((location: MyLocation) => {
         console.log(JSON.stringify(location, null, 2));
 
         // Mover la camara con animacion
@@ -77,6 +82,16 @@ createMap(location = new google.maps.LatLng(20.971294, -89.597)) {
      });
   }
 
-
+  presentToast() {
+    const toast = this.toastCtrl.create({
+      message: 'Bienvenido'+" "+ this.userDetails.name ,
+      duration: 3000
+    });
+    toast.onDidDismiss(this.dismissHandler);
+    toast.present();
+  }
+  private dismissHandler() {
+    console.info('Toast onDidDismiss()');
+  }
   
 }

@@ -24,7 +24,9 @@ rootPage:any = LoginPage;
     public menu: MenuController
   ) {
   }
-
+  ionViewDidEnter(){
+    this.menu.swipeEnable(false);
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad PerfilusuarioPage');
   }

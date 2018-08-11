@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { ConductorEncontradoPage } from '../conductor-encontrado/conductor-encontrado';
 
 /**
@@ -16,11 +16,13 @@ import { ConductorEncontradoPage } from '../conductor-encontrado/conductor-encon
 })
 export class ProcesandoServicioPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams,
+  private menu: MenuController) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ProcesandoServicioPage');
+  ionViewDidEnter(){
+    this.menu.swipeEnable(false);
   }
   procesoterminado(){
     this.navCtrl.push(ConductorEncontradoPage);

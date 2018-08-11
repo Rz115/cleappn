@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { Platform, MenuController, Nav } from 'ionic-angular';
+import { Platform, MenuController, Nav, ToastController } from 'ionic-angular';
 
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 
@@ -23,6 +23,8 @@ import { LoginPage } from '../pages/login/login';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
+  //contador para doble vez cierre de app
+  public counter=0;
   // make REGISTRAR the root (or first) page
   rootPage = RegistrarPage;
   pages: Array<{title: string, component: any}>;
@@ -31,7 +33,8 @@ export class MyApp {
     public platform: Platform,
     public menu: MenuController,
     public statusBar: StatusBar,
-    public splashScreen: SplashScreen
+    public splashScreen: SplashScreen,
+    public toastCtrl: ToastController
   ) {
 
     this.initializeApp();
@@ -67,13 +70,33 @@ export class MyApp {
 
       this.nav.push(page.component);
       this.menu.close();
-    } 
-   /* if (page == LoginPage){
+    }
     
-      this.platform.exitApp();
-    
-    }*/
+    if(page == RegistrarPage){
+      this.platform.registerBackButtonAction(() => {
+        if (this.counter == 0) {
+          this.counter++;
+          this.presentToast();
+          setTimeout(() => { this.counter = 0 }, 3000)
+        } else {
+          // console.log("exitapp");
+          this.platform.exitApp();
+        }
+      }, 0)
+    }
 
+}
+
+presentToast() {
+  const toast = this.toastCtrl.create({
+    message: 'Presiona de nuevo para salir',
+    duration: 3000
+  });
+  toast.onDidDismiss(this.dismissHandler);
+  toast.present();
+}
+private dismissHandler() {
+  console.info('Toast onDidDismiss()');
 }
 
 }

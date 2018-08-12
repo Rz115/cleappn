@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController, AlertController } from 'ionic-angular';
 
 /**
  * Generated class for the AyudaPage page.
@@ -15,11 +15,22 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class AyudaPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams,
+    private menu: MenuController,
+  public alertCtrl: AlertController) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AyudaPage');
+  ionViewDidEnter(){
+    this.menu.swipeEnable(false);
+  }
+  showAlert() {
+    const alert = this.alertCtrl.create({
+      title: 'Mensaje Enviado',
+      subTitle: 'Gracias por su mensaje, se le responderá a la brevedad',
+      buttons: ['Ok']
+    });
+    alert.present();
   }
 
 }

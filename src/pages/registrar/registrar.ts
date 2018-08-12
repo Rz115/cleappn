@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { IonicPage, NavController, AlertController, MenuController } from 'ionic-angular';
 //paginas importadas
 import { LoginPage } from '../login/login';
 import { HelloIonicPage } from '../hello-ionic/hello-ionic';
 import { HomeconductorPage } from '../homeconductor/homeconductor';
 //importamos el modulo para conectar y hacer la autenticación
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { ContraPage } from '../contra/contra';
 import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 
@@ -14,18 +15,20 @@ import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms'
   selector: 'page-registrar',
   templateUrl: 'registrar.html',
 })
-export class RegistrarPage  implements OnInit{
-  responseData : any;
+export class RegistrarPage {
+  responseData : any = [];
   userData = {"username": "","password": "", "name": "","email": ""};
 
   myGroup: FormGroup;
 
-  constructor(public navCtrl: NavController, public authService: AuthServiceProvider) {
-
+  constructor(public navCtrl: NavController, 
+    public authService: AuthServiceProvider,
+    public alertCtrl: AlertController,
+  private menu: MenuController) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RegistrarPage');
+  ionViewDidEnter(){
+    this.menu.swipeEnable(false);
   }
 
   ngOnInit(){
@@ -45,7 +48,9 @@ export class RegistrarPage  implements OnInit{
      localStorage.setItem('userData', JSON.stringify(this.responseData));
      this.navCtrl.setRoot(HelloIonicPage);
      }
-     else{ console.log("User already exists"); }
+     else{ console.log("User already exists"); 
+    this.showAlert();
+  }
    }, (err) => {
      // Error log
    });
@@ -53,18 +58,29 @@ export class RegistrarPage  implements OnInit{
  }
 
 
-
+ showAlert() {
+  const alert = this.alertCtrl.create({
+    title: 'Error al registrarse',
+    subTitle: 'Por favor complete todos los campos',
+    buttons: ['De acuerdo']
+  });
+  alert.present();
+}
 
   paginadelogin(){
-    this.navCtrl.push(LoginPage);
+    this.navCtrl.setRoot(LoginPage);
   }
   paginataxista(){
     this.navCtrl.setRoot(HomeconductorPage);
   }
-/*
-  names = new FormControl('', Validators.compose([
-    Validators.required,
-    Validators.pattern('^[a-z,A-Z]')
-  ]));*/
+//tarjeta pagina para pasar una vez que te registrras a meter los datos de la tarjeta
+
+  paginasiguiente(){
+    
+    this.navCtrl.push(ContraPage);
+     
+    }
+
+
 
 }

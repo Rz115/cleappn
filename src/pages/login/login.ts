@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, AlertController, MenuController, Platform } from 'ionic-angular';
 //paginas importadas para uso en funciones
 import { RegistrarPage } from '../registrar/registrar';
 import { HelloIonicPage } from '../hello-ionic/hello-ionic';
@@ -15,7 +15,7 @@ import { EmailComposer } from '@ionic-native/email-composer';
 })
 export class LoginPage {
 
-
+  public unregisterBackButtonAction: any;
 //datos de correo
 subject='Recuperar contraseña';
 body ='Quisiera recuperar mi contraseña, este es mi correo.';
@@ -25,17 +25,23 @@ to='raul7_@gmail.com';
   responseData : any;
   userData = {"username": "","password": ""};
 
-  constructor(public navCtrl: NavController, public authService: AuthServiceProvider,
-    public EmailComposer: EmailComposer) {
+  constructor(public navCtrl: NavController, 
+    public authService: AuthServiceProvider,
+    public EmailComposer: EmailComposer,
+    public alertCtrl: AlertController,
+    private menu: MenuController,
+    public platform: Platform) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+ 
+  ionViewDidEnter(){
+    this.menu.swipeEnable(false);
   }
-
   paginaregistro(){
-    this.navCtrl.push(RegistrarPage);
+    this.navCtrl.setRoot(RegistrarPage);
   }
+
+  
   login(){
     this.authService.postData(this.userData,'login').then((result) => {
       this.responseData = result;
@@ -44,7 +50,9 @@ to='raul7_@gmail.com';
       localStorage.setItem('userData', JSON.stringify(this.responseData));
     this.navCtrl.setRoot(HelloIonicPage);
   }
-  else{ console.log("User already exists"); }
+  else{ console.log("Datos incorrectos"); 
+this.showAlert();
+}
 }, (err) => {
   // Error log
 });
@@ -63,6 +71,26 @@ to='raul7_@gmail.com';
     }
     this.EmailComposer.open(email);
   }
+  showAlert() {
+    const alert = this.alertCtrl.create({
+      title: 'Datos incorrectos',
+      subTitle: 'Por favor introduce datos válidos',
+      buttons: ['De acuerdo']
+    });
+    alert.present();
+  }
+  ionViewDidLoad() {
+    this.initializeBackButtonCustomHandler();
+}
 
+ionViewWillLeave() {
+    // Unregister the custom back button action for this page
+    this.unregisterBackButtonAction && this.unregisterBackButtonAction();
+}
 
+initializeBackButtonCustomHandler(): void {
+    this.unregisterBackButtonAction = this.platform.registerBackButtonAction(function(event){
+        console.log('Prevent Back Button Page Change');
+    }, 101); // Priority 101 will override back button handling (we set in app.component.ts) as it is bigger then priority 100 configured in app.component.ts file */
+}       
 }

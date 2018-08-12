@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { NuevaTarjetaPage } from '../nueva-tarjeta/nueva-tarjeta';
 
 /**
@@ -16,12 +16,13 @@ import { NuevaTarjetaPage } from '../nueva-tarjeta/nueva-tarjeta';
 })
 export class FormadepagoPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController,
+     public navParams: NavParams,
+    private menu: MenuController) {
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad FormadepagoPage');
-  }
+    ionViewDidEnter(){
+      this.menu.swipeEnable(false);
+    }
   nuevacard(){
     this.navCtrl.push(NuevaTarjetaPage);
 }

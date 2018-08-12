@@ -10,18 +10,46 @@
 
 <ion-content padding class="fondos" >
 
-  <p class="sp" align="left" ><span class="pregunta">Escribe tu correo con el que te has registado
-    anteriormente: </span></p>
-  <ion-item>
-    <ion-label><ion-icon name="mail"></ion-icon></ion-label> 
-    <ion-input [(ngModel)]="to" type="text" placeholder="Correo:"></ion-input>
-  </ion-item>
-
-  <br>
-  <br>
-
-  <p align="center">
-    <button ion-button  color="primary"  (click)="send()">ENVIAR</button>
+  <p class="sp" align="left" ><span class="pregunta">Escribe los datos de tu tarjeta de 
+    crédito con la que puedas contar con nuestros servicios </span></p>
+  
+    <ion-label class="headlabel">
+      <ion-icon name="contact"></ion-icon>
+      <span class="nombre sklj">Numero de tarjeta:</span>
+    </ion-label>
+    <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
+    <ion-input  type="text" value="" class="inputs"  id="desaparecereni4" required></ion-input>
+  
+    
+    <ion-label class="headlabel">
+      <ion-icon name="at"></ion-icon>
+      <span class="nombre">CVV:</span>
+    </ion-label>
+    <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
+    <ion-input  type="email" value="" class="inputs"  id="desaparecereni4" required></ion-input>
+  
+    <ion-label class="headlabel">
+      <ion-icon name="person"></ion-icon>
+      <span class="nombre">Fecha:</span>
+    </ion-label>
+    <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
+    <ion-input  type="text" value="" class="inputs" id="desaparecereni4" required></ion-input>
+  <p align="center" >
+    <ion-row>
+      <ion-col>
+      <ion-label class="headlabel">
+      <span class="nombre">Mes:</span></ion-label>
+      <ion-input  type="number" value="" class="inputs"  id="desaparecereni4" required ></ion-input>
+    </ion-col>
+    <ion-col>
+      <ion-label class="headlabel">
+          <span class="nombre">Año:</span></ion-label>
+          <ion-input  type="number" value="" class="inputs"  id="desaparecereni4" required ></ion-input>
+        </ion-col>
+        </ion-row>
   </p>
-
+  <p align="center">
+    <button ion-button color="primary" >REGISTRATE</button>
+   <!-- <button ion-button color="primary" (click)="paginataxista()">CONDUCTOR</button> -->
+  </p>
 </ion-content>

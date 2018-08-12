@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, MenuController } from 'ionic-angular';
 
 
 /**
@@ -18,11 +18,12 @@ export class NuevaTarjetaPage {
 
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
-    public loadingCtrl: LoadingController) {
+    public loadingCtrl: LoadingController,
+  private menu: MenuController) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad NuevaTarjetaPage');
+  ionViewDidEnter(){
+    this.menu.swipeEnable(false);
   }
   
   guardartarjeta(){

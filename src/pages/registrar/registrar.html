@@ -8,48 +8,90 @@
     <img src="assets/img/drived.jpg" class="avatar">
   </ion-avatar>
 
-  <ion-input type="text" value="" class="inputs" [(ngModel)]="userData.name" id="medidaiphone4" placeholder="Nombre completo:" required></ion-input>
-  <ion-input type="email" value="" class="inputs" [(ngModel)]="userData.email" id="medidaiphone4" placeholder="correo:" required></ion-input>
-  <ion-input type="text" value="" class="inputs" [(ngModel)]="userData.username" id="medidaiphone4" placeholder="Nombre de usuario:" required></ion-input>
-  <ion-input type="password" class="inputs" [(ngModel)]="userData.password" id="medidaiphone4" placeholder="Contraseña:" required></ion-input>
+<form [formGroup]="myGroup">
+  <ion-input type="text" value="" class="inputs" formControlName="names" [class.error1]="!myGroup.controls.names.valid && myGroup.controls.names.dirty" [(ngModel)]="userData.name" id="medidaiphone4" placeholder="Nombre completo:" required></ion-input>
+  <ion-input type="email" value="" class="inputs" formControlName="email" [(ngModel)]="userData.email" [class.error1]="!myGroup.controls.email.valid && myGroup.controls.email.dirty" id="medidaiphone4" placeholder="correo:" required></ion-input>
+  <ion-input type="text" value="" class="inputs" formControlName="usernames" [class.error1]="!myGroup.controls.usernames.valid && myGroup.controls.usernames.dirty" [(ngModel)]="userData.username" id="medidaiphone4" placeholder="Nombre de usuario:" required></ion-input>
+  <ion-input type="password" class="inputs" [(ngModel)]="userData.password" [ngModelOptions]="{standalone: true}" id="medidaiphone4" placeholder="Contraseña:" required></ion-input>
 
   <ion-label class="headlabel">
     <ion-icon name="contact"></ion-icon>
     <span class="nombre sklj">Nombre completo:</span>
   </ion-label>
   <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
-  <ion-input  type="text" value="" class="inputs" [(ngModel)]="userData.name" id="desaparecereni4" required></ion-input>
+  <ion-input  type="text" value="" class="inputs" formControlName="names" [class.error1]="!myGroup.controls.names.valid && myGroup.controls.names.dirty" [(ngModel)]="userData.name" id="desaparecereni4" required></ion-input>
+  <ion-item no-lines class="errorbody" *ngIf="( myGroup.get('names').hasError('minlength') || myGroup.get('names').hasError('maxlength') ||myGroup.get('names').hasError('pattern') ||myGroup.get('names').hasError('required') ) && myGroup.get('names').touched">
+    <div class="error" *ngIf="myGroup.get('names').hasError('required') && myGroup.get('names').touched">
+      Por favor introduce tu nombre
+    </div>
+    <div class="error" *ngIf="myGroup.get('names').hasError('minlength') && myGroup.get('names').touched">
+      Minimo 4 caracteres
+    </div>
+    <div class="error" *ngIf="myGroup.get('names').hasError('maxlength') && myGroup.get('names').touched">
+      Maximo 30 caracteres
+    </div>
+    <div class="error" *ngIf="myGroup.get('names').hasError('pattern') && myGroup.get('names').touched">
+      Usa solo letras
+    </div>
+  </ion-item>
 
-  
+
   <ion-label class="headlabel">
     <ion-icon name="at"></ion-icon>
     <span class="nombre">Correo:</span>
   </ion-label>
   <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
-  <ion-input  type="email" value="" class="inputs" [(ngModel)]="userData.email" id="desaparecereni4" required></ion-input>
+  <ion-input  type="email" value="" class="inputs" formControlName="email" [(ngModel)]="userData.email" [class.error1]="!myGroup.controls.email.valid && myGroup.controls.email.dirty" id="desaparecereni4" required></ion-input>
+  <ion-item no-lines class="errorbody" *ngIf="( myGroup.get('email').hasError('minlength') || myGroup.get('email').hasError('pattern') ||myGroup.get('email').hasError('required') ) && myGroup.get('email').touched">
+    <div class="error" *ngIf="myGroup.get('email').hasError('required') && myGroup.get('email').touched">
+      Please input your email
+    </div>
+    <div class="error" *ngIf="myGroup.get('email').hasError('pattern') && myGroup.get('email').touched">
+      Email address invalid
+    </div>
+  </ion-item>
+
 
   <ion-label class="headlabel">
     <ion-icon name="person"></ion-icon>
     <span class="nombre">Nombre de usuario:</span>
   </ion-label>
   <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
-  <ion-input  type="text" value="" class="inputs" [(ngModel)]="userData.username" id="desaparecereni4" required></ion-input>
-
+  <ion-input  type="text" value="" class="inputs" formControlName="usernames" [class.error1]="!myGroup.controls.usernames.valid && myGroup.controls.usernames.dirty" [(ngModel)]="userData.username" id="desaparecereni4" required></ion-input>
+  <ion-item no-lines class="errorbody" *ngIf="( myGroup.get('usernames').hasError('minlength') || myGroup.get('usernames').hasError('maxlength') ||myGroup.get('usernames').hasError('pattern') ||myGroup.get('usernames').hasError('required') ) && myGroup.get('usernames').touched">
+    <div class="error" *ngIf="myGroup.get('usernames').hasError('required') && myGroup.get('usernames').touched">
+      Por favor introduce tu nombre
+    </div>
+    <div class="error" *ngIf="myGroup.get('usernames').hasError('minlength') && myGroup.get('usernames').touched">
+      Minimo 4 caracteres
+    </div>
+    <div class="error" *ngIf="myGroup.get('usernames').hasError('maxlength') && myGroup.get('usernames').touched">
+      Maximo 15 caracteres
+    </div>
+    <div class="error" *ngIf="myGroup.get('usernames').hasError('pattern') && myGroup.get('usernames').touched">
+      Usa solo letras
+    </div>
+  </ion-item>
 
   <ion-label class="headlabel">
     <ion-icon name="key"></ion-icon>
     <span class="nombre sklj">Contraseña:</span>
   </ion-label>
   <!--QUITAR O DEJAR Y PONER A LOS OTROS DOS TEXT-->
-  <ion-input  type="password" class="inputs" [(ngModel)]="userData.password" id="desaparecereni4" required></ion-input>
+  <ion-input  type="password" class="inputs" [(ngModel)]="userData.password" [ngModelOptions]="{standalone: true}" id="desaparecereni4" required></ion-input>
 
-<br>
+  <br>
   <p align="center">
     <button ion-button color="primary" (click)="signup()">REGISTRATE</button>
+  </p>
+</form>
+  <p align="center">
     <button ion-button color="primary" (click)="paginataxista()">CONDUCTOR</button>
   </p>
+
   <p align="center" (click)="paginadelogin()">
     <span class="pregunta">¿Ya tienes una cuenta?,</span>
     <span class="presiona">Presione aquí.</span>
   </p>
+  
 </ion-content>

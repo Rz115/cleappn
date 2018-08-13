@@ -53,6 +53,14 @@ page-registrar {
     color: white;
     float: left;
   }
+  @media only screen and(max-width: 320px){
+    .errorbody{
+      visibility: hidden;
+      position: absolute;
+      height: 0.1px;
+      width: 0.1px;
+    }
+  }
 
 }
 

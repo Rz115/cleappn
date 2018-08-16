@@ -71,7 +71,7 @@ export class MyApp {
       this.nav.push(page.component);
       this.menu.close();
     }
-    
+
     if(page == RegistrarPage){
       this.platform.registerBackButtonAction(() => {
         if (this.counter == 0) {

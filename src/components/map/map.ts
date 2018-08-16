@@ -16,29 +16,25 @@ con el api de google */
   templateUrl: 'map.html'
 })
 export class MapComponent implements OnInit{
- 
+
   @Input() isPickupRequested: boolean;
   @Input() destination: string;
-  
+
   map: GoogleMap;
-  
+
   constructor()
-      
+
   {
-  
+
   }
-  
+
   ngOnInit() {
-  
-    
-  }
-  
-  
-  
- 
+
 
   }
 
 
 
 
+
+  }

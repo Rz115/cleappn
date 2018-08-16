@@ -15,7 +15,7 @@ import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angul
 })
 export class ConductorEncontradoPage {
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
     public navParams: NavParams,
   private menu: MenuController) {
   }
@@ -23,6 +23,6 @@ export class ConductorEncontradoPage {
   ionViewDidEnter(){
     this.menu.swipeEnable(false);
   }
- 
+
 
 }

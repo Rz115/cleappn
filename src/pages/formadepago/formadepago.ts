@@ -23,16 +23,16 @@ export class FormadepagoPage {
       }).then(() => {
         // Environments: PayPalEnvironmentNoNetwork, PayPalEnvironmentSandbox, PayPalEnvironmentProduction
         this.payPal.prepareToRender('PayPalEnvironmentSandbox', new PayPalConfiguration({
-          
+
           acceptCreditCards: false,
           languageOrLocale: "en_AU" && "es",
           merchantPrivacyPolicyURL: '',
           merchantUserAgreementURL: ''
-          
+
         })).then(() => {
           let payment = new PayPalPayment('1.00', 'USD', 'Description', 'sale');
           this.payPal.renderSinglePaymentUI(payment).then((response) => {
-            console.log('Su pago ha sido realizado')
+            console.log('Su pago ha sido realizado con exito!')
             // Successfully paid
 
             // Example sandbox response

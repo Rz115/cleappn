@@ -1,3 +1,38 @@
+<!--SECCION DEL MENU DE HOME -->
+<ion-menu [content]="content">
+
+  <ion-header>
+    <ion-toolbar>
+<ion-title align="center">
+  <span class="tituloheader">Menú</span>
+</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content class="fondomenu">
+    <br>
+    <ion-avatar class="position" align="center">
+        <img  src="assets/img/drived.jpg" class="avatares">
+    </ion-avatar>
+    <p class="sssp" text-wrap align="center">{{userDetails.name}}</p>
+
+    <ion-list>
+  
+      <button ion-item (click)="perfil()" class="listamenu">Perfil</button>
+      <button ion-item (click)="viajes()" class="listamenu">Viajes recientes</button>
+      <button ion-item (click)="formapago()" class="listamenu">Formas de pago</button>
+      <button ion-item (click)="ayudapage()" class="listamenu">Ayuda</button>
+      <button ion-item (click)="politicas()" class="listamenu">Términos y condiciones</button>
+      <button ion-item (click)="cerrarsesion()" class="listamenu">Cerrar Sesión</button>
+
+    </ion-list>
+  </ion-content>
+
+</ion-menu>
+<!-- METODO PARA QUE SOBRE ESTA PAGINA SE CIERRE AL PRESIONAR BACK BUTTON-->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
+
+<!---PAGINA DE INICIO-->
 <ion-header>
   <ion-navbar>
 

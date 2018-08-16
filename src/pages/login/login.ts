@@ -6,6 +6,7 @@ import { HelloIonicPage } from '../hello-ionic/hello-ionic';
 //importamos el modulo para conectar y hacer la autenticación
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { EmailComposer } from '@ionic-native/email-composer';
+import { HomeconductorPage } from '../homeconductor/homeconductor';
 
 
 @IonicPage()
@@ -48,7 +49,13 @@ to='raul7_@gmail.com';
       if(this.responseData.userData){
       console.log(this.responseData);
       localStorage.setItem('userData', JSON.stringify(this.responseData));
-    this.navCtrl.setRoot(HelloIonicPage);
+      if(this.responseData.userData.rol_user == 3){
+        this.navCtrl.setRoot(HelloIonicPage);
+      }
+      else{
+        this.navCtrl.setRoot(HomeconductorPage);
+      }
+    
   }
   else{ console.log("Datos incorrectos"); 
 this.showAlert();

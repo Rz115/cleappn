@@ -52,9 +52,10 @@ to='raul7_@gmail.com';
       if(this.responseData.userData.rol_user == 3){
         this.navCtrl.setRoot(HelloIonicPage);
       }
-      else{
+      else if(this.responseData.userData.rol_user == 2){
         this.navCtrl.setRoot(HomeconductorPage);
       }
+     
     
   }
   else{ console.log("Datos incorrectos"); 

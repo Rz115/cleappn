@@ -2,6 +2,8 @@ import {Component, OnInit, Input} from '@angular/core';
 
 import {  GoogleMap } from '@ionic-native/google-maps';
 
+import { directive } from '../../../node_modules/@angular/core/src/render3/instructions';
+
 /**
  * Generated class for the MapComponent component.
  *
@@ -13,7 +15,8 @@ con el api de google */
 
 @Component({
   selector: 'map',
-  templateUrl: 'map.html'
+  templateUrl: 'map.html',
+
 })
 export class MapComponent implements OnInit{
 

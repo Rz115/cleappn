@@ -187,54 +187,15 @@ ionViewWillEnter(){
 //localizar posicion actual del usuario
 initPage()
 {
-
-  let loading = this.loadingCtrl.create({
-    content: 'Cargando mapa...'
-  });
-
-  loading.present();
-
-  setTimeout(() => {
-    loading.dismiss();
-  }, 500);
-
-  let options = { timeout: 10000, enableHighAccuracy: true };
-
-    this.geolocation.getCurrentPosition(options)
-      .then((result) => {
-        this.conductores = new google.maps.LatLng(result.coords.latitude, result.coords.longitude);
-        const mapOptions = {
-          zoom: 18,
-          center: this.conductores,
-          disableDefaultUI: true
-        }
-        let map = new google.maps.Map(document.getElementById('map'), mapOptions);
-        this.markers(this.conductores);
-
-    let options = {
-      frecuency: 3000,
-      enableHighAccuracy: true
-    }
-
-    let watch = this.geolocation.watchPosition(options)
-      .filter((p: any) => p.code === undefined)
-      .subscribe((position: Geoposition) => {
-        let conductor = {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude
-        };
-        this.service.updateGeolocation(this.conductores.keys, conductor);
-        console.log(position.coords);
-      console.log(position.coords.longitude + ' ' + position.coords.latitude);
-    });
-    watch.unsubscribe();
-  }).catch((error) => {
-        console.log('Error al obtener dirección', error);
+    this.geolocation.getCurrentPosition().then(result => {
+      this.createMap(result.coords.latitude, result.coords.longitude);
+    console.log(result.coords.latitude);
+    console.log(result.coords.longitude); 
     })
 }
 
 ngOnInit() {
-  this.map = this.createMap(20.971294,-89.597);
+
   this.map = GoogleMaps.create('map_canvas');
   this.getLocation();
   this.presentToast();
@@ -242,23 +203,72 @@ ngOnInit() {
 }
 
   createMap(lat, lng) {
-    let location = new google.maps.LatLng(lat, lng)
+    let location = new google.maps.LatLng(lat, lng);
+
     let mapOptions = {
       center: location,
       zoom: 14,
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      mapTypeId: 'roadmap',
       disableDefaultUI: true
     }
 
     let mapEl = document.getElementById('map');
-    let map = new google.maps.Map(mapEl, mapOptions);
+    this.map = new google.maps.Map(mapEl, mapOptions);
+
     let marker = new google.maps.Marker({
+      title: 'Posición actual',
       position: location,
-      titulo: 'posicion del conductor',
-      icons: 'http:/maps.google.com/mapfiles/ms/icons/green-dot.png'
+      icons: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
     })
+    
+    let content = '<div id="myId" class="item item-thumbnail-left item-text-wrap"><ion-item><ion-row><h6>'+ marker.title +'</h6><h6>'+ marker.position +'</h6></ion-row></ion-item></ion-item></div>'
+
+    this.addInfoWindow(marker, content);
     marker.setMap(this.map);
-    return map;
+  }
+  loadPoints() {
+    this.markers = [];
+    for (const key of Object.keys(this.conductores)) {
+      let latLng = new google.maps.LatLng(this.conductores[key].lng);
+      let marker = new google.maps.Marker({
+        position: latLng,
+        title: this.conductores[key].name
+      })
+      let content = `
+          <div id="myId" class="item item-thumbnail-left item-text-wrap">
+            <ion-item>
+              <ion-row>
+                <h6> `+ this.conductores[key].name + `</h6>
+              </ion-row>
+            </ion-item>
+          </div>
+        `
+      this.addInfoWindow(marker, content);
+      marker.setMap(this.map);
+    }
+  }
+  addMarker() {
+
+    let marker = new google.maps.Marker({
+      map: this.map,
+      animation: google.maps.Animation.DROP,
+      icons: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+    });
+
+    let content = "<h4>Información!</h4>";
+    this.addInfoWindow(marker, content);
+
+  }
+
+  addInfoWindow(marker, content) {
+    let infoWindow = new google.maps.InfoWindow({
+      content: content
+    })
+
+    google.maps.event.addListener(marker, 'click', () => {
+      infoWindow.open(this.map, marker);
+    })
+
   }
 
   //pasar a pantalla para solicitar servicio

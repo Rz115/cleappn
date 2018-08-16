@@ -1,9 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { NavController, ToastController } from 'ionic-angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NavController, ToastController, Nav, MenuController } from 'ionic-angular';
 import { ProcesandoServicioPage } from '../procesando-servicio/procesando-servicio';
 //importamos el modulo para conectar y hacer la autenticación
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import {  GoogleMaps,GoogleMap, MyLocation, Marker, GoogleMapsAnimation } from '@ionic-native/google-maps';
+import { PerfilusuarioPage } from '../perfilusuario/perfilusuario';
+import { ViajesusuarioPage } from '../viajesusuario/viajesusuario';
+import { FormadepagoPage } from '../formadepago/formadepago';
+import { AyudaPage } from '../ayuda/ayuda';
+import { TerminosPage } from '../terminos/terminos';
+import { LoginPage } from '../login/login';
 declare var google: any;
 @Component({
   selector: 'page-hello-ionic',
@@ -11,8 +17,7 @@ declare var google: any;
 })
 
 export class HelloIonicPage implements OnInit{
-  @Input() isPickupRequested: boolean;
-  @Input() destination: string;
+  @ViewChild(Nav) nav: Nav;
   
   map: GoogleMap;
   userDetails : any;
@@ -22,7 +27,8 @@ export class HelloIonicPage implements OnInit{
 
   constructor(public navCtrl: NavController, 
     public authService:AuthServiceProvider,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+    public menu: MenuController
   ) {
 
   const data = JSON.parse(localStorage.getItem('userData'));
@@ -40,6 +46,58 @@ this.getLocation();
 this.presentToast();
   
 }
+
+  
+//PAGINAS DEL MENU
+
+//PAGINA DE PERFIL
+perfil(){
+  this.navCtrl.push(PerfilusuarioPage);
+  this.menu.close();
+}
+
+//PAGINA DE VIAJES REECIENTES
+viajes(){
+  this.navCtrl.push(ViajesusuarioPage);
+  this.menu.close();
+}
+
+//PAGINA DE FORMAS DE PAGO
+formapago(){
+  this.navCtrl.push(FormadepagoPage);
+  this.menu.close();
+}
+
+//PAGINA DE AYUDA
+ayudapage(){
+  this.navCtrl.push(AyudaPage);
+  this.menu.close();
+}
+
+//PAGINA DE TERMINOS Y CONDICIONES
+politicas(){
+  this.navCtrl.push(TerminosPage);
+  this.menu.close();
+}
+
+backToWelcome(){
+  this.navCtrl.setRoot(LoginPage);
+  
+}
+//PAGINA DE CERRAR SESION
+cerrarsesion(){
+  localStorage.clear();
+  this.menu.close();
+  setTimeout(() => this.backToWelcome(), 1000);
+  
+  console.log("cerrando sesion");
+  
+  
+}
+
+
+
+
 
 createMap(location = new google.maps.LatLng(20.971294, -89.597)) {
   let mapOptions = {

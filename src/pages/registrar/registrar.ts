@@ -7,7 +7,7 @@ import { HomeconductorPage } from '../homeconductor/homeconductor';
 //importamos el modulo para conectar y hacer la autenticación
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { ContraPage } from '../contra/contra';
-import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
 
 
 @IonicPage()
@@ -20,7 +20,7 @@ export class RegistrarPage {
   userData = {"username": "","password": "", "name": "","email": ""};
 
   myGroup: FormGroup;
-
+  isenabled:boolean=false;
   constructor(public navCtrl: NavController, 
     public authService: AuthServiceProvider,
     public alertCtrl: AlertController,
@@ -57,11 +57,10 @@ export class RegistrarPage {
 
  }
 
-
  showAlert() {
   const alert = this.alertCtrl.create({
     title: 'Error al registrarse',
-    subTitle: 'Por favor complete todos los campos',
+    subTitle: 'Por favor complete todos los campos o use un nombre de usuario distinto',
     buttons: ['De acuerdo']
   });
   alert.present();

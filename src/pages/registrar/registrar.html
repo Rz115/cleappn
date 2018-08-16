@@ -12,7 +12,7 @@
   <ion-input type="text" value="" class="inputs" formControlName="names" [class.error1]="!myGroup.controls.names.valid && myGroup.controls.names.dirty"
     [(ngModel)]="userData.name" id="medidaiphone4" placeholder="Nombre completo:" required></ion-input>
   <ion-input type="email" value="" class="inputs" formControlName="email" [(ngModel)]="userData.email" [class.error1]="!myGroup.controls.email.valid && myGroup.controls.email.dirty"
-    id="medidaiphone4" placeholder="correo:" required></ion-input>
+    id="medidaiphone4" placeholder="Correo:" required></ion-input>
   <ion-input type="text" value="" class="inputs" formControlName="usernames" [class.error1]="!myGroup.controls.usernames.valid && myGroup.controls.usernames.dirty"
     [(ngModel)]="userData.username" id="medidaiphone4" placeholder="Nombre de usuario:" required></ion-input>
   <ion-input type="password" class="inputs" [(ngModel)]="userData.password" [ngModelOptions]="{standalone: true}" id="medidaiphone4"
@@ -29,10 +29,10 @@
       Por favor introduce tu nombre
     </div>
     <div class="error" *ngIf="myGroup.get('names').hasError('minlength') && myGroup.get('names').touched">
-      Minimo 4 caracteres
+      Mínimo 4 caracteres
     </div>
     <div class="error" *ngIf="myGroup.get('names').hasError('maxlength') && myGroup.get('names').touched">
-      Maximo 30 caracteres
+      Máximo 30 caracteres
     </div>
     <div class="error" *ngIf="myGroup.get('names').hasError('pattern') && myGroup.get('names').touched">
       Usa solo letras
@@ -48,10 +48,10 @@
   <ion-input  type="email" value="" class="inputs" formControlName="email" [(ngModel)]="userData.email" [class.error1]="!myGroup.controls.email.valid && myGroup.controls.email.dirty" id="desaparecereni4" required></ion-input>
   <ion-item no-lines class="errorbody" *ngIf="( myGroup.get('email').hasError('minlength') || myGroup.get('email').hasError('pattern') ||myGroup.get('email').hasError('required') ) && myGroup.get('email').touched">
     <div class="error" *ngIf="myGroup.get('email').hasError('required') && myGroup.get('email').touched">
-      Please input your email
+      Por favor intruduce un correo electrónico válido
     </div>
     <div class="error" *ngIf="myGroup.get('email').hasError('pattern') && myGroup.get('email').touched">
-      Email address invalid
+      Dirección de correo no válida
     </div>
   </ion-item>
 
@@ -64,13 +64,13 @@
   <ion-input  type="text" value="" class="inputs" formControlName="usernames" [class.error1]="!myGroup.controls.usernames.valid && myGroup.controls.usernames.dirty" [(ngModel)]="userData.username" id="desaparecereni4" required></ion-input>
   <ion-item no-lines class="errorbody" *ngIf="( myGroup.get('usernames').hasError('minlength') || myGroup.get('usernames').hasError('maxlength') ||myGroup.get('usernames').hasError('pattern') ||myGroup.get('usernames').hasError('required') ) && myGroup.get('usernames').touched">
     <div class="error" *ngIf="myGroup.get('usernames').hasError('required') && myGroup.get('usernames').touched">
-      Por favor introduce tu nombre
+      Por favor introduce un nombre de usuario
     </div>
     <div class="error" *ngIf="myGroup.get('usernames').hasError('minlength') && myGroup.get('usernames').touched">
-      Minimo 4 caracteres
+      Mínimo 4 caracteres
     </div>
     <div class="error" *ngIf="myGroup.get('usernames').hasError('maxlength') && myGroup.get('usernames').touched">
-      Maximo 15 caracteres
+      Máximo 15 caracteres
     </div>
     <div class="error" *ngIf="myGroup.get('usernames').hasError('pattern') && myGroup.get('usernames').touched">
       Usa solo letras

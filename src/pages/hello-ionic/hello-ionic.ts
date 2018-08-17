@@ -187,15 +187,7 @@ ionViewWillEnter(){
 //localizar posicion actual del usuario
 initPage()
 {
-  let loading = this.loadingCtrl.create({
-    content: 'Cargando mapa...'
-  });
 
-  loading.present();
-
-  setTimeout(() => {
-    loading.dismiss();
-  }, 500);
   let options = {
     frecuency: 3000,
     enableHighAccuracy: true
@@ -219,7 +211,7 @@ initPage()
       watch.unsubscribe();
     }).catch((error) => {
       console.log('Error al obtener dirección', error);
-    })
+    })  
 }
 
 ngOnInit() {

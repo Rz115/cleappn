@@ -187,10 +187,25 @@ ionViewWillEnter(){
 //localizar posicion actual del usuario
 initPage()
 {
-    this.geolocation.getCurrentPosition().then(result => {
+  let loading = this.loadingCtrl.create({
+    content: 'Cargando mapa...'
+  });
+
+  loading.present();
+
+  setTimeout(() => {
+    loading.dismiss();
+  }, 500);
+  let options = {
+    frecuency: 3000,
+    enableHighAccuracy: true
+  }
+    this.geolocation.getCurrentPosition(options).then(result => {
       this.createMap(result.coords.latitude, result.coords.longitude);
-    console.log(result.coords.latitude);
-    console.log(result.coords.longitude); 
+      console.log(result.coords.latitude);
+      console.log(result.coords.longitude); 
+    }).catch((error) => {
+      console.log('Error al obtener dirección', error);
     })
 }
 
@@ -207,7 +222,7 @@ ngOnInit() {
 
     let mapOptions = {
       center: location,
-      zoom: 14,
+      zoom: 16,
       mapTypeId: 'roadmap',
       disableDefaultUI: true
     }

@@ -204,6 +204,19 @@ initPage()
       this.createMap(result.coords.latitude, result.coords.longitude);
       console.log(result.coords.latitude);
       console.log(result.coords.longitude); 
+
+      let watch = this.geolocation.watchPosition(options)
+        .filter((p: any) => p.code === undefined)
+        .subscribe((position: Geoposition) => {
+          let conductor = {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+          };
+          this.service.updateGeolocation(this.conductores.keys, conductor);
+          console.log(position.coords);
+          console.log(position.coords.longitude + ' ' + position.coords.latitude);
+        });
+      watch.unsubscribe();
     }).catch((error) => {
       console.log('Error al obtener dirección', error);
     })

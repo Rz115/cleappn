@@ -1,88 +1,102 @@
 <ion-header>
   <ion-navbar>
-<ion-title>
-  <span  center class="tituloheader">Tu Perfil</span>
-</ion-title>
- <!-- <div  align="end">
+    <ion-title>
+      <span center class="tituloheader">Tu Perfil</span>
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only color="light" (click)="acciontodos()">
+        {{ !ocultartodos ? 'Editar Perfil' : 'Cancelar' }}
+        <ion-icon name="contact"></ion-icon>
+      </button>
+    </ion-buttons>
+    <!-- <div  align="end">
     <button ion-button small (click)="logout()">logout<ion-icon name="close"></ion-icon>
     </button>
   </div> -->
   </ion-navbar>
 </ion-header>
 
-  <ion-content padding class="fondoprincipal" >
-      <br>
-        <ion-avatar  class="position" >
-          <img  src="assets/img/drived.jpg" class="avatardeperfil">
-        </ion-avatar>
-      <br>
+<ion-content padding class="fondoprincipal">
+  <br>
+  <ion-avatar class="position">
+    <img src="assets/img/drived.jpg" class="avatardeperfil">
+  </ion-avatar>
+  <br>
 
-          <ion-card-header>
-            Datos de Usuario:
-          </ion-card-header>
-          <ion-card-content>
-            <ion-card>
-                <ion-card-header>
-                    Nombre:
-                  </ion-card-header>
-                  <ion-card-content>
-              <ion-item>
-                  <ion-label><ion-icon name="contact"></ion-icon></ion-label>
-                  <ion-input type="text" value="" placeholder="Nombre completo:"></ion-input>
-                </ion-item>
-              </ion-card-content>
-              </ion-card>
+  <ion-card-header>
+    Datos de Usuario:
+  </ion-card-header>
+  <ion-card-content>
+    <ion-card>
+      <ion-card-header>
+        Nombre:
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label>
+            <ion-icon name="contact"></ion-icon>
+          </ion-label>
+          <ion-input type="text" value="" placeholder="Nombre completo:" [disabled]="ocultar1"></ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
 
-              <ion-card>
-                  <ion-card-header>
-                      Correo:
-                    </ion-card-header>
-                    <ion-card-content>
-                <ion-item>
-                    <ion-label><ion-icon name="mail"></ion-icon></ion-label>
-                    <ion-input type="text" value="" placeholder="Correo:"></ion-input>
-                  </ion-item>
-                </ion-card-content>
-                </ion-card>
+    <ion-card>
+      <ion-card-header>
+        Correo:
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label>
+            <ion-icon name="mail"></ion-icon>
+          </ion-label>
+          <ion-input type="text" value="" placeholder="Correo:" [disabled]="ocultar2"></ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
 
-                <ion-card>
-                    <ion-card-header>
-                        Contraseña:
-                      </ion-card-header>
-                      <ion-card-content>
-                  <ion-item>
-                      <ion-label><ion-icon name="key"></ion-icon></ion-label>
-                      <ion-input type="password" value="" placeholder="Contraseña:"></ion-input>
-                    </ion-item>
-                  </ion-card-content>
-                  </ion-card>
+    <ion-card>
+      <ion-card-header>
+        Contraseña:
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label>
+            <ion-icon name="key"></ion-icon>
+          </ion-label>
+          <ion-input type="password" value="" placeholder="Contraseña:" [disabled]="ocultar3"></ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
 
-                  <ion-card>
-                      <ion-card-header>
-                          Ubicación Principal:
-                        </ion-card-header>
-                        <ion-card-content>
-                    <ion-item>
-                        <ion-label><ion-icon name="pin"></ion-icon></ion-label>
-                        <ion-textarea type="text" value="" placeholder="Lugar que frecuentas:"></ion-textarea>
-                      </ion-item>
-                    </ion-card-content>
-                    </ion-card>
+    <ion-card>
+      <ion-card-header>
+        Ubicación Principal:
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label>
+            <ion-icon name="pin"></ion-icon>
+          </ion-label>
+          <ion-textarea type="text" value="" placeholder="Lugar que frecuentas:" [disabled]="ocultar4"></ion-textarea>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
 
-           </ion-card-content>
-  
+  </ion-card-content>
 
 
-      <br>
-      <ion-row>
-        <ion-col>
-          <p align="left" style="color: red;">
-            <span>Eliminar cuenta</span>
-          </p>
-        </ion-col>
-        <ion-col>
-            <button ion-button small align="right"color="primary" (click)="guardar()" >Guardar Cambios</button>
-        </ion-col>
 
-      </ion-row>
-    </ion-content>
+  <br>
+  <ion-row>
+    <ion-col>
+      <p align="left" style="color: red;">
+        <span>Eliminar cuenta</span>
+      </p>
+    </ion-col>
+    <ion-col>
+      <button ion-button small align="right" color="primary" [disabled]="ocultar5" (click)="guardar()">Guardar Cambios</button>
+    </ion-col>
+
+  </ion-row>
+</ion-content>

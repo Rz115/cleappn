@@ -14,6 +14,9 @@ import { FormadepagoPage } from '../formadepago/formadepago';
 import { AyudaPage } from '../ayuda/ayuda';
 import { TerminosPage } from '../terminos/terminos';
 import { LoginPage } from '../login/login';
+import { Storage } from '@ionic/storage';
+import { HomeconductorPage } from '../homeconductor/homeconductor';
+
 declare var google: any;
 @Component({
   selector: 'page-hello-ionic',
@@ -29,6 +32,7 @@ export class HelloIonicPage implements OnInit{
   @Input() destination: string;
 
   
+
   map: GoogleMap;
   userDetails : any;
   responseData: any;
@@ -58,7 +62,8 @@ export class HelloIonicPage implements OnInit{
     public menu: MenuController,
     public geolocation: Geolocation,
     public platform: Platform,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    public storage: Storage
   ) {
     const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.userData;
@@ -187,6 +192,9 @@ ionViewWillEnter(){
 //localizar posicion actual del usuario
 initPage()
 {
+  //ver la ubicacion de los taxistas
+
+  //fin ver la ubicacion de los taxistas
 
   let options = {
     frecuency: 3000,
@@ -194,8 +202,16 @@ initPage()
   }
     this.geolocation.getCurrentPosition(options).then(result => {
       this.createMap(result.coords.latitude, result.coords.longitude);
-      console.log(result.coords.latitude);
-      console.log(result.coords.longitude); 
+      console.log('Lat user', result.coords.latitude);
+      console.log('Lon user', result.coords.longitude); 
+
+      this.storage.get('coords_lat').then((val) => {
+        console.log('Latitud conductor: ', val);
+      })
+      this.storage.get('coords_lon').then((val) => {
+        console.log('Longitud conductor: ', val);
+      })
+
 
       let watch = this.geolocation.watchPosition(options)
         .filter((p: any) => p.code === undefined)

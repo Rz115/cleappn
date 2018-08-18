@@ -8,6 +8,7 @@ import { LoginPage } from '../login/login';
 //mapa
 import { GoogleMaps, GoogleMap, MyLocation, Marker, GoogleMapsAnimation } from '@ionic-native/google-maps';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
+import { Storage } from '@ionic/storage';
 declare var google: any;
 @IonicPage()
 @Component({
@@ -35,8 +36,11 @@ export class HomeconductorPage implements OnInit{
   latDest = 20.972594;
   longDest = -89.597;
 
+  public latitud_conductor;
+  public longitud_conductor;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, private menu: MenuController, public geolocation: Geolocation,
-    public platform: Platform) {
+    public platform: Platform, public storage: Storage) {
   }
 
   ionViewDidEnter(){
@@ -86,17 +90,30 @@ export class HomeconductorPage implements OnInit{
       this.initPage();
     })
   }
+
+
   //localizar posicion actual del usuario
-  initPage() {
+  public initPage() {
 
     let options = {
       frecuency: 3000,
       enableHighAccuracy: true
     }
     this.geolocation.getCurrentPosition(options).then(result => {
-      this.createMap(result.coords.latitude, result.coords.longitude);
-      console.log(result.coords.latitude);
-      console.log(result.coords.longitude);
+      this.createMap(result.coords.latitude, result.coords.longitude);      
+       this.latitud_conductor = result.coords.latitude;
+       this.longitud_conductor = result.coords.longitude;
+      
+      
+      this.storage.set('coords_lat', this.latitud_conductor);
+      this.storage.get('coords_lat').then((val) =>{
+        console.log('Latitud conductor: ', val);
+      })
+      this.storage.set('coords_lon', this.longitud_conductor);
+      this.storage.get('coords_lon').then((val) => {
+        console.log('Longitud conductor: ',val);
+      })
+
 
       let watch = this.geolocation.watchPosition(options)
         .filter((p: any) => p.code === undefined)

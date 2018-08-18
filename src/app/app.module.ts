@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import { IonicStorageModule } from '@ionic/storage';
 
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 
@@ -45,6 +46,7 @@ import { EmailComposer } from '@ionic-native/email-composer';
   imports: [
     BrowserModule,
     HttpModule,
+    IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp,{
       scrollAssist: true,
       autoFocusAssist: true
@@ -83,7 +85,6 @@ import { EmailComposer } from '@ionic-native/email-composer';
     Geolocation,
     EmailComposer,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthServiceProvider,
     AuthServiceProvider
   ]
 })

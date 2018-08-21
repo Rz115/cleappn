@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { NavController, ToastController, Nav, MenuController, Platform, LoadingController } from 'ionic-angular';
+import { NavController, ToastController, Nav, MenuController, Platform, LoadingController, NavParams } from 'ionic-angular';
 import { ProcesandoServicioPage } from '../procesando-servicio/procesando-servicio';
 //importamos el modulo para conectar y hacer la autenticación
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
@@ -55,6 +55,7 @@ export class HelloIonicPage implements OnInit{
   longDest = -89.597;
 
   userPostData = {"user_id":"","token":""};
+  userid: number
 
   constructor(public navCtrl: NavController,
     public authService:AuthServiceProvider,
@@ -63,7 +64,8 @@ export class HelloIonicPage implements OnInit{
     public geolocation: Geolocation,
     public platform: Platform,
     public loadingCtrl: LoadingController,
-    public storage: Storage
+    public storage: Storage,
+    public navParams: NavParams
   ) {
     const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.userData;
@@ -324,8 +326,10 @@ ngOnInit() {
 //PAGINAS DEL MENU
 
 //PAGINA DE PERFIL
-perfil(){
-  this.navCtrl.push(PerfilusuarioPage);
+perfil(iduser: number){
+  this.userid = this.userDetails.user_id;
+  
+  this.navCtrl.push(PerfilusuarioPage, {"userid": iduser,"userDetails": this.userDetails });
   this.menu.close();
 }
 

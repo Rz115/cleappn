@@ -251,50 +251,19 @@ ngOnInit() {
     let mapEl = document.getElementById('map');
     this.map = new google.maps.Map(mapEl, mapOptions);
 
+    //icono del usuario
     let marker = new google.maps.Marker({
       title: 'Posición actual',
       position: location,
-      icons: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+      icon: '../../assets/img/marker.png'
     })
     
-    let content = '<div id="myId" class="item item-thumbnail-left item-text-wrap"><ion-item><ion-row><h6>'+ marker.title +'</h6><h6>'+ marker.position +'</h6></ion-row></ion-item></ion-item></div>'
+    let content = '<div id="myId" class="item item-thumbnail-left item-text-wrap"><ion-item><ion-row><h6>'+ marker.title +'</h6><h6>'+ marker.position + '</h6></ion-row></ion-item></ion-item></div>'
 
     this.addInfoWindow(marker, content);
     marker.setMap(this.map);
   }
-  loadPoints() {
-    this.markers = [];
-    for (const key of Object.keys(this.conductores)) {
-      let latLng = new google.maps.LatLng(this.conductores[key].lng);
-      let marker = new google.maps.Marker({
-        position: latLng,
-        title: this.conductores[key].name
-      })
-      let content = `
-          <div id="myId" class="item item-thumbnail-left item-text-wrap">
-            <ion-item>
-              <ion-row>
-                <h6> `+ this.conductores[key].name + `</h6>
-              </ion-row>
-            </ion-item>
-          </div>
-        `
-      this.addInfoWindow(marker, content);
-      marker.setMap(this.map);
-    }
-  }
-  addMarker() {
 
-    let marker = new google.maps.Marker({
-      map: this.map,
-      animation: google.maps.Animation.DROP,
-      icons: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
-    });
-
-    let content = "<h4>Información!</h4>";
-    this.addInfoWindow(marker, content);
-
-  }
 
   addInfoWindow(marker, content) {
     let infoWindow = new google.maps.InfoWindow({
@@ -307,6 +276,8 @@ ngOnInit() {
 
   }
 
+
+  
   //pasar a pantalla para solicitar servicio
   contratarservicio() {
     this.navCtrl.push(ProcesandoServicioPage);

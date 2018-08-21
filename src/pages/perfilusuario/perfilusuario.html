@@ -36,7 +36,9 @@
           <ion-label>
             <ion-icon name="contact"></ion-icon>
           </ion-label>
-          <ion-input type="text" value="" placeholder="Nombre completo:" [disabled]="ocultar1"></ion-input>
+          <ion-input type="text" value="{{userDetails.username}}" placeholder="Nombre completo:"
+           [disabled]="ocultar1"
+           ></ion-input>
         </ion-item>
       </ion-card-content>
     </ion-card>
@@ -50,12 +52,13 @@
           <ion-label>
             <ion-icon name="mail"></ion-icon>
           </ion-label>
-          <ion-input type="text" value="" placeholder="Correo:" [disabled]="ocultar2"></ion-input>
+          <ion-input type="text" value="{{userDetails.email}}" placeholder="Correo:" [disabled]="ocultar2"
+           ></ion-input>
         </ion-item>
       </ion-card-content>
     </ion-card>
 
-    <ion-card>
+    <!--<ion-card>
       <ion-card-header>
         Contraseña:
       </ion-card-header>
@@ -64,10 +67,11 @@
           <ion-label>
             <ion-icon name="key"></ion-icon>
           </ion-label>
-          <ion-input type="password" value="" placeholder="Contraseña:" [disabled]="ocultar3"></ion-input>
+          <ion-input type="password" value="{{userDetails.password}}" placeholder="Contraseña:" 
+          [disabled]="ocultar3" ></ion-input>
         </ion-item>
       </ion-card-content>
-    </ion-card>
+    </ion-card>-->
 
     <ion-card>
       <ion-card-header>
@@ -78,7 +82,8 @@
           <ion-label>
             <ion-icon name="pin"></ion-icon>
           </ion-label>
-          <ion-textarea type="text" value="" placeholder="Lugar que frecuentas:" [disabled]="ocultar4"></ion-textarea>
+          <ion-textarea type="text" value="{{userDetails.ubication}}" placeholder="Lugar que frecuentas:" 
+          [disabled]="ocultar4"  ></ion-textarea>
         </ion-item>
       </ion-card-content>
     </ion-card>
@@ -89,13 +94,14 @@
 
   <br>
   <ion-row>
-    <ion-col>
+  <!--  <ion-col>
       <p align="left" style="color: red;">
         <span>Eliminar cuenta</span>
       </p>
-    </ion-col>
-    <ion-col>
-      <button ion-button small align="right" color="primary" [disabled]="ocultar5" (click)="guardar()">Guardar Cambios</button>
+    </ion-col>-->
+    <ion-col align="center">
+      <button ion-button small align="right" color="primary" [disabled]="ocultar5"
+       (click)="guardar()">Guardar Cambios</button>
     </ion-col>
 
   </ion-row>

@@ -39,7 +39,7 @@ export class PerfilusuarioPage {
   ngOnInit(){
     this.userDetails = this.navParams.get('userDetails')
    // this.userid = this.navParams.get('userid')
-    console.log(this.userDetails );
+    console.log(this.userDetails.userid );
   }
 
 

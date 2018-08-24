@@ -3,7 +3,7 @@ import { NavController, ToastController, Nav, MenuController, Platform, LoadingC
 import { ProcesandoServicioPage } from '../procesando-servicio/procesando-servicio';
 //importamos el modulo para conectar y hacer la autenticación
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import {  GoogleMaps,GoogleMap, MyLocation, Marker, GoogleMapsAnimation } from '@ionic-native/google-maps';
+import { GoogleMaps, GoogleMap, MyLocation, Marker, GoogleMapsAnimation, MarkerOptions, LatLng, GoogleMapsEvent, CameraPosition } from '@ionic-native/google-maps';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 import 'rxjs/add/operator/filter';
 import { Observable } from 'rxjs/Observable';
@@ -34,16 +34,33 @@ export class HelloIonicPage implements OnInit{
   
 
   map: GoogleMap;
+  myPosition:any = {};
+  markers: any[] = [
+    {
+      position: {
+        latitude: 17.971698,
+        longitude: -102.223622
+      },
+      title: 'Hector',
+      icon: '../../assets/img/marker.png'
+    },
+    {
+      position: {
+        latitude: 17.973218,
+        longitude: -102.224910
+      },
+      title: 'Luis',
+      icon: '../../assets/img/marker.png'
+    },
+  ];
+
   userDetails : any;
   responseData: any;
 
   service: any;
-  markers: any;
-  conductores: [{
-    none: 'conductor Roque',
-    lat: 20.971294,
-    lng: -89.597
-  }]
+
+  longitud: any[];
+  latitud: any[];
 
   public lat: number = 20.971294;
   public lng: number = -89.597;
@@ -65,7 +82,8 @@ export class HelloIonicPage implements OnInit{
     public platform: Platform,
     public loadingCtrl: LoadingController,
     public storage: Storage,
-    public navParams: NavParams
+    public navParams: NavParams,
+    public googleMaps: GoogleMaps
   ) {
     const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.userData;
@@ -85,7 +103,11 @@ export class HelloIonicPage implements OnInit{
       });
     });
     this.isPickupRequested = false;
+  
+
 }
+
+
   calcRota(latDest, lngDest) {
     console.log(this.latOri)
     this.loadMap(this.latOri, this.longOri, parseFloat(latDest), parseFloat(lngDest));
@@ -184,7 +206,9 @@ export class HelloIonicPage implements OnInit{
   }
     //FIN CALCULO
 
-
+ionViewDidLoad(){
+  this.initPage();
+}
 ionViewWillEnter(){
   this.platform.ready().then(() => {
     this.initPage();
@@ -207,40 +231,40 @@ initPage()
       console.log('Lat user', result.coords.latitude);
       console.log('Lon user', result.coords.longitude); 
 
-      this.storage.get('coords_lat').then((val) => {
-        console.log('Latitud conductor: ', val);
-      })
-      this.storage.get('coords_lon').then((val) => {
-        console.log('Longitud conductor: ', val);
-      })
 
-
-      let watch = this.geolocation.watchPosition(options)
-        .filter((p: any) => p.code === undefined)
-        .subscribe((position: Geoposition) => {
-          let conductor = {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude
-          };
-          this.service.updateGeolocation(this.conductores.keys, conductor);
-          console.log(position.coords);
-          console.log(position.coords.longitude + ' ' + position.coords.latitude);
-        });
-      watch.unsubscribe();
+      
     }).catch((error) => {
-      console.log('Error al obtener dirección', error);
+      console.log(error);
     })  
 }
 
 ngOnInit() {
-
   this.map = GoogleMaps.create('map_canvas');
-  this.getLocation();
   this.presentToast();
+
+
+  this.authService.getData().subscribe(
+    data => {
+      this.latitud = data.consulta
+      console.log(this, this.latitud, "nueas latitud");
+    },
+    err => {
+      console.log(err)
+    }
+  );
+  this.authService.getData().subscribe(
+    data => {
+      this.longitud = data.consulta
+    },
+    err => {
+      console.log(err)
+    }
+  )
 
 }
 
   createMap(lat, lng) {
+    
     let location = new google.maps.LatLng(lat, lng);
 
     let mapOptions = {
@@ -260,14 +284,109 @@ ngOnInit() {
       icon: '../../assets/img/marker.png'
     })
     
-    let content = '<div id="myId" class="item item-thumbnail-left item-text-wrap"><ion-item><ion-row><h6>'+ marker.title +'</h6><h6>'+ marker.position + '</h6></ion-row></ion-item></ion-item></div>'
+    let content = '<div id="myId" class="item item-thumbnail-left item-text-wrap"><ion-item><ion-row><h6>'+ marker.title +'</h6><h6>' + '</h6></ion-row></ion-item></ion-item></div>'
+
+    
 
     this.addInfoWindow(marker, content);
     marker.setMap(this.map);
+
+    //carro 1
+    let markerOptions = new google.maps.Marker ({
+      position: new google.maps.LatLng(20.987488, -89.629035),
+      title: "",
+      icon: '../../assets/img/car-icons.png'
+    })
+
+    let contents = '<div id="myId" class="item item-thumbnail-left item-text-wrap"><ion-item><ion-row><h6>' + markerOptions.title + '</h6><h6>' + '</h6></ion-row></ion-item></ion-item></div>'
+    this.addInfoWindow(markerOptions, contents);
+    markerOptions.setMap(this.map);
+
+    //carro 2
+    let markerOptions2 = new google.maps.Marker({
+      position: new google.maps.LatLng(20.965047, -89.585261),
+      title: "",
+      icon: '../../assets/img/car-icons.png'
+    })
+
+
+    let contents2 = '<div id="myId" class="item item-thumbnail-left item-text-wrap"><ion-item><ion-row><h6>' + markerOptions2.title + '</h6><h6>' + '</h6></ion-row></ion-item></ion-item></div>'
+    this.addInfoWindow2(markerOptions2, contents2);
+    markerOptions2.setMap(this.map);
+
+
+    //carro 3
+    let markerOptions3 = new google.maps.Marker({
+      position: new google.maps.LatLng(20.978593, -89.597190),
+      title: "",
+      icon: '../../assets/img/car-icons.png'
+    })
+    let contents3 = '<div id="myId" class="item item-thumbnail-left item-text-wrap"><ion-item><ion-row><h6>' + markerOptions3.title + '</h6><h6>' + '</h6></ion-row></ion-item></ion-item></div>'
+    this.addInfoWindow3(markerOptions3, contents3);
+    markerOptions3.setMap(this.map);
+    
+    //carro 4
+    let markerOptions4 = new google.maps.Marker({
+      position: new google.maps.LatLng(20.974583, -89.652552),
+      title: "",
+      icon: '../../assets/img/car-icons.png'
+    })
+    let contents4 = '<div id="myId" class="item item-thumbnail-left item-text-wrap"><ion-item><ion-row><h6>' + markerOptions4.title + '</h6><h6>' + '</h6></ion-row></ion-item></ion-item></div>'
+    this.addInfoWindow4(markerOptions4, contents4);
+    markerOptions4.setMap(this.map);
+    
   }
 
+  addMarker(options) {
+    let mapOptions = {
+      position: (options.position.latitude, options.position.longitude),
+      title: options.title,
+      icon: options.icon
+    };
+    this.map.addMarker(mapOptions);
+  }
 
   addInfoWindow(marker, content) {
+    let infoWindow = new google.maps.InfoWindow({
+      content: content
+    })
+
+    google.maps.event.addListener(marker, 'click', () => {
+      infoWindow.open(this.map, marker);
+    })
+
+  }
+  addInfoWindow2(marker, content) {
+    let infoWindow = new google.maps.InfoWindow({
+      content: content
+    })
+
+    google.maps.event.addListener(marker, 'click', () => {
+      infoWindow.open(this.map, marker);
+    })
+
+  }
+  addInfoWindow3(marker, content) {
+    let infoWindow = new google.maps.InfoWindow({
+      content: content
+    })
+
+    google.maps.event.addListener(marker, 'click', () => {
+      infoWindow.open(this.map, marker);
+    })
+
+  }
+  addInfoWindow4(marker, content) {
+    let infoWindow = new google.maps.InfoWindow({
+      content: content
+    })
+
+    google.maps.event.addListener(marker, 'click', () => {
+      infoWindow.open(this.map, marker);
+    })
+
+  }
+  addInfosWindow(marker, content) {
     let infoWindow = new google.maps.InfoWindow({
       content: content
     })
@@ -287,28 +406,6 @@ ngOnInit() {
   }
   cancelarservicio() {
     this.isPickupRequested = false;
-  }
-  getLocation() {
-    // Obtener tu ubicacion
-    this.map.getMyLocation().then((location: MyLocation) => {
-      console.log(JSON.stringify(location, null, 2));
-
-      // Mover la camara con animacion
-      this.map.animateCamera({
-        target: location.latLng,
-        zoom: 17,
-        tilt: 30
-      }).then(() => {
-        let marker: Marker = this.map.addMarkerSync({
-          title: 'Tu ubicación',
-          snippet: 'Andadores',
-          position: location.latLng,
-          animation: GoogleMapsAnimation.BOUNCE
-        });
-
-        marker.showInfoWindow();
-      });
-    });
   }
 
   presentToast() {

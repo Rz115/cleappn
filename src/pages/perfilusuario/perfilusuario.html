@@ -37,7 +37,7 @@
             <ion-icon name="contact"></ion-icon>
           </ion-label>
           <ion-input type="text" value="{{userDetails.username}}" placeholder="Nombre completo:"
-           [disabled]="ocultar1"
+          [(ngModel)]="userPostData.username" [disabled]="ocultar1"
            ></ion-input>
         </ion-item>
       </ion-card-content>
@@ -52,7 +52,8 @@
           <ion-label>
             <ion-icon name="mail"></ion-icon>
           </ion-label>
-          <ion-input type="text" value="{{userDetails.email}}" placeholder="Correo:" [disabled]="ocultar2"
+          <ion-input type="text" value="{{userDetails.email}}" placeholder="Correo:" 
+          [(ngModel)]="userPostData.email" [disabled]="ocultar2"
            ></ion-input>
         </ion-item>
       </ion-card-content>
@@ -83,7 +84,7 @@
             <ion-icon name="pin"></ion-icon>
           </ion-label>
           <ion-textarea type="text" value="{{userDetails.ubication}}" placeholder="Lugar que frecuentas:" 
-          [disabled]="ocultar4"  ></ion-textarea>
+          [(ngModel)]="userPostData.ubication" [disabled]="ocultar4"  ></ion-textarea>
         </ion-item>
       </ion-card-content>
     </ion-card>

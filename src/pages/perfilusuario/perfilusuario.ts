@@ -13,7 +13,7 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
   templateUrl: 'perfilusuario.html',
 })
 export class PerfilusuarioPage {
-  responseData : any = [];
+  
 
   //LAS VARIABLES DE CADA INPUT AL ENTRAR SE DECLARAN COMO DESHABILITADAS
   ocultar1: boolean = true;
@@ -22,10 +22,12 @@ export class PerfilusuarioPage {
   ocultar4: boolean = true;
   ocultar5: boolean = true;
   ocultartodos: boolean = false;
-  userData: {"username": "","email": "", "ubication": ""};
-  userid: number;
-  userDetails: any;
+  
 
+  responseData : any = [];
+  userDetails: any;
+  userPostData = {"username":"","email":"","ubication":""};
+  ide: number;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public loadingCtrl: LoadingController,
@@ -33,21 +35,30 @@ export class PerfilusuarioPage {
     public menu: MenuController,
     public authService: AuthServiceProvider
   ) {
-  }
 
+    const data = JSON.parse(localStorage.getItem('userData'));
+    this.userDetails = data.userData;
+
+    //this.userPostData.user_id = this.userDetails.user_id;
+    //this.userPostData.token = this.userDetails.token;
+    this.userPostData.username = this.userDetails.username;
+    this.userPostData.email = this.userDetails.email;
+    this.userPostData.ubication = this.userDetails.ubication;
+    this.ide = this.userDetails.user_id;
+  
+  }
 
   ngOnInit(){
-    this.userDetails = this.navParams.get('userDetails')
+  //this.userDetails = this.navParams.get('userDetails')
    // this.userid = this.navParams.get('userid')
-    console.log(this.userDetails );
+    //console.log(this.userDetails );
+    console.log( this.userDetails);
   }
-
 
   ionViewDidEnter() {
     this.menu.swipeEnable(false);
   }
  
-
   guardar() {
     this.presentLoading();
     this.ReadData();
@@ -59,7 +70,6 @@ export class PerfilusuarioPage {
     this.ocultar5  = true;
 
   }
-
   presentLoading() {
     const loader = this.loadingCtrl.create({
       content: "Guardando Cambios...",
@@ -68,7 +78,6 @@ export class PerfilusuarioPage {
     loader.present();
 
   }
-
   presentAlert() {
     let alert = this.alertCtrl.create({
       title: 'Low battery',
@@ -77,7 +86,6 @@ export class PerfilusuarioPage {
     });
     alert.present();
   }
-
   acciontodos() {
 
     if (this.ocultartodos === false) {
@@ -101,23 +109,26 @@ export class PerfilusuarioPage {
   }
 
   ReadData(){
-    this.authService.postData(this.userData,'loaddata').then((result) => {
-     this.responseData = result;
-     if(this.responseData.userData){
-     console.log(this.responseData);
-     localStorage.setItem('userData', JSON.stringify(this.responseData));
-     
-     }
-     else{ console.log("No se pueden cargar los datos "); 
+    if (this.ide) { 
+    this.authService.postData(this.userPostData,'loaddata').then((result) => {
+      this.responseData = result;
+      if(this.responseData.userPostData){
+      console.log(this.responseData);
     
   }
-   }, (err) => {
-     // Error log
-   });
+  else{ console.log("Datos incorrectos"); 
 
-  } 
+}
+}, (err) => {
+  // Error log
+});
+} else {
+  console.log("No");
+}
 
-
+}
+ 
+  
 
 
 

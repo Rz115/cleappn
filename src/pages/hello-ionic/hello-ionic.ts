@@ -54,7 +54,7 @@ export class HelloIonicPage implements OnInit{
   latDest = 20.972594;
   longDest = -89.597;
 
-  userPostData = {"user_id":"","token":""};
+  userPostData = {"user_id":"","token":"", "username":"","email":""};
   userid: number
 
   constructor(public navCtrl: NavController,
@@ -326,10 +326,10 @@ ngOnInit() {
 //PAGINAS DEL MENU
 
 //PAGINA DE PERFIL
-perfil(iduser: number){
-  this.userid = this.userDetails.user_id;
+perfil(){
   
-  this.navCtrl.push(PerfilusuarioPage, {"userid": iduser,"userDetails": this.userDetails });
+  
+  this.navCtrl.push(PerfilusuarioPage, {"userDetails": this.userDetails });
   this.menu.close();
 }
 

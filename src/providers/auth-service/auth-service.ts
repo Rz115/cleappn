@@ -4,18 +4,20 @@ import 'rxjs/add/operator/map';
 
 let apiUrl = "https://devector.com.mx/PHP-Slim-Restful/api/";
 
-/*
-  Generated class for the AuthServiceProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class AuthServiceProvider {
+  
+  private url: string 
 
   constructor(public http: Http) {
+    this.url = "https://devector.com.mx/PHP-Slim-Restful/api/";
     console.log('Hello AuthServiceProvider Provider');
   }
+
+  getData() {
+    return this.http.get(apiUrl + "/coordenadas.php?action=getlatitud").map(res => res.json())
+  }
+  
 
   postData(credentials, type) {
     return new Promise((resolve, reject) => {

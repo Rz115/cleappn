@@ -135,7 +135,7 @@ export class HelloIonicPage implements OnInit{
       console.log("resultado resta lat" , this.latresult)
       console.log("resultado resta lon", this.lonresult)
 
-      //meter parametro para calcular distancia entre usuario y conductor
+      //meter parametro para calcular distancia entre usuario y conductor 
       this.loadMap(this.latOri, this.longOri, (17.969148), (-102.221693)); 
 
     }).catch((error) => {

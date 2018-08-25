@@ -14,8 +14,11 @@ export class AuthServiceProvider {
     console.log('Hello AuthServiceProvider Provider');
   }
 
-  getData() {
-    return this.http.get(apiUrl+"getlatitud").map(res => res.json())
+  getcoordenadas1() {
+    return this.http.get(apiUrl+"getcoordenadasuno").map(res => res.json())
+  }
+  getcoordenadas2() {
+    return this.http.get(apiUrl+"getcoordenadasdos").map(res => res.json())
   }
 
   getusuario() {

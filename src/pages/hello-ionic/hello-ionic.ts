@@ -65,6 +65,7 @@ export class HelloIonicPage implements OnInit{
   longitud: any[];
   latitud: any[];
   coordenadas1: any[];
+  coordenadas2: any[];
 
   public lat: number = 20.971294;
   public lng: number = -89.597;
@@ -428,27 +429,30 @@ initPage()
     this.presentToast();
     document.getElementById("right-panel").hidden = true;
 
-    this.authService.getData().subscribe(
+    this.authService.getcoordenadas1().subscribe(
       data => {
-        this.latitud = data.consulta
-        console.log(this, this.latitud, "nueas latitud");
+        this.coordenadas1 = data.feedData
+        console.log(this.coordenadas1, "coordenadas chofer id = uno");
       },
       err => {
         console.log(err)
       }
     );
-    this.authService.getData().subscribe(
+
+    this.authService.getcoordenadas2().subscribe(
       data => {
-        this.longitud = data.consulta
+        this.coordenadas2 = data.feedDatas
+        console.log(this.coordenadas2, "coordenadas chofer id = dos");
       },
       err => {
         console.log(err)
       }
-    )
+    );
+    
 
   }
   
-
+  
   presentToast() {
     const toast = this.toastCtrl.create({
       message: 'Bienvenido' + " " + this.userDetails.name,

@@ -23,7 +23,7 @@ export class PerfilusuarioPage {
   ocultar5: boolean = true;
   ocultartodos: boolean = false;
   
-
+  categorys: any = [];
   responseData : any = [];
   userDetails: any;
   userPostData = {"username":"","email":"","ubication":""};
@@ -52,7 +52,18 @@ export class PerfilusuarioPage {
   //this.userDetails = this.navParams.get('userDetails')
    // this.userid = this.navParams.get('userid')
     //console.log(this.userDetails );
-    console.log( this.userDetails);
+    //console.log(this.ide);
+    this.authService.getusuario().subscribe(
+      data => {
+        this.categorys = data.feedDatas;
+        console.log(this.categorys);
+      },
+      err => {
+        console.log(err)
+      }
+    )
+    
+    
   }
 
   ionViewDidEnter() {
@@ -109,7 +120,7 @@ export class PerfilusuarioPage {
   }
 
   ReadData(){
-    if (this.ide) { 
+    if (this.ide == this.categorys.user_id) { 
     this.authService.postData(this.userPostData,'loaddata').then((result) => {
       this.responseData = result;
       if(this.responseData.userPostData){

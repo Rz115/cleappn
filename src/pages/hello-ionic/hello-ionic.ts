@@ -61,6 +61,7 @@ export class HelloIonicPage implements OnInit{
 
   longitud: any[];
   latitud: any[];
+  coordenadas1: any[];
 
   public lat: number = 20.971294;
   public lng: number = -89.597;
@@ -242,19 +243,11 @@ ngOnInit() {
   this.map = GoogleMaps.create('map_canvas');
   this.presentToast();
 
-
   this.authService.getData().subscribe(
     data => {
-      this.latitud = data.consulta
-      console.log(this, this.latitud, "nueas latitud");
-    },
-    err => {
-      console.log(err)
-    }
-  );
-  this.authService.getData().subscribe(
-    data => {
-      this.longitud = data.consulta
+      this.coordenadas1 = data.feedData
+      
+      console.log(this.coordenadas1);
     },
     err => {
       console.log(err)

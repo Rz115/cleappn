@@ -64,6 +64,7 @@ export class HelloIonicPage implements OnInit{
 
   longitud: any[];
   latitud: any[];
+  coordenadas1: any[];
 
   public lat: number = 20.971294;
   public lng: number = -89.597;
@@ -75,7 +76,7 @@ export class HelloIonicPage implements OnInit{
   latresult: any;
   lonresult: any;
 
-  userPostData = {"user_id":"","token":""};
+  userPostData = {"user_id":"","token":"", "username":"","email":""};
   userid: number
 
   constructor(public navCtrl: NavController,
@@ -462,10 +463,10 @@ initPage()
 //PAGINAS DEL MENU
 
 //PAGINA DE PERFIL
-perfil(iduser: number){
-  this.userid = this.userDetails.user_id;
+perfil(){
   
-  this.navCtrl.push(PerfilusuarioPage, {"userid": iduser,"userDetails": this.userDetails });
+  
+  this.navCtrl.push(PerfilusuarioPage, {"userDetails": this.userDetails });
   this.menu.close();
 }
 

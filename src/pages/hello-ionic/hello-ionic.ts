@@ -65,7 +65,6 @@ export class HelloIonicPage implements OnInit{
   longitud: any[];
   latitud: any[];
   coordenadas1: any[];
-  coordenadas2: any[];
 
   public lat: number = 20.971294;
   public lng: number = -89.597;
@@ -136,7 +135,7 @@ export class HelloIonicPage implements OnInit{
       console.log("resultado resta lat" , this.latresult)
       console.log("resultado resta lon", this.lonresult)
 
-      //meter parametro para calcular distancia entre usuario y conductor
+
       this.loadMap(this.latOri, this.longOri, (17.969148), (-102.221693)); 
 
     }).catch((error) => {
@@ -289,7 +288,6 @@ initPage()
     })  
 }
 
-
   createMap(lat, lng) {
     
     let location = new google.maps.LatLng(lat, lng);
@@ -429,30 +427,27 @@ initPage()
     this.presentToast();
     document.getElementById("right-panel").hidden = true;
 
-    this.authService.getcoordenadas1().subscribe(
+    this.authService.getData().subscribe(
       data => {
-        this.coordenadas1 = data.feedData
-        console.log(this.coordenadas1, "coordenadas chofer id = uno");
+        this.latitud = data.consulta
+        console.log(this, this.latitud, "nueas latitud");
       },
       err => {
         console.log(err)
       }
     );
-
-    this.authService.getcoordenadas2().subscribe(
+    this.authService.getData().subscribe(
       data => {
-        this.coordenadas2 = data.feedDatas
-        console.log(this.coordenadas2, "coordenadas chofer id = dos");
+        this.longitud = data.consulta
       },
       err => {
         console.log(err)
       }
-    );
-    
+    )
 
   }
   
-  
+
   presentToast() {
     const toast = this.toastCtrl.create({
       message: 'Bienvenido' + " " + this.userDetails.name,

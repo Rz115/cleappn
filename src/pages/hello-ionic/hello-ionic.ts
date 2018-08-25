@@ -34,6 +34,9 @@ export class HelloIonicPage implements OnInit{
   
 
   map: GoogleMap;
+
+  activarServicio: boolean = false;
+
   myPosition:any = {};
   markers: any[] = [
     {
@@ -65,11 +68,12 @@ export class HelloIonicPage implements OnInit{
   public lat: number = 20.971294;
   public lng: number = -89.597;
 
-  latOri = 20.971294;
-  longOri = -89.597;
-
-  latDest = 20.972594;
-  longDest = -89.597;
+  latOri: any;
+  longOri: any;
+  latDest: any;
+  longDest: any;
+  latresult: any;
+  lonresult: any;
 
   userPostData = {"user_id":"","token":""};
   userid: number
@@ -109,8 +113,34 @@ export class HelloIonicPage implements OnInit{
 
 
   calcRota(latDest, lngDest) {
-    console.log(this.latOri)
-    this.loadMap(this.latOri, this.longOri, parseFloat(latDest), parseFloat(lngDest));
+    this.isPickupRequested = true;
+    let options = {
+      frecuency: 3000,
+      enableHighAccuracy: true
+    }
+    this.geolocation.getCurrentPosition(options).then(result => {
+      this.createMap(result.coords.latitude, result.coords.longitude);
+      this.latOri = result.coords.latitude;
+      this.longOri = result.coords.longitude
+      
+      
+      for(var i = 0; i<= 15; i++){
+        this.latresult = this.latOri - 17.969148
+        this.lonresult = (this.longOri) - ((-102.221693)) 
+        console.log("resultado resta lat", this.latresult)
+        console.log("resultado resta lon", this.lonresult)
+      }
+
+      console.log("resultado resta lat" , this.latresult)
+      console.log("resultado resta lon", this.lonresult)
+
+
+      this.loadMap(this.latOri, this.longOri, (17.969148), (-102.221693)); 
+
+    }).catch((error) => {
+      console.log(error);
+    })
+
   }
 
   //INICIO CALCULO...calculo de distancia, mostrar marca de distancia, mostrar origen y destino
@@ -124,10 +154,6 @@ export class HelloIonicPage implements OnInit{
     var origin1 = { lat: parseFloat(latOri), lng: parseFloat(lngOri) };
     var destinationA = { lat: latDest, lng: lngDest };
 
-    var destinationIcon = 'https://chart.googleapis.com/chart?' +
-      'chst=d_map_pin_letter&chld=D|FF0000|000000';
-    var originIcon = 'https://chart.googleapis.com/chart?' +
-      'chst=d_map_pin_letter&chld=O|FFFF00|000000';
     var map = new google.maps.Map(document.getElementById('map'), {
       center: { lat: latOri, lng: lngOri },
       zoom: 100
@@ -153,6 +179,9 @@ export class HelloIonicPage implements OnInit{
         outputDiv.innerHTML = '';
         deleteMarkers(markersArray);
 
+        var destinationIcon = '../../assets/img/marker.png';
+        var originIcon = '../../assets/img/car-icons.png';
+
         var showGeocodedAddressOnMap = function (asDestination) {
           var icon = asDestination ? destinationIcon : originIcon;
           return function (results, status) {
@@ -164,7 +193,7 @@ export class HelloIonicPage implements OnInit{
                 icon: icon
               }));*/
             } else {
-              alert('Geocode was not successful due to: ' + status);
+              alert('Dirección erronea: ' + status);
             }
           };
         };
@@ -177,11 +206,11 @@ export class HelloIonicPage implements OnInit{
           if (status === 'OK') {
             directionsDisplay.setDirections(response);
           } else {
-            window.alert('Directions request failed due to ' + status);
+            window.alert('Dirección erronea ' + status);
           }
         });
 
-
+        
         for (var i = 0; i < originList.length; i++) {
           var results = response.rows[i].elements;
           geocoder.geocode({ 'address': originList[i] },
@@ -189,9 +218,13 @@ export class HelloIonicPage implements OnInit{
           for (var j = 0; j < results.length; j++) {
             geocoder.geocode({ 'address': destinationList[j] },
               showGeocodedAddressOnMap(true));
-            outputDiv.innerHTML += 'DE: ' + originList[i] + ' || PARA: ' + destinationList[j] +
-              '|| DISTANCIA: ' + results[j].distance.text + ' TIEMPO ' +
-              results[j].duration.text + '<br>';
+            outputDiv.innerHTML += '<div id="myId" class="item item-thumbnail-left item-text-wrap"><ion-item> Posicion actual: ' + originList[i] + ' <br>Posición conductor: ' + destinationList[j] +
+              '<br>Distancia: ' + results[j].distance.text + ' <br>Tiempo de llegada' +
+              results[j].duration.text + '</ion-item></div>'
+              
+              //condicional para detectar el que taxi que esté más cerca
+                console.log("distancia", results[j].distance.value)
+            ;
           }
         }
       }
@@ -205,10 +238,29 @@ export class HelloIonicPage implements OnInit{
     }
   }
     //FIN CALCULO
+  //pasar a pantalla para solicitar servicio
+  contratarservicio(activarServicio: boolean) {
+    this.navCtrl.push(ProcesandoServicioPage);
+    this.isPickupRequested = true;
+    if(activarServicio == true){
+      
+    }
+  }
+  cancelarservicio() {    
+    this.ionViewWillEnter();
+    this.isPickupRequested = false;
+  }
 
-ionViewDidLoad(){
-  this.initPage();
-}
+  presentToastservicio() {
+    const toast = this.toastCtrl.create({
+      message: 'Bienvenido' + " " + this.userDetails.name,
+      duration: 4000
+    });
+    toast.onDidDismiss(this.dismissHandler);
+    toast.present();
+  }
+
+
 ionViewWillEnter(){
   this.platform.ready().then(() => {
     this.initPage();
@@ -218,10 +270,7 @@ ionViewWillEnter(){
 //localizar posicion actual del usuario
 initPage()
 {
-  //ver la ubicacion de los taxistas
-
-  //fin ver la ubicacion de los taxistas
-
+  this.isPickupRequested = false;
   let options = {
     frecuency: 3000,
     enableHighAccuracy: true
@@ -236,31 +285,6 @@ initPage()
     }).catch((error) => {
       console.log(error);
     })  
-}
-
-ngOnInit() {
-  this.map = GoogleMaps.create('map_canvas');
-  this.presentToast();
-
-
-  this.authService.getData().subscribe(
-    data => {
-      this.latitud = data.consulta
-      console.log(this, this.latitud, "nueas latitud");
-    },
-    err => {
-      console.log(err)
-    }
-  );
-  this.authService.getData().subscribe(
-    data => {
-      this.longitud = data.consulta
-    },
-    err => {
-      console.log(err)
-    }
-  )
-
 }
 
   createMap(lat, lng) {
@@ -284,7 +308,7 @@ ngOnInit() {
       icon: '../../assets/img/marker.png'
     })
     
-    let content = '<div id="myId" class="item item-thumbnail-left item-text-wrap"><ion-item><ion-row><h6>'+ marker.title +'</h6><h6>' + '</h6></ion-row></ion-item></ion-item></div>'
+    let content = '<div id="myId" class="item item-thumbnail-left item-text-wrap"><ion-item><ion-row><h6>'+ marker.title +'</h6><h6>' + marker.position + '</h6></ion-row></ion-item></ion-item></div>'
 
     
 
@@ -397,16 +421,31 @@ ngOnInit() {
 
   }
 
+  ngOnInit() {
+    this.map = GoogleMaps.create('map_canvas');
+    this.presentToast();
+    document.getElementById("right-panel").hidden = true;
 
+    this.authService.getData().subscribe(
+      data => {
+        this.latitud = data.consulta
+        console.log(this, this.latitud, "nueas latitud");
+      },
+      err => {
+        console.log(err)
+      }
+    );
+    this.authService.getData().subscribe(
+      data => {
+        this.longitud = data.consulta
+      },
+      err => {
+        console.log(err)
+      }
+    )
+
+  }
   
-  //pasar a pantalla para solicitar servicio
-  contratarservicio() {
-    this.navCtrl.push(ProcesandoServicioPage);
-    this.isPickupRequested = true;
-  }
-  cancelarservicio() {
-    this.isPickupRequested = false;
-  }
 
   presentToast() {
     const toast = this.toastCtrl.create({

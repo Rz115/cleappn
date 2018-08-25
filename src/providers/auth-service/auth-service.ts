@@ -14,12 +14,25 @@ export class AuthServiceProvider {
     console.log('Hello AuthServiceProvider Provider');
   }
 
-  getcoordenadas1() {
-    return this.http.get(apiUrl+"getcoordenadasuno").map(res => res.json())
+  /*             COORDENADAS TAXISTA UNO                       */ 
+  getlongitud1() {
+    return this.http.get(apiUrl+"getlongituduno").map(res => res.json())
   }
-  getcoordenadas2() {
-    return this.http.get(apiUrl+"getcoordenadasdos").map(res => res.json())
+  getlatitud1() {
+    return this.http.get(apiUrl+"getlatituduno").map(res => res.json())
   }
+
+  /*             COORDENADAS TAXISTA DOS                      */ 
+  getlongitud2() {
+    return this.http.get(apiUrl+"getlongituddos").map(res => res.json())
+  }
+  getlatitud2() {
+    return this.http.get(apiUrl+"getlatituddos").map(res => res.json())
+  }
+
+getData(){
+  return this.http.get(apiUrl+"getlatituddos").map(res => res.json())
+}
 
   getusuario() {
     return this.http.get(apiUrl+"getDatosUsuario").map(res => res.json())

@@ -68,14 +68,22 @@
     <ion-col width-50>
       <button ion-button [hidden]="isPickupRequested" block primary  large block light (click)="calcRota(latDest, longDest)" class="botoncontratar">Contratar servicio</button>
       <button ion-button [hidden]="!isPickupRequested" block secondary  large block light (click)="cancelarservicio()" class="botoncontratar">Cancelar servicio</button>
+      
+
+
     </ion-col>
   </ion-row>
 
     <ion-row>
       <ion-col>
         <ion-icon name="arrow-right"></ion-icon>
-           Antes de contratar nuestros servicios por favor completa tu información de forma de pagode tu perfil
-      </ion-col>
+           Antes de contratar nuestros servicios por favor completa tu información de forma de pago de tu perfil
+          <ion-list>
+              <ion-item *ngFor="let lat of data">
+              <p>{{lat.latitud}}</p>
+            </ion-item>
+          </ion-list>
+        </ion-col>
     </ion-row>
 </div>
 
@@ -104,13 +112,13 @@
             <div>
               <ion-badge  class="badgeDestino">Destino</ion-badge>
             </div>
+
             <ion-item>
-              <ion-input [(ngModel)]="latDest" type="text" placeholder="Latitude Destino" clearInput clearOnEdit="false">
-              </ion-input>
+              <ion-input [(ngModel)]="latDest" type="text" placeholder="Latitude Destino" clearInput clearOnEdit="false"></ion-input>
             </ion-item>
+            
             <ion-item>
-              <ion-input [(ngModel)]="longDest" type="text" placeholder="Longitude Destino" clearInput clearOnEdit="false">
-              </ion-input>
+              <ion-input [(ngModel)]="longDest" type="text" placeholder="Longitude Destino" clearInput clearOnEdit="false"></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>

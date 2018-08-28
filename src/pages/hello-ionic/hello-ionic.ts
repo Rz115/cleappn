@@ -21,6 +21,7 @@ declare var google: any;
 @Component({
   selector: 'page-hello-ionic',
   templateUrl: 'hello-ionic.html',
+  providers: [AuthServiceProvider]
 
 
 })
@@ -71,8 +72,9 @@ export class HelloIonicPage implements OnInit{
 
   latOri: any;
   longOri: any;
-  latDest: any;
-  longDest: any;
+  latDest: any = [];
+  longDest: any = [];
+  datasCollection: any[];
   latresult: any;
   lonresult: any;
 
@@ -90,23 +92,16 @@ export class HelloIonicPage implements OnInit{
     public navParams: NavParams,
     public googleMaps: GoogleMaps
   ) {
+    this.getCoordsDriver();
     const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.userData;
+
+
 
     this.userPostData.user_id = this.userDetails.user_id;
     this.userPostData.token = this.userDetails.token;
 
-    //alerta para activar el gps
-    this.platform.ready().then(() => {
-      this.geolocation.getCurrentPosition().then(result => {
-        console.log('1' + result.coords.latitude)
-        this.latOri = result.coords.latitude;
-        this.latDest = result.coords.longitude;
-      }).catch(function (e) {
-        console.log('2-error')
-        alert('GPS desactivado. Active por favor')
-      });
-    });
+
     this.isPickupRequested = false;
   
 
@@ -128,23 +123,32 @@ export class HelloIonicPage implements OnInit{
       for(var i = 0; i<= 15; i++){
         this.latresult = this.latOri - 17.969148
         this.lonresult = (this.longOri) - ((-102.221693)) 
-        console.log("resultado resta lat", this.latresult)
-        console.log("resultado resta lon", this.lonresult)
       }
 
-      console.log("resultado resta lat" , this.latresult)
-      console.log("resultado resta lon", this.lonresult)
+      //const data = JSON.parse(localStorage.getItem('userData'));
+      //this.userDetails = data.userData;
+      const latdata = JSON.parse(localStorage.getItem('latDest'));
+      var latPrueba = latdata.feedDatas
+      var latprueba1 = latPrueba.latitud
 
-      
+      const longdata = JSON.parse(localStorage.getItem('longDest'));
+      var longPrueba = longdata.feedDatas
+      var longprueba1 = longPrueba.longitud
+
+      console.log(latprueba1, "latitudsdasd onda")
+      console.log(longprueba1, "longituddfsdifud vital")
+
+      this.loadMap(this.latOri, this.longOri, (17.972548), (-102.229821)); 
 
       //meter parametro para calcular distancia entre usuario y conductor 
-      this.loadMap(this.latOri, this.longOri, (17.969148), (-102.221693)); 
+      //this.loadMap(this.latOri, this.longOri, (this.latDest[0]), (this.longDest[0])); 
 
     }).catch((error) => {
       console.log(error);
     })
 
   }
+  
 
   //INICIO CALCULO...calculo de distancia, mostrar marca de distancia, mostrar origen y destino
   private loadMap(latOri, lngOri, latDest, lngDest) {
@@ -264,31 +268,60 @@ export class HelloIonicPage implements OnInit{
   }
 
 
-ionViewWillEnter(){
-  this.platform.ready().then(() => {
-    this.initPage();
-  })
-}
-
-//localizar posicion actual del usuario
-initPage()
-{
-  this.isPickupRequested = false;
-  let options = {
-    frecuency: 3000,
-    enableHighAccuracy: true
+  ionViewWillEnter(){
+    this.platform.ready().then(() => {
+      this.initPage();
+    })
   }
-    this.geolocation.getCurrentPosition(options).then(result => {
-      this.createMap(result.coords.latitude, result.coords.longitude);
-      console.log('Lat user', result.coords.latitude);
-      console.log('Lon user', result.coords.longitude); 
+
+  //localizar posicion actual del usuario
+  initPage()
+  {
+    this.isPickupRequested = false;
+    let options = {
+      frecuency: 3000,
+      enableHighAccuracy: true
+    }
+      this.geolocation.getCurrentPosition(options).then(result => {
+        this.createMap(result.coords.latitude, result.coords.longitude);
+        console.log('Lat user', result.coords.latitude);
+        console.log('Lon user', result.coords.longitude); 
 
 
+        
+      }).catch((error) => {
+        console.log(error);
+      })  
+  }
+
+  ngOnInit() {
+    this.map = GoogleMaps.create('map_canvas');
+    this.presentToast();
+    document.getElementById("right-panel").hidden = true;
+    this.getCoordsDriver();
+  }
+
+   async getCoordsDriver(){
+
+    await this.authService.getlatitud1()
+      .subscribe(data => {
+      this.latDest = data   
       
-    }).catch((error) => {
-      console.log(error);
-    })  
-}
+      localStorage.setItem('latDest', JSON.stringify(this.latDest));
+    }, err => {
+      console.log(err)
+    }
+    )
+    this.authService.getlongitud1().subscribe(data => 
+      {
+        this.longDest = data
+        localStorage.setItem('longDest', JSON.stringify(this.longDest));
+      })
+     for(let i = 0; i<= this.latDest.length; i++){
+       this.latitud = this.latDest.latitud
+       console.log(this.latitud[i] + "px")
+     }
+  }
 
   createMap(lat, lng) {
     
@@ -423,32 +456,6 @@ initPage()
     })
 
   }
-
-  ngOnInit() {
-    this.map = GoogleMaps.create('map_canvas');
-    this.presentToast();
-    document.getElementById("right-panel").hidden = true;
-
-    this.authService.getData().subscribe(
-      data => {
-        this.latitud = data.consulta
-        console.log(this, this.latitud, "nueas latitud");
-      },
-      err => {
-        console.log(err)
-      }
-    );
-    this.authService.getData().subscribe(
-      data => {
-        this.longitud = data.consulta
-      },
-      err => {
-        console.log(err)
-      }
-    )
-
-  }
-  
 
   presentToast() {
     const toast = this.toastCtrl.create({

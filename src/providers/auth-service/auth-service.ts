@@ -30,10 +30,6 @@ export class AuthServiceProvider {
     return this.http.get(apiUrl+"getlatituddos").map(res => res.json())
   }
 
-getData(){
-  return this.http.get(apiUrl+"getlatituddos").map(res => res.json())
-}
-
   getusuario() {
     return this.http.get(apiUrl+"getDatosUsuario").map(res => res.json())
   }

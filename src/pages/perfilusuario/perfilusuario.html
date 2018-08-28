@@ -36,8 +36,8 @@
           <ion-label>
             <ion-icon name="contact"></ion-icon>
           </ion-label>
-          <ion-input type="text" value="{{userDetails.username}}" placeholder="Nombre completo:"
-          [(ngModel)]="userPostData.username" [disabled]="ocultar1"
+          <ion-input type="text" value="{{categorys.username}}" placeholder="Nombre completo:"
+          [(ngModel)]="actualizar.username" [disabled]="ocultar1"
            ></ion-input>
         </ion-item>
       </ion-card-content>
@@ -52,27 +52,12 @@
           <ion-label>
             <ion-icon name="mail"></ion-icon>
           </ion-label>
-          <ion-input type="text" value="{{userDetails.email}}" placeholder="Correo:" 
-          [(ngModel)]="userPostData.email" [disabled]="ocultar2"
+          <ion-input type="text" value="{{categorys.email}}" placeholder="Correo:" 
+          [(ngModel)]="actualizar.email" [disabled]="ocultar2"
            ></ion-input>
         </ion-item>
       </ion-card-content>
     </ion-card>
-
-    <!--<ion-card>
-      <ion-card-header>
-        Contraseña:
-      </ion-card-header>
-      <ion-card-content>
-        <ion-item>
-          <ion-label>
-            <ion-icon name="key"></ion-icon>
-          </ion-label>
-          <ion-input type="password" value="{{userDetails.password}}" placeholder="Contraseña:" 
-          [disabled]="ocultar3" ></ion-input>
-        </ion-item>
-      </ion-card-content>
-    </ion-card>-->
 
     <ion-card>
       <ion-card-header>
@@ -83,8 +68,8 @@
           <ion-label>
             <ion-icon name="pin"></ion-icon>
           </ion-label>
-          <ion-textarea type="text" value="{{userDetails.ubication}}" placeholder="Lugar que frecuentas:" 
-          [(ngModel)]="userPostData.ubication" [disabled]="ocultar4"  ></ion-textarea>
+          <ion-textarea type="text" value="{{categorys.ubication}}" placeholder="Lugar que frecuentas:" 
+          [(ngModel)]="actualizar.ubication" [disabled]="ocultar4"  ></ion-textarea>
         </ion-item>
       </ion-card-content>
     </ion-card>

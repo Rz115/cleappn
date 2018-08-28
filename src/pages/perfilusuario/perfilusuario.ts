@@ -4,6 +4,8 @@ import {
   AlertController, MenuController
 } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { Http } from '@angular/http';
+import 'rxjs/add/operator/map';
 
 
 
@@ -23,48 +25,45 @@ export class PerfilusuarioPage {
   ocultar5: boolean = true;
   ocultartodos: boolean = false;
   
-  categorys: any = [];
-  responseData : any = [];
+  categorys: any = []
+  responseDatas : any = [];
   userDetails: any;
-  userPostData = {"username":"","email":"","ubication":""};
-  ide: number;
+  actualizar = {"username":"","email":"","ubication":""};
+  ide: any;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
     public menu: MenuController,
-    public authService: AuthServiceProvider
+    public authService: AuthServiceProvider,
+    public http: Http
   ) {
 
     const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.userData;
 
-    //this.userPostData.user_id = this.userDetails.user_id;
-    //this.userPostData.token = this.userDetails.token;
-    this.userPostData.username = this.userDetails.username;
-    this.userPostData.email = this.userDetails.email;
-    this.userPostData.ubication = this.userDetails.ubication;
     this.ide = this.userDetails.user_id;
   
   }
 
   ngOnInit(){
-  //this.userDetails = this.navParams.get('userDetails')
-   // this.userid = this.navParams.get('userid')
-    //console.log(this.userDetails );
-    //console.log(this.ide);
-    this.authService.getusuario().subscribe(
+ 
+    this.traerdatos();
+  
+  }
+  
+  traerdatos(){
+    this.http.get("https://devector.com.mx/PHP-Slim-Restful/api/getDatosUsuario").map(res => res.json()).subscribe(
       data => {
-        this.categorys = data.feedDatas;
+        this.categorys = data.feedDatas
         console.log(this.categorys);
       },
       err => {
         console.log(err)
       }
     )
-    
-    
   }
+
 
   ionViewDidEnter() {
     this.menu.swipeEnable(false);
@@ -120,22 +119,16 @@ export class PerfilusuarioPage {
   }
 
   ReadData(){
-    if (this.ide == this.categorys.user_id) { 
-    this.authService.postData(this.userPostData,'loaddata').then((result) => {
-      this.responseData = result;
-      if(this.responseData.userPostData){
-      console.log(this.responseData);
     
-  }
-  else{ console.log("Datos incorrectos"); 
-
-}
+      this.authService.postData(this.actualizar,'loaddata').then((result) => {
+      this.responseDatas = result;
+      console.log("datos actualizados!")
+      this.traerdatos();
+      
 }, (err) => {
   // Error log
 });
-} else {
-  console.log("No");
-}
+
 
 }
  

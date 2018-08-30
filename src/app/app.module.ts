@@ -34,6 +34,7 @@ import { TerminosconductorPageModule } from '../pages/terminosconductor/terminos
 import { HttpModule } from '@angular/http';
 //correo plugin
 import { EmailComposer } from '@ionic-native/email-composer';
+import { ValoracionesPageModule } from '../pages/valoraciones/valoraciones.module';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { EmailComposer } from '@ionic-native/email-composer';
     HomeconductorPageModule,
     StatusconductorPageModule,
     PerfilconductorPageModule,
-    TerminosconductorPageModule
+    TerminosconductorPageModule,
+    ValoracionesPageModule
 
   ],
   bootstrap: [IonicApp],

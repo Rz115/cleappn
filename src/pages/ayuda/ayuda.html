@@ -15,13 +15,17 @@
        </span></p>
     <ion-item>
       <ion-label><ion-icon name="mail"></ion-icon></ion-label> 
-      <ion-textarea type="text" placeholder="Escribenos tus recomendaciones" class="mitad" rows="10" cols="33"></ion-textarea>
+      <ion-textarea type="text" 
+      [(ngModel)]="correo.body"
+      id="i"
+      placeholder="Escribenos tus recomendaciones" 
+      class="mitad" rows="10" cols="33" required></ion-textarea>
     </ion-item>
   
     <br>
   
     <p align="center">
-      <button ion-button  color="primary" (click)="showAlert()">ENVIAR</button>
+      <button ion-button  color="primary" (click)="send()">ENVIAR</button>
     </p>
 
     <p class="sp" align="left" ><span class="pregunta" style="color: black;">Puedes llamarnos también a través de los

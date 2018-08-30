@@ -9,6 +9,7 @@ import { LoginPage } from '../login/login';
 import { GoogleMaps, GoogleMap, MyLocation, Marker, GoogleMapsAnimation, HtmlInfoWindow } from '@ionic-native/google-maps';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 import { Storage } from '@ionic/storage';
+import { ValoracionesPage } from '../valoraciones/valoraciones';
 declare var google: any;
 
 @IonicPage()
@@ -53,18 +54,20 @@ export class HomeconductorPage implements OnInit{
     this.menu.swipeEnable(false);
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad HomeconductorPage');
-  }
-
   presentActionSheet(){
     const actionSheet = this.actionSheetCtrl.create({
       title: 'Datos del conductor',
       buttons: [
         {
-          text: 'Status',
+          text: 'Viajes',
           handler: () => {
               this.navCtrl.push(StatusconductorPage);
+          }
+        },
+        {
+          text: 'Valoraciones',
+          handler: () => {
+              this.navCtrl.push(ValoracionesPage);
           }
         },
         {

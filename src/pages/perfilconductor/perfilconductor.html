@@ -13,19 +13,9 @@
 
 <ion-content padding class="fondoprincipal">
 
-  <ion-toolbar>
-   <ion-segment [(ngModel)]="perfil" color="primary">
-     <ion-segment-button value="conductor">
-       <ion-icon name="person"></ion-icon>Conductor
-     </ion-segment-button>
-     <ion-segment-button value="auto">
-       <ion-icon name="car"></ion-icon>Vehiculo
-     </ion-segment-button>
-   </ion-segment>
- </ion-toolbar>
-
-  <div [ngSwitch]="perfil">
-    <div *ngSwitchCase="'conductor'">
+  
+  
+    <div>
         <ion-card-header>
           Datos de conductor:
         </ion-card-header>
@@ -39,7 +29,7 @@
               <ion-card-content>
                 <ion-item>
                   <ion-label><ion-icon name="contact"></ion-icon></ion-label>
-                  <ion-input type="text" value="" placeholder="Nombre completo:"></ion-input>
+                  <ion-input type="text" value="{{actualizar.name}}" placeholder="Nombre completo:" [disabled]="ocultar1"></ion-input>
                 </ion-item>
               </ion-card-content>
             </ion-card>
@@ -51,7 +41,7 @@
               <ion-card-content>
                 <ion-item>
                   <ion-label><ion-icon name="mail"></ion-icon></ion-label>
-                  <ion-input type="mail" value="" placeholder="Correo:"></ion-input>
+                  <ion-input type="mail" value="{{actualizar.email}}" placeholder="Correo:" [disabled]="ocultar2"></ion-input>
                 </ion-item>
               </ion-card-content>
             </ion-card>
@@ -63,7 +53,7 @@
               <ion-card-content>
                 <ion-item>
                   <ion-label><ion-icon name="phone-portrait"></ion-icon></ion-label>
-                  <ion-input type="text" value="" placeholder="Número:"></ion-input>
+                  <ion-input type="text" value="{{actualizar.phone}}" placeholder="Número:" [disabled]="ocultar3"></ion-input>
                 </ion-item>
               </ion-card-content>
             </ion-card>
@@ -75,7 +65,7 @@
               <ion-card-content>
                 <ion-item>
                   <ion-label><ion-icon name="navigate"></ion-icon></ion-label>
-                  <ion-input type="text" value="" placeholder="Ubicación:"></ion-input>
+                  <ion-input type="text" value="{{actualizar.adress}}" placeholder="Ubicación:" [disabled]="ocultar4"></ion-input>
                 </ion-item>
               </ion-card-content>
             </ion-card>
@@ -91,11 +81,11 @@
               <ion-card-content>
                 <ion-item>
                   <ion-label><ion-icon name="card"></ion-icon></ion-label>
-                  <ion-input type="text" value="" placeholder="Licencia:"></ion-input>
+                  <ion-input type="text" value="{{actualizar.license}}" placeholder="Licencia:" [disabled]="ocultar5"></ion-input>
                 </ion-item>
                 <ion-item>
                   <ion-label><ion-icon name="calendar"></ion-icon></ion-label>
-                  <ion-input type="date" value="" placeholder="Vigencia:"></ion-input>
+                  <ion-input type="date" value="{{actualizar.date_license}}" placeholder="Vigencia:" [disabled]="ocultar6"></ion-input>
                 </ion-item>
               </ion-card-content>
             </ion-card>
@@ -103,7 +93,7 @@
          </ion-card-content>
       </div>
 
-    <div *ngSwitchCase="'auto'">
+    <div >
         <ion-card-header>
           Datos del vehiculo:
         </ion-card-header>
@@ -117,7 +107,7 @@
               <ion-card-content>
                 <ion-item>
                   <ion-label><ion-icon name="car"></ion-icon></ion-label>
-                  <ion-input type="text" value="" placeholder="Auto:"></ion-input>
+                  <ion-input type="text" value="{{carro.car}}" placeholder="Auto:" [disabled]="ocultar7"></ion-input>
                 </ion-item>
               </ion-card-content>
             </ion-card>
@@ -129,7 +119,7 @@
               <ion-card-content>
                 <ion-item>
                   <ion-label><ion-icon name="information-circle"></ion-icon></ion-label>
-                  <ion-input type="text" value="" placeholder="Modelo:"></ion-input>
+                  <ion-input type="text" value="{{carro.car_model}}" placeholder="Modelo:" [disabled]="ocultar8"></ion-input>
                 </ion-item>
               </ion-card-content>
             </ion-card>
@@ -141,7 +131,7 @@
               <ion-card-content>
                 <ion-item>
                   <ion-label><ion-icon name="information-circle"></ion-icon></ion-label>
-                  <ion-input type="text" value="" placeholder="Año del vehiculo:"></ion-input>
+                  <ion-input type="text" value="{{carro.year}}" placeholder="Año del vehiculo:" [disabled]="ocultar9"></ion-input>
                 </ion-item>
               </ion-card-content>
             </ion-card>
@@ -153,7 +143,7 @@
               <ion-card-content>
                 <ion-item>
                   <ion-label><ion-icon name="information-circle"></ion-icon></ion-label>
-                  <ion-input type="text" value="" placeholder="Numero de placas:"></ion-input>
+                  <ion-input type="text" value="{{carro.plates}}" placeholder="Numero de placas:" [disabled]="ocultar10"></ion-input>
                 </ion-item>
               </ion-card-content>
             </ion-card>
@@ -165,13 +155,13 @@
               <ion-card-content>
                 <ion-item>
                   <ion-label><ion-icon name="card"></ion-icon></ion-label>
-                  <ion-input type="text" value="" placeholder="Circulación:"></ion-input>
+                  <ion-input type="text" value="{{carro.circulation_card}}" placeholder="Circulación:" [disabled]="ocultar11"></ion-input>
                 </ion-item>
               </ion-card-content>
             </ion-card>
 
          </ion-card-content>
       </div>
-  </div>
+  
 
 </ion-content>

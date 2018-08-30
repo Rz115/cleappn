@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController, AlertController } from 'ionic-angular';
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
-/**
- * Generated class for the AyudaPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 
 @IonicPage()
 @Component({
@@ -15,10 +11,16 @@ import { IonicPage, NavController, NavParams, MenuController, AlertController } 
 })
 export class AyudaPage {
 
+  correo = {"email":"","body":""};
+  responseDatas : any = [];
+  //datos de correo
+  i: any;
+
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
     private menu: MenuController,
-  public alertCtrl: AlertController) {
+  public alertCtrl: AlertController,
+  public authService: AuthServiceProvider) {
   }
 
   ionViewDidEnter(){
@@ -32,5 +34,38 @@ export class AyudaPage {
     });
     alert.present();
   }
+
+  ngOnInit(){
+    this.traerdatos();
+  }
+
+  traerdatos(){
+   //trae los datos del conductor
+    this.authService.getCorreo().subscribe(
+      data => {
+        this.correo.email = data.feedDatas
+        console.log(this.correo);
+      },
+      err => {
+        console.log(err)
+      }
+    )
+  }
+
+  send(){
+    this.authService.postData(this.correo,'enviarCorreo').then((result) => {
+      this.responseDatas = result;
+      console.log("datos enviados!");
+      this.i.reset();
+      this.showAlert();
+      this.traerdatos();
+      
+}, (err) => {
+  // Error log
+});
+
+    
+  }
+
 
 }

@@ -3,7 +3,7 @@
   <ion-navbar>
     <ion-title>
       <span class="tituloheader">
-        Status
+        Viajes
       </span>
     </ion-title>
   </ion-navbar>
@@ -13,19 +13,8 @@
 
 <ion-content padding class="fondoprincipal">
 
-  <ion-toolbar>
-   <ion-segment [(ngModel)]="status" color="primary">
-     <ion-segment-button value="viajes">
-       <ion-icon name="navigate"></ion-icon>Viajes
-     </ion-segment-button>
-     <ion-segment-button value="valoracion">
-       <ion-icon name="star-half"></ion-icon>Valoración
-     </ion-segment-button>
-   </ion-segment>
- </ion-toolbar>
-
- <div [ngSwitch]="status">
-   <ion-list *ngSwitchCase="'viajes'">
+<div>
+  <ion-list>
     <ion-item>
       <h2>02-07-2018</h2>
       <h3>$25.50</h3>
@@ -34,19 +23,24 @@
       <h2>02-07-2018</h2>
       <h3>$50.50</h3>
     </ion-item>
+    <ion-item>
+        <h2>02-07-2018</h2>
+        <h3>$50.50</h3>
+      </ion-item>
+      <ion-item>
+          <h2>02-07-2018</h2>
+          <h3>$50.50</h3>
+        </ion-item>
+        <ion-item>
+            <h2>02-07-2018</h2>
+            <h3>$50.50</h3>
+          </ion-item>
+          <ion-item>
+              <h2>02-07-2018</h2>
+              <h3>$50.50</h3>
+            </ion-item>
   </ion-list>
  </div>
 
- <div [ngSwitch]="status">
-   <ion-list *ngSwitchCase="'valoracion'">
-    <ion-item>
-      <h2> 4 estrellas</h2>
-      <h3>Muy atento</h3>
-    </ion-item>
-    <ion-item>
-      <h2>3 estrellas</h2>
-      <h3>Un poco lento</h3>
-    </ion-item>
-  </ion-list>
- </div>
+ 
 </ion-content>

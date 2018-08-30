@@ -33,14 +33,25 @@ export class AuthServiceProvider {
 getData(){
   return this.http.get(apiUrl+"getlatituddos").map(res => res.json())
 }
-
+/*              METODOS DE USUARIO TRAER DATOS EN PERFIL, VIAJES Y AYUDA */
   getusuario() {
     return this.http.get(apiUrl+"getDatosUsuario").map(res => res.json())
+  }
+  getCorreo() {
+    return this.http.get(apiUrl+"getCorreo").map(res => res.json())
+  }
+
+  //METODOS DEL CONDUCTOR
+  getdriver() {
+    return this.http.get(apiUrl+"getDriver").map(res => res.json())
+  }
+  getCar() {
+    return this.http.get(apiUrl+"getCar").map(res => res.json())
   }
 
   
 
-
+//METODO POST PARA REGISTRO - LOGIN Y ACTUALIZACION
   postData(withCredentials, type) {
     return new Promise((resolve, reject) => {
       let headers = new Headers();

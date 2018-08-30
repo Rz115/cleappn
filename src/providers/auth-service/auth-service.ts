@@ -33,7 +33,9 @@ export class AuthServiceProvider {
   getusuario() {
     return this.http.get(apiUrl+"getDatosUsuario").map(res => res.json())
   }
-
+  getConductor(){
+    return this.http.get(apiUrl+"getDatosConductor").map(res => res.json())
+  }
   
 
 

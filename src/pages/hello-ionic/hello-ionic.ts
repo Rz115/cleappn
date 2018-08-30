@@ -72,9 +72,8 @@ export class HelloIonicPage implements OnInit{
 
   latOri: any;
   longOri: any;
-  latDest: any = [];
-  longDest: any = [];
-  datasCollection: any[];
+  latDest: any;
+  longDest: any;
   latresult: any;
   lonresult: any;
 
@@ -125,31 +124,15 @@ export class HelloIonicPage implements OnInit{
         this.lonresult = (this.longOri) - ((-102.221693)) 
       }
 
-      //const data = JSON.parse(localStorage.getItem('userData'));
-      //this.userDetails = data.userData;
-      const latdata = JSON.parse(localStorage.getItem('latDest'));
-      var latPrueba = latdata.feedDatas
-      var latprueba1 = latPrueba.latitud
+      
+      this.loadMap(this.latOri, this.longOri, parseFloat(this.latDest.latitud), parseFloat(this.longDest.longitud)); 
 
-      const longdata = JSON.parse(localStorage.getItem('longDest'));
-      var longPrueba = longdata.feedDatas
-      var longprueba1 = longPrueba.longitud
-
-      console.log(latprueba1, "latitudsdasd onda")
-      console.log(longprueba1, "longituddfsdifud vital")
-
-      this.loadMap(this.latOri, this.longOri, (17.972548), (-102.229821)); 
-
-      //meter parametro para calcular distancia entre usuario y conductor 
-      //this.loadMap(this.latOri, this.longOri, (this.latDest[0]), (this.longDest[0])); 
 
     }).catch((error) => {
       console.log(error);
     })
 
   }
-  
-
   //INICIO CALCULO...calculo de distancia, mostrar marca de distancia, mostrar origen y destino
   private loadMap(latOri, lngOri, latDest, lngDest) {
     var directionsService = new google.maps.DirectionsService;
@@ -301,26 +284,27 @@ export class HelloIonicPage implements OnInit{
     this.getCoordsDriver();
   }
 
-   async getCoordsDriver(){
+  getCoordsDriver(){
 
-    await this.authService.getlatitud1()
+    this.authService.getlatitud1()
       .subscribe(data => {
-      this.latDest = data   
-      
-      localStorage.setItem('latDest', JSON.stringify(this.latDest));
+      this.latDest = data.feedDatas
     }, err => {
       console.log(err)
     }
     )
-    this.authService.getlongitud1().subscribe(data => 
-      {
-        this.longDest = data
-        localStorage.setItem('longDest', JSON.stringify(this.longDest));
+    this.authService.getlongitud1()
+    .subscribe(datas => {
+        this.longDest = datas
+      }, err => {
+        console.log(err)
       })
-     for(let i = 0; i<= this.latDest.length; i++){
+/*
+     for(let i = 0; i< this.latDest.length; i++){
        this.latitud = this.latDest.latitud
-       console.log(this.latitud[i] + "px")
+       console.log(this.latitud + "px")
      }
+*/
   }
 
   createMap(lat, lng) {
@@ -340,11 +324,12 @@ export class HelloIonicPage implements OnInit{
     //icono del usuario
     let marker = new google.maps.Marker({
       title: 'Posición actual',
+      animation: google.maps.Animation.BOUNCE,
       position: location,
       icon: '../../assets/img/marker.png'
     })
     
-    let content = '<div id="myId" class="item item-thumbnail-left item-text-wrap"><ion-item><ion-row><h6>'+ marker.title +'</h6><h6>' + marker.position + '</h6></ion-row></ion-item></ion-item></div>'
+    let content = '<div id="myId" class="item item-thumbnail-left item-text-wrap"><ion-item><ion-row><h6>'+ marker.title +'</ion-row></ion-item></ion-item></div>'
 
     
 

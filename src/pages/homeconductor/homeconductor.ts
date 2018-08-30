@@ -6,10 +6,11 @@ import { PerfilconductorPage } from '../perfilconductor/perfilconductor';
 import { TerminosconductorPage } from '../terminosconductor/terminosconductor';
 import { LoginPage } from '../login/login';
 //mapa
-import { GoogleMaps, GoogleMap, MyLocation, Marker, GoogleMapsAnimation } from '@ionic-native/google-maps';
+import { GoogleMaps, GoogleMap, MyLocation, Marker, GoogleMapsAnimation, HtmlInfoWindow } from '@ionic-native/google-maps';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 import { Storage } from '@ionic/storage';
 declare var google: any;
+
 @IonicPage()
 @Component({
   selector: 'page-homeconductor',
@@ -35,6 +36,11 @@ export class HomeconductorPage implements OnInit{
 
   latDest = 20.972594;
   longDest = -89.597;
+
+  Destination: any = '';
+  MyLocation: any;
+
+  public ;
 
   public latitud_conductor;
   public longitud_conductor;
@@ -91,6 +97,45 @@ export class HomeconductorPage implements OnInit{
     })
   }
 
+  calculateAndDisplayRoute() {
+    let that = this;
+    let directionsService = new google.maps.DirectionsService;
+    let directionsDisplay = new google.maps.DirectionsRenderer;
+    const map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 16,
+      center: { lat: 17.9757056, lng: -102.2287872 }
+    });
+    directionsDisplay.setMap(map);
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        var pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        map.setCenter(pos);
+        that.MyLocation = new google.maps.LatLng(pos);
+
+      }, function () {
+
+      });
+    } else {
+      // Browser doesn't support Geolocation
+    }
+
+    directionsService.route({
+      origin: this.MyLocation,
+      destination: this.Destination,
+      travelMode: 'DRIVING'
+    }, function (response, status) {
+      if (status === 'OK') {
+        directionsDisplay.setDirections(response);
+      } else {
+        window.alert('Directions request failed due to ' + status);
+      }
+    });
+  }
+
 
   //localizar posicion actual del usuario
   public initPage() {
@@ -103,8 +148,9 @@ export class HomeconductorPage implements OnInit{
       this.createMap(result.coords.latitude, result.coords.longitude);      
        this.latitud_conductor = result.coords.latitude;
        this.longitud_conductor = result.coords.longitude;
+       
       
-      
+      /*
       this.storage.set('coords_lat', this.latitud_conductor);
       this.storage.get('coords_lat').then((val) =>{
         console.log('Latitud conductor: ', val);
@@ -112,21 +158,8 @@ export class HomeconductorPage implements OnInit{
       this.storage.set('coords_lon', this.longitud_conductor);
       this.storage.get('coords_lon').then((val) => {
         console.log('Longitud conductor: ',val);
-      })
+      })*/
 
-
-      let watch = this.geolocation.watchPosition(options)
-        .filter((p: any) => p.code === undefined)
-        .subscribe((position: Geoposition) => {
-          let conductor = {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude
-          };
-          this.service.updateGeolocation(this.conductores.keys, conductor);
-          console.log(position.coords);
-          console.log(position.coords.longitude + ' ' + position.coords.latitude);
-        });
-      watch.unsubscribe();
     }).catch((error) => {
       console.log('Error al obtener dirección', error);
     })
@@ -134,12 +167,9 @@ export class HomeconductorPage implements OnInit{
 
 
   ngOnInit() {
-
   this.map = GoogleMaps.create('map_canvas1');
-  
-  
-    
   }
+
 
   createMap(lat, lng) {
     let location = new google.maps.LatLng(lat, lng);
@@ -157,7 +187,7 @@ export class HomeconductorPage implements OnInit{
     let marker = new google.maps.Marker({
       title: 'Posición actual',
       position: location,
-      icons: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+      icon: '../../assets/img/car-icons.png'
     })
 
     let content = '<div id="myId" class="item item-thumbnail-left item-text-wrap"><ion-item><ion-row><h6>' + marker.title + '</h6><h6>' + marker.position + '</h6></ion-row></ion-item></ion-item></div>'

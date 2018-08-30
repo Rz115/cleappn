@@ -7,6 +7,25 @@
 </ion-header>
 
 <ion-content  class="page-homeconductor">
+
+  <ion-card class="barraestado">
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-item>
+            <ion-label floating>Escribe el destino</ion-label>
+            <ion-input type="text" [(ngModel)]="this.Destination"></ion-input>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+      <ion-col>
+        <button ion-button full (click)="calculateAndDisplayRoute()">Ir</button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+  
+
+  <!--
   <ion-card class="barraestado">
     <ion-card-header align="center">
       Barra de estado
@@ -15,7 +34,7 @@
       2 viajes 
     </ion-card-content>
   </ion-card> 
-
+    -->
       <!--
   <div id="floating-panel">
     <b>Start: </b>
@@ -69,7 +88,7 @@
         <ion-col width-50>
 
           <button ion-button large block light disabled="true" class="botoncontratar">
-           COMENZAR SERVICIO
+           COMENZAR viajes
           </button>
           </ion-col>
       </ion-row>

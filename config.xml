@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.io.opps" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>OOPS!</name>
+<widget id="com.io.ooops" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Ooops</name>
     <description>Aplicación híbrida para servicio de transporte</description>
     <author email="javier@aurorati.mx" href="http://ionicframework.com/">DevTeam</author>
     <content src="index.html" />
@@ -87,8 +87,4 @@
     </plugin>
     <plugin name="cordova-plugin-email-composer" spec="^0.8.15" />
     <plugin name="com.paypal.cordova.mobilesdk" spec="^3.5.0" />
-    <engine name="android" spec="7.0.0" />
-    <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" spec="^4.2.2">
-        <variable name="OKHTTP_VERSION" value="3.+" />
-    </plugin>
 </widget>

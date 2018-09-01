@@ -34,7 +34,6 @@
     "@types/google-maps": "^3.2.0",
     "card.io.cordova.mobilesdk": "^2.1.0",
     "com.paypal.cordova.mobilesdk": "^3.5.0",
-    "cordova-android": "7.0.0",
     "cordova-plugin-actionsheet": "^2.3.3",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-dialogs": "^2.0.1",
@@ -49,7 +48,6 @@
     "ionicons": "3.0.0",
     "rxjs": "5.5.11",
     "sw-toolbox": "3.6.0",
-    "uk.co.workingedge.phonegap.plugin.launchnavigator": "^4.2.2",
     "zone.js": "0.8.26"
   },
   "devDependencies": {
@@ -68,13 +66,8 @@
         "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
       },
       "cordova-plugin-email-composer": {},
-      "com.paypal.cordova.mobilesdk": {},
-      "uk.co.workingedge.phonegap.plugin.launchnavigator": {
-        "OKHTTP_VERSION": "3.+"
-      }
+      "com.paypal.cordova.mobilesdk": {}
     },
-    "platforms": [
-      "android"
-    ]
+    "platforms": []
   }
 }

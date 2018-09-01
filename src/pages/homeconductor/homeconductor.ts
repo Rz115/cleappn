@@ -6,9 +6,14 @@ import { PerfilconductorPage } from '../perfilconductor/perfilconductor';
 import { TerminosconductorPage } from '../terminosconductor/terminosconductor';
 import { LoginPage } from '../login/login';
 //mapa
+<<<<<<< HEAD
 import { GoogleMaps, GoogleMap } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
 
+=======
+import { GoogleMaps, GoogleMap} from '@ionic-native/google-maps';
+import { Geolocation } from '@ionic-native/geolocation';
+>>>>>>> fbbfb47e443ff4d6f94d5f11bfdec824cee5cbcd
 import { Storage } from '@ionic/storage';
 import { ValoracionesPage } from '../valoraciones/valoraciones';
 declare var google: any;
@@ -101,7 +106,6 @@ export class HomeconductorPage implements OnInit{
     })
   }
 
-  //escribir el destino del conductor
   calculateAndDisplayRoute() {
     let that = this;
     let directionsService = new google.maps.DirectionsService;
@@ -113,18 +117,19 @@ export class HomeconductorPage implements OnInit{
     directionsDisplay.setMap(map);
 
     if (navigator.geolocation) {
-      for(var i=0; i<=10;){
-        navigator.geolocation.getCurrentPosition(function (position) {
-          var pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          };
-          map.setCenter(pos);
-          that.MyLocation = new google.maps.LatLng(pos);
+      navigator.geolocation.getCurrentPosition(function (position) {
+        var pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        map.setCenter(pos);
+        that.MyLocation = new google.maps.LatLng(pos);
 
-        });
+      }, function () {
 
-      }
+      });
+    } else {
+      // Browser doesn't support Geolocation
     }
 
     directionsService.route({
@@ -135,11 +140,15 @@ export class HomeconductorPage implements OnInit{
       if (status === 'OK') {
         directionsDisplay.setDirections(response);
       } else {
-        window.alert('Calle no encontrada ' + status);
+        window.alert('Directions request failed due to ' + status);
       }
     });
   }
+<<<<<<< HEAD
  
+=======
+
+>>>>>>> fbbfb47e443ff4d6f94d5f11bfdec824cee5cbcd
 
   //localizar posicion actual del usuario
   public initPage() {
@@ -199,7 +208,6 @@ export class HomeconductorPage implements OnInit{
     this.addInfoWindow(marker, content);
     marker.setMap(this.map);
   }
-
   loadPoints() {
     this.markers = [];
     for (const key of Object.keys(this.conductores)) {

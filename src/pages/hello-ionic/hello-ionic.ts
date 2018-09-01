@@ -3,11 +3,9 @@ import { NavController, ToastController, Nav, MenuController, Platform, LoadingC
 import { ProcesandoServicioPage } from '../procesando-servicio/procesando-servicio';
 //importamos el modulo para conectar y hacer la autenticación
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { GoogleMaps, GoogleMap, MyLocation, Marker, GoogleMapsAnimation, MarkerOptions, LatLng, GoogleMapsEvent, CameraPosition } from '@ionic-native/google-maps';
-import { Geolocation, Geoposition } from '@ionic-native/geolocation';
+import { GoogleMaps, GoogleMap } from '@ionic-native/google-maps';
+import { Geolocation } from '@ionic-native/geolocation';
 import 'rxjs/add/operator/filter';
-import { Observable } from 'rxjs/Observable';
-import { MapComponent } from '../../components/map/map';
 import { PerfilusuarioPage } from '../perfilusuario/perfilusuario';
 import { ViajesusuarioPage } from '../viajesusuario/viajesusuario';
 import { FormadepagoPage } from '../formadepago/formadepago';
@@ -15,7 +13,6 @@ import { AyudaPage } from '../ayuda/ayuda';
 import { TerminosPage } from '../terminos/terminos';
 import { LoginPage } from '../login/login';
 import { Storage } from '@ionic/storage';
-import { HomeconductorPage } from '../homeconductor/homeconductor';
 
 declare var google: any;
 @Component({
@@ -338,7 +335,7 @@ export class HelloIonicPage implements OnInit{
 
     //carro 1
     let markerOptions = new google.maps.Marker ({
-      position: new google.maps.LatLng(20.987488, -89.629035),
+      position: new google.maps.LatLng(this.latDest.latitud, this.longDest.longitud),
       title: "",
       icon: '../../assets/img/car-icons.png'
     })
@@ -346,39 +343,6 @@ export class HelloIonicPage implements OnInit{
     let contents = '<div id="myId" class="item item-thumbnail-left item-text-wrap"><ion-item><ion-row><h6>' + markerOptions.title + '</h6><h6>' + '</h6></ion-row></ion-item></ion-item></div>'
     this.addInfoWindow(markerOptions, contents);
     markerOptions.setMap(this.map);
-
-    //carro 2
-    let markerOptions2 = new google.maps.Marker({
-      position: new google.maps.LatLng(20.965047, -89.585261),
-      title: "",
-      icon: '../../assets/img/car-icons.png'
-    })
-
-
-    let contents2 = '<div id="myId" class="item item-thumbnail-left item-text-wrap"><ion-item><ion-row><h6>' + markerOptions2.title + '</h6><h6>' + '</h6></ion-row></ion-item></ion-item></div>'
-    this.addInfoWindow2(markerOptions2, contents2);
-    markerOptions2.setMap(this.map);
-
-
-    //carro 3
-    let markerOptions3 = new google.maps.Marker({
-      position: new google.maps.LatLng(20.978593, -89.597190),
-      title: "",
-      icon: '../../assets/img/car-icons.png'
-    })
-    let contents3 = '<div id="myId" class="item item-thumbnail-left item-text-wrap"><ion-item><ion-row><h6>' + markerOptions3.title + '</h6><h6>' + '</h6></ion-row></ion-item></ion-item></div>'
-    this.addInfoWindow3(markerOptions3, contents3);
-    markerOptions3.setMap(this.map);
-    
-    //carro 4
-    let markerOptions4 = new google.maps.Marker({
-      position: new google.maps.LatLng(20.974583, -89.652552),
-      title: "",
-      icon: '../../assets/img/car-icons.png'
-    })
-    let contents4 = '<div id="myId" class="item item-thumbnail-left item-text-wrap"><ion-item><ion-row><h6>' + markerOptions4.title + '</h6><h6>' + '</h6></ion-row></ion-item></ion-item></div>'
-    this.addInfoWindow4(markerOptions4, contents4);
-    markerOptions4.setMap(this.map);
     
   }
 
@@ -401,46 +365,7 @@ export class HelloIonicPage implements OnInit{
     })
 
   }
-  addInfoWindow2(marker, content) {
-    let infoWindow = new google.maps.InfoWindow({
-      content: content
-    })
 
-    google.maps.event.addListener(marker, 'click', () => {
-      infoWindow.open(this.map, marker);
-    })
-
-  }
-  addInfoWindow3(marker, content) {
-    let infoWindow = new google.maps.InfoWindow({
-      content: content
-    })
-
-    google.maps.event.addListener(marker, 'click', () => {
-      infoWindow.open(this.map, marker);
-    })
-
-  }
-  addInfoWindow4(marker, content) {
-    let infoWindow = new google.maps.InfoWindow({
-      content: content
-    })
-
-    google.maps.event.addListener(marker, 'click', () => {
-      infoWindow.open(this.map, marker);
-    })
-
-  }
-  addInfosWindow(marker, content) {
-    let infoWindow = new google.maps.InfoWindow({
-      content: content
-    })
-
-    google.maps.event.addListener(marker, 'click', () => {
-      infoWindow.open(this.map, marker);
-    })
-
-  }
 
   presentToast() {
     const toast = this.toastCtrl.create({

@@ -87,4 +87,8 @@
     </plugin>
     <plugin name="cordova-plugin-email-composer" spec="^0.8.15" />
     <plugin name="com.paypal.cordova.mobilesdk" spec="^3.5.0" />
+<<<<<<< HEAD
+=======
+    <engine name="android" spec="7.0.0" />
+>>>>>>> fbbfb47e443ff4d6f94d5f11bfdec824cee5cbcd
 </widget>

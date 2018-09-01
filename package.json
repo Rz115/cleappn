@@ -24,7 +24,6 @@
     "@ionic-native/email-composer": "^4.11.0",
     "@ionic-native/geolocation": "^4.11.0",
     "@ionic-native/google-maps": "^4.9.1",
-    "@ionic-native/launch-navigator": "^4.12.0",
     "@ionic-native/native-page-transitions": "^4.10.0",
     "@ionic-native/paypal": "^4.11.0",
     "@ionic-native/splash-screen": "~4.10.0",
@@ -35,9 +34,7 @@
     "card.io.cordova.mobilesdk": "^2.1.0",
     "com.paypal.cordova.mobilesdk": "^3.5.0",
     "cordova-android": "7.0.0",
-    "cordova-plugin-actionsheet": "^2.3.3",
     "cordova-plugin-device": "^2.0.2",
-    "cordova-plugin-dialogs": "^2.0.1",
     "cordova-plugin-email-composer": "^0.8.15",
     "cordova-plugin-geolocation": "^4.0.1",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
@@ -49,11 +46,10 @@
     "ionicons": "3.0.0",
     "rxjs": "5.5.11",
     "sw-toolbox": "3.6.0",
-    "uk.co.workingedge.phonegap.plugin.launchnavigator": "^4.2.2",
     "zone.js": "0.8.26"
   },
   "devDependencies": {
-    "@ionic/app-scripts": "^3.1.11",
+    "@ionic/app-scripts": "^3.2.0",
     "typescript": "~2.6.2"
   },
   "description": "An Ionic project",
@@ -68,10 +64,7 @@
         "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
       },
       "cordova-plugin-email-composer": {},
-      "com.paypal.cordova.mobilesdk": {},
-      "uk.co.workingedge.phonegap.plugin.launchnavigator": {
-        "OKHTTP_VERSION": "3.+"
-      }
+      "com.paypal.cordova.mobilesdk": {}
     },
     "platforms": [
       "android"

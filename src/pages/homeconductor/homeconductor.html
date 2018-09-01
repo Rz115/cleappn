@@ -13,13 +13,13 @@
       <ion-col>
         <ion-list>
           <ion-item>
-            <ion-label floating>Escribe el destino(calle, #, colonia)</ion-label>
+            <ion-label floating>Escribe el destino(calle,#,colonia)</ion-label>
             <ion-input type="text" [(ngModel)]="this.Destination"></ion-input>
           </ion-item>
         </ion-list>
       </ion-col>
       <ion-col>
-        <button ion-button full (click)="navigateLocation()">Iniciar viaje</button>
+        <button ion-button full (click)="calculateAndDisplayRoute()">Comenzar viaje</button>
       </ion-col>
     </ion-row>
   </ion-card>
@@ -87,9 +87,6 @@
       <ion-row>
         <ion-col width-50>
 
-          <button ion-button large block light disabled="true" class="botoncontratar">
-           COMENZAR viajes
-          </button>
           </ion-col>
       </ion-row>
       </div>

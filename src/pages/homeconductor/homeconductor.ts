@@ -6,9 +6,8 @@ import { PerfilconductorPage } from '../perfilconductor/perfilconductor';
 import { TerminosconductorPage } from '../terminosconductor/terminosconductor';
 import { LoginPage } from '../login/login';
 //mapa
-import { GoogleMaps, GoogleMap, MyLocation, Marker, GoogleMapsAnimation, HtmlInfoWindow } from '@ionic-native/google-maps';
-import { Geolocation, Geoposition } from '@ionic-native/geolocation';
-import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
+import { GoogleMaps, GoogleMap} from '@ionic-native/google-maps';
+import { Geolocation } from '@ionic-native/geolocation';
 import { Storage } from '@ionic/storage';
 import { ValoracionesPage } from '../valoraciones/valoraciones';
 declare var google: any;
@@ -48,7 +47,7 @@ export class HomeconductorPage implements OnInit{
   public longitud_conductor;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, private menu: MenuController, public geolocation: Geolocation,
-    public platform: Platform, public storage: Storage, private launchNavigator: LaunchNavigator) {
+    public platform: Platform, public storage: Storage) {
   }
 
   ionViewDidEnter(){
@@ -101,7 +100,6 @@ export class HomeconductorPage implements OnInit{
     })
   }
 
-  //escribir el destino del conductor
   calculateAndDisplayRoute() {
     let that = this;
     let directionsService = new google.maps.DirectionsService;
@@ -113,18 +111,19 @@ export class HomeconductorPage implements OnInit{
     directionsDisplay.setMap(map);
 
     if (navigator.geolocation) {
-      for(var i=0; i<=10;){
-        navigator.geolocation.getCurrentPosition(function (position) {
-          var pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          };
-          map.setCenter(pos);
-          that.MyLocation = new google.maps.LatLng(pos);
+      navigator.geolocation.getCurrentPosition(function (position) {
+        var pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        map.setCenter(pos);
+        that.MyLocation = new google.maps.LatLng(pos);
 
-        });
+      }, function () {
 
-      }
+      });
+    } else {
+      // Browser doesn't support Geolocation
     }
 
     directionsService.route({
@@ -135,21 +134,11 @@ export class HomeconductorPage implements OnInit{
       if (status === 'OK') {
         directionsDisplay.setDirections(response);
       } else {
-        window.alert('Calle no encontrada ' + status);
+        window.alert('Directions request failed due to ' + status);
       }
     });
   }
-  navigateLocation() {
-    let options: LaunchNavigatorOptions = {
-      app: this.launchNavigator.APP.UBER,
-      start: [this.latitud_conductor, this.longitud_conductor]
-    };
-    this.launchNavigator.navigate(this.Destination, options).then(success => {
-      console.log(success);
-    }, error => {
-      console.log(error);
-    })
-  }
+
 
   //localizar posicion actual del usuario
   public initPage() {
@@ -209,7 +198,6 @@ export class HomeconductorPage implements OnInit{
     this.addInfoWindow(marker, content);
     marker.setMap(this.map);
   }
-
   loadPoints() {
     this.markers = [];
     for (const key of Object.keys(this.conductores)) {

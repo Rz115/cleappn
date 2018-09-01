@@ -88,7 +88,4 @@
     <plugin name="cordova-plugin-email-composer" spec="^0.8.15" />
     <plugin name="com.paypal.cordova.mobilesdk" spec="^3.5.0" />
     <engine name="android" spec="7.0.0" />
-    <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" spec="^4.2.2">
-        <variable name="OKHTTP_VERSION" value="3.+" />
-    </plugin>
 </widget>

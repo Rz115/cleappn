@@ -6,14 +6,8 @@ import { PerfilconductorPage } from '../perfilconductor/perfilconductor';
 import { TerminosconductorPage } from '../terminosconductor/terminosconductor';
 import { LoginPage } from '../login/login';
 //mapa
-<<<<<<< HEAD
-import { GoogleMaps, GoogleMap } from '@ionic-native/google-maps';
-import { Geolocation } from '@ionic-native/geolocation';
-
-=======
 import { GoogleMaps, GoogleMap} from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
->>>>>>> fbbfb47e443ff4d6f94d5f11bfdec824cee5cbcd
 import { Storage } from '@ionic/storage';
 import { ValoracionesPage } from '../valoraciones/valoraciones';
 declare var google: any;
@@ -144,11 +138,6 @@ export class HomeconductorPage implements OnInit{
       }
     });
   }
-<<<<<<< HEAD
- 
-=======
-
->>>>>>> fbbfb47e443ff4d6f94d5f11bfdec824cee5cbcd
 
   //localizar posicion actual del usuario
   public initPage() {
@@ -203,7 +192,7 @@ export class HomeconductorPage implements OnInit{
       icon: '../../assets/img/car-icons.png'
     })
 
-    let content = '<div id="myId" class="item item-thumbnail-left item-text-wrap"><ion-item><ion-row><h6>' + marker.title + '</h6><h6>' + marker.position + '</h6></ion-row></ion-item></ion-item></div>'
+    let content = '<div id="myId" class="item item-thumbnail-left item-text-wrap"><ion-item><ion-row><h6>' + marker.title + '</h6></ion-row></ion-item></ion-item></div>'
 
     this.addInfoWindow(marker, content);
     marker.setMap(this.map);

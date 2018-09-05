@@ -338,12 +338,13 @@ export class HelloIonicPage implements OnInit{
     this.addInfoWindow(marker, content);
     marker.setMap(this.map);
     
-    //carro 1
-    for(var i= 0; i< this.latDest.length; i++){
-      for(var n = 0; n< this.longDest.length; i++){
+
+    for (var i=0; i<=100; i++){
+      console.log("pisicion conductores", this.latDest[i], this.longDest[i])
+    
 
         let markerOptions = new google.maps.Marker ({
-          position: new google.maps.LatLng(this.latDest[i], this.longDest[n]),
+          position: new google.maps.LatLng(this.latDest[i], this.longDest[i]),
           title: "",
           icon: '../../assets/img/car-icons.png'
         })
@@ -354,7 +355,6 @@ export class HelloIonicPage implements OnInit{
         markerOptions.setMap(this.map);
       }
     }
-  }
 
   addMarker(options) {
     let mapOptions = {

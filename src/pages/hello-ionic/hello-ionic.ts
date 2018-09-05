@@ -69,13 +69,13 @@ export class HelloIonicPage implements OnInit{
 
   latOri: any;
   longOri: any;
-  latDest: any;
-  longDest: any;
+  latDest: any[];
+  longDest: any[];
   latresult: any;
   lonresult: any;
 
   userPostData = {"user_id":"","token":"", "username":"","email":""};
-  userid: string;
+  userid: number
 
   constructor(public navCtrl: NavController,
     public authService:AuthServiceProvider,
@@ -96,7 +96,7 @@ export class HelloIonicPage implements OnInit{
 
     this.userPostData.user_id = this.userDetails.user_id;
     this.userPostData.token = this.userDetails.token;
-    this.userid = this.userDetails.user_id;
+
 
     this.isPickupRequested = false;
   
@@ -115,14 +115,15 @@ export class HelloIonicPage implements OnInit{
       this.latOri = result.coords.latitude;
       this.longOri = result.coords.longitude
       
-      
+      /*
       for(var i = 0; i<= 15; i++){
         this.latresult = this.latOri - parseFloat(this.latDest.latitud)
         this.lonresult = (this.longOri) - parseFloat(this.longDest.longitud)
       }
       console.log(this.latresult)
+      */
       
-      this.loadMap(this.latOri, this.longOri, parseFloat(this.latDest.latitud), parseFloat(this.longDest.longitud)); 
+      this.loadMap(this.latOri, this.longOri, parseFloat(this.latDest[1]), parseFloat(this.longDest[1])); 
 
 
     }).catch((error) => {
@@ -287,7 +288,10 @@ export class HelloIonicPage implements OnInit{
     this.authService.getlatitud1()
       .subscribe(data => {
         this.latDest = data
-        console.log(this.latDest, "pruebas de latitud")
+
+        for(var i = 0; i < this.latDest.length; i++){
+        console.log(this.latDest[i], "pruebas de latitud")
+        }
     }, err => {
       console.log(err)
     }
@@ -295,16 +299,14 @@ export class HelloIonicPage implements OnInit{
     this.authService.getlongitud1()
     .subscribe(datas => {
         this.longDest = datas
-        console.log(this.longDest, "pruebas de longitud")
+        for (var i = 0; i < this.longDest.length; i++) {
+          console.log(this.longDest[i], "pruebas de longitud")
+        }
       }, err => {
         console.log(err)
       })
-/*
-     for(let i = 0; i< this.latDest.length; i++){
-       this.latitud = this.latDest.latitud
-       console.log(this.latitud + "px")
-     }
-*/
+
+
   }
 
   createMap(lat, lng) {
@@ -335,18 +337,23 @@ export class HelloIonicPage implements OnInit{
 
     this.addInfoWindow(marker, content);
     marker.setMap(this.map);
-
-    //carro 1
-    let markerOptions = new google.maps.Marker ({
-      position: new google.maps.LatLng(this.latDest.latitud, this.longDest.longitud),
-      title: "",
-      icon: '../../assets/img/car-icons.png'
-    })
-
-    let contents = '<div id="myId" class="item item-thumbnail-left item-text-wrap"><ion-item><ion-row><h6>' + markerOptions.title + '</h6><h6>' + '</h6></ion-row></ion-item></ion-item></div>'
-    this.addInfoWindow(markerOptions, contents);
-    markerOptions.setMap(this.map);
     
+    //carro 1
+    for(var i= 0; i< this.latDest.length; i++){
+      for(var n = 0; n< this.longDest.length; i++){
+
+        let markerOptions = new google.maps.Marker ({
+          position: new google.maps.LatLng(this.latDest[i], this.longDest[n]),
+          title: "",
+          icon: '../../assets/img/car-icons.png'
+        })
+      
+
+        let contents = '<div id="myId" class="item item-thumbnail-left item-text-wrap"><ion-item><ion-row><h6>' + markerOptions.title + '</h6><h6>' + '</h6></ion-row></ion-item></ion-item></div>'
+        this.addInfoWindow(markerOptions, contents);
+        markerOptions.setMap(this.map);
+      }
+    }
   }
 
   addMarker(options) {
@@ -388,7 +395,8 @@ export class HelloIonicPage implements OnInit{
 perfil(){
   
   
-  this.navCtrl.push(PerfilusuarioPage, {"userid": this.userid });
+  this.navCtrl.push(PerfilusuarioPage, {"userDetails": this.userDetails });
+
   this.menu.close();
 }
 

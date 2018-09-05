@@ -117,10 +117,10 @@ export class HelloIonicPage implements OnInit{
       
       
       for(var i = 0; i<= 15; i++){
-        this.latresult = this.latOri - 17.969148
-        this.lonresult = (this.longOri) - ((-102.221693)) 
+        this.latresult = this.latOri - parseFloat(this.latDest.latitud)
+        this.lonresult = (this.longOri) - parseFloat(this.longDest.longitud)
       }
-
+      console.log(this.latresult)
       
       this.loadMap(this.latOri, this.longOri, parseFloat(this.latDest.latitud), parseFloat(this.longDest.longitud)); 
 
@@ -275,17 +275,19 @@ export class HelloIonicPage implements OnInit{
   }
 
   ngOnInit() {
+    console.log("este es el id" ,this.userDetails.user_id)
     this.map = GoogleMaps.create('map_canvas');
     this.presentToast();
     document.getElementById("right-panel").hidden = true;
-    this.getCoordsDriver();
-  }
 
+  }
+  //obtener las coordenadas del chofer
   getCoordsDriver(){
 
     this.authService.getlatitud1()
       .subscribe(data => {
-      this.latDest = data.feedDatas
+        this.latDest = data
+        console.log(this.latDest, "pruebas de latitud")
     }, err => {
       console.log(err)
     }
@@ -293,6 +295,7 @@ export class HelloIonicPage implements OnInit{
     this.authService.getlongitud1()
     .subscribe(datas => {
         this.longDest = datas
+        console.log(this.longDest, "pruebas de longitud")
       }, err => {
         console.log(err)
       })
@@ -386,6 +389,7 @@ perfil(){
   
   
   this.navCtrl.push(PerfilusuarioPage, {"userDetails": this.userDetails });
+
   this.menu.close();
 }
 

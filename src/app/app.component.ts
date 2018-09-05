@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 /*Importamos la pagina de registrar para que sea el inicio de nuestra app, y lo cambiamos en la
 parte de abajo*/
 import { RegistrarPage } from '../pages/registrar/registrar';
-
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 
 
@@ -24,16 +24,24 @@ export class MyApp {
 
   constructor(
     public platform: Platform,
-    
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     public toastCtrl: ToastController,
+    androidPermissions: AndroidPermissions
  
   ) {
 
     this.initializeApp();
 
-   
+    androidPermissions.requestPermissions(
+      [
+        androidPermissions.PERMISSION.CAMERA, 
+        androidPermissions.PERMISSION.CALL_PHONE, 
+        androidPermissions.PERMISSION.GET_ACCOUNTS, 
+        androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE, 
+        androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE
+      ]
+    );
   }
 
 
@@ -46,4 +54,4 @@ export class MyApp {
     });
   }
 
-}
+}     

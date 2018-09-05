@@ -35,6 +35,7 @@ import { HttpModule } from '@angular/http';
 //correo plugin
 import { EmailComposer } from '@ionic-native/email-composer';
 import { ValoracionesPageModule } from '../pages/valoraciones/valoraciones.module';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import { ValoracionesPageModule } from '../pages/valoraciones/valoraciones.modul
     GoogleMaps,
     Geolocation,
     EmailComposer,
+    AndroidPermissions,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthServiceProvider
   ]

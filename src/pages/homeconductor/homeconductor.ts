@@ -10,6 +10,9 @@ import { GoogleMaps, GoogleMap} from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Storage } from '@ionic/storage';
 import { ValoracionesPage } from '../valoraciones/valoraciones';
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { Http, Headers } from '@angular/http';
+import 'rxjs/add/operator/map';
 declare var google: any;
 
 @IonicPage()
@@ -32,8 +35,8 @@ export class HomeconductorPage implements OnInit{
   public lat: number = 20.971294;
   public lng: number = -89.597;
 
-  latOri = 20.971294;
-  longOri = -89.597;
+  /*latOri = 20.971294;
+  longOri = -89.597;*/
 
   latDest = 20.972594;
   longDest = -89.597;
@@ -41,18 +44,50 @@ export class HomeconductorPage implements OnInit{
   Destination: any = '';
   MyLocation: any;
 
-  public ;
+  //public ;
 
   public latitud_conductor;
   public longitud_conductor;
 
+  responseDatas : any = [];
+
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, private menu: MenuController, public geolocation: Geolocation,
-    public platform: Platform, public storage: Storage) {
+    public platform: Platform, public storage: Storage,
+    public authService: AuthServiceProvider, public http: Http) {
   }
 
   ionViewDidEnter(){
     this.menu.swipeEnable(false);
   }
+
+  ReadData(){
+    this.authService.postData(this.latitud_conductor,'loadlatitud').then((result) => {
+    this.responseDatas = result;
+    console.log("coordenadas actualizados!")
+     
+}, (err) => 
+{
+console.log("Error al mandar coordenadas")// Error log
+});
+
+}
+
+ReadData2(){
+  this.authService.postData(this.longitud_conductor,'loadlongitud').then((result) => {
+  this.responseDatas = result;
+  console.log("coordenadas actualizados!")  
+}, (err) => {
+// Error log
+});
+
+
+}
+
+
+
+
+
 
   presentActionSheet(){
     const actionSheet = this.actionSheetCtrl.create({
@@ -97,6 +132,12 @@ export class HomeconductorPage implements OnInit{
   ionViewWillEnter() {
     this.platform.ready().then(() => {
       this.initPage();
+      this.ReadData();
+      this.ReadData2();
+   
+  
+
+ 
     })
   }
 

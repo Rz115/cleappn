@@ -20,6 +20,7 @@
     "@angular/http": "5.2.11",
     "@angular/platform-browser": "5.2.11",
     "@angular/platform-browser-dynamic": "5.2.11",
+    "@ionic-native/android-permissions": "^4.12.2",
     "@ionic-native/core": "~4.10.0",
     "@ionic-native/email-composer": "^4.11.0",
     "@ionic-native/geolocation": "^4.11.0",
@@ -34,6 +35,7 @@
     "card.io.cordova.mobilesdk": "^2.1.0",
     "com.paypal.cordova.mobilesdk": "^3.5.0",
     "cordova-android": "^7.0.0",
+    "cordova-plugin-android-permissions": "^1.0.0",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-email-composer": "^0.8.15",
     "cordova-plugin-geolocation": "^4.0.1",
@@ -65,7 +67,8 @@
         "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
       },
       "cordova-plugin-email-composer": {},
-      "com.paypal.cordova.mobilesdk": {}
+      "com.paypal.cordova.mobilesdk": {},
+      "cordova-plugin-android-permissions": {}
     },
     "platforms": [
       "android"

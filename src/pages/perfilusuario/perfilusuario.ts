@@ -16,8 +16,7 @@ import 'rxjs/add/operator/map';
 })
 export class PerfilusuarioPage {
   
-
-  //LAS VARIABLES DE CADA INPUT AL ENTRAR SE DECLARAN COMO DESHABILITADAS
+//LAS VARIABLES DE CADA INPUT AL ENTRAR SE DECLARAN COMO DESHABILITADAS
   ocultar1: boolean = true;
   ocultar2: boolean = true;
   ocultar3: boolean = true;
@@ -29,7 +28,9 @@ export class PerfilusuarioPage {
   responseDatas : any = [];
   userDetails: any;
   actualizar = {"username":"","email":"","ubication":""};
-  ide: any;
+  userid: number;
+
+
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public loadingCtrl: LoadingController,
@@ -42,7 +43,8 @@ export class PerfilusuarioPage {
     const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.userData;
 
-    this.ide = this.userDetails.user_id;
+    this.userid = this.navParams.get('userid');
+    console.log(this.userid);
   
   }
 
@@ -121,8 +123,10 @@ export class PerfilusuarioPage {
   ReadData(){
     
       this.authService.postData(this.actualizar,'loaddata').then((result) => {
-      this.responseDatas = result;
-      console.log("datos actualizados!")
+        this.responseDatas = result[0],
+        er => console.log(er),
+       () => console.log('Ok')
+     
       this.traerdatos();
       
 }, (err) => {

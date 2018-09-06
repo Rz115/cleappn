@@ -50,11 +50,23 @@ export class HomeconductorPage implements OnInit{
   public longitud_conductor;
 
   responseDatas : any = [];
+  userDetails : any;
+  userid: number
+  latitudess = 333333;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, private menu: MenuController, public geolocation: Geolocation,
     public platform: Platform, public storage: Storage,
     public authService: AuthServiceProvider, public http: Http) {
+
+      const data = JSON.parse(localStorage.getItem('userData'));
+      this.userDetails = data.userData;
+  
+  
+  
+      this.userid = this.userDetails.id_driver;
+      console.log(this.userid);
+
   }
 
   ionViewDidEnter(){
@@ -62,7 +74,7 @@ export class HomeconductorPage implements OnInit{
   }
 
   ReadData(){
-    this.authService.postData(this.latitud_conductor,'loadlatitud').then((result) => {
+    this.authService.postData(this.latitudess,'loadlatitud').then((result) => {
     this.responseDatas = result;
     console.log("coordenadas actualizados!")
      
@@ -73,16 +85,7 @@ console.log("Error al mandar coordenadas")// Error log
 
 }
 
-ReadData2(){
-  this.authService.postData(this.longitud_conductor,'loadlongitud').then((result) => {
-  this.responseDatas = result;
-  console.log("coordenadas actualizados!")  
-}, (err) => {
-// Error log
-});
 
-
-}
 
 
 
@@ -133,8 +136,7 @@ ReadData2(){
     this.platform.ready().then(() => {
       this.initPage();
       this.ReadData();
-      this.ReadData2();
-   
+        
   
 
  

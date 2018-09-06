@@ -97,6 +97,7 @@ export class HelloIonicPage implements OnInit{
     this.userPostData.user_id = this.userDetails.user_id;
     this.userPostData.token = this.userDetails.token;
 
+    this.userid = this.userDetails.user_id;
 
     this.isPickupRequested = false;
   
@@ -395,7 +396,7 @@ export class HelloIonicPage implements OnInit{
 perfil(){
   
   
-  this.navCtrl.push(PerfilusuarioPage, {"userDetails": this.userDetails });
+  this.navCtrl.push(PerfilusuarioPage, {"userid": this.userid });
 
   this.menu.close();
 }

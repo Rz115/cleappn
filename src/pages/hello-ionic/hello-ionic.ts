@@ -73,6 +73,7 @@ export class HelloIonicPage implements OnInit{
   longDest: any[];
   latresult: any;
   lonresult: any;
+  distance: any;
 
   userPostData = {"user_id":"","token":"", "username":"","email":""};
   userid: number
@@ -115,16 +116,19 @@ export class HelloIonicPage implements OnInit{
       this.latOri = result.coords.latitude;
       this.longOri = result.coords.longitude
       
-      /*
-      for(var i = 0; i<= 15; i++){
-        this.latresult = this.latOri - parseFloat(this.latDest.latitud)
-        this.lonresult = (this.longOri) - parseFloat(this.longDest.longitud)
-      }
-      console.log(this.latresult)
-      */
       
-      this.loadMap(this.latOri, this.longOri, parseFloat(this.latDest[1]), parseFloat(this.longDest[1])); 
+      for(var i = 0; i<= 10; i++){
+        this.latresult = this.latOri - (this.latDest[i])
+        this.lonresult = (this.longOri) - (this.longDest[i])
+        console.log(this.latresult, this.lonresult ,"resultado de la resta")
 
+        if (this.latresult && this.lonresult){
+          this.loadMap(this.latOri, this.longOri, parseFloat(this.latDest[i]), parseFloat(this.longDest[i])); 
+        }
+
+      }
+
+      console.log(this.distance)
 
     }).catch((error) => {
       console.log(error);
@@ -209,9 +213,8 @@ export class HelloIonicPage implements OnInit{
             outputDiv.innerHTML += '<div id="myId" class="item item-thumbnail-left item-text-wrap"><ion-item> Posicion actual: ' + originList[i] + ' <br>Posición conductor: ' + destinationList[j] +
               '<br>Distancia: ' + results[j].distance.text + ' <br>Tiempo de llegada' +
               results[j].duration.text + '</ion-item></div>'
-              
-              //condicional para detectar el que taxi que esté más cerca
-                console.log("distancia", results[j].distance.value)
+            this.distance = results[j].distance.value;
+                console.log("distancias", this.distance)
             ;
           }
         }
@@ -265,11 +268,7 @@ export class HelloIonicPage implements OnInit{
     }
       this.geolocation.getCurrentPosition(options).then(result => {
         this.createMap(result.coords.latitude, result.coords.longitude);
-        console.log('Lat user', result.coords.latitude);
-        console.log('Lon user', result.coords.longitude); 
 
-
-        
       }).catch((error) => {
         console.log(error);
       })  
@@ -281,6 +280,8 @@ export class HelloIonicPage implements OnInit{
     this.presentToast();
     document.getElementById("right-panel").hidden = true;
 
+    this.initPage();
+
   }
   //obtener las coordenadas del chofer
   getCoordsDriver(){
@@ -288,10 +289,6 @@ export class HelloIonicPage implements OnInit{
     this.authService.getlatitud1()
       .subscribe(data => {
         this.latDest = data
-
-        for(var i = 0; i < this.latDest.length; i++){
-        console.log(this.latDest[i], "pruebas de latitud")
-        }
     }, err => {
       console.log(err)
     }
@@ -299,9 +296,6 @@ export class HelloIonicPage implements OnInit{
     this.authService.getlongitud1()
     .subscribe(datas => {
         this.longDest = datas
-        for (var i = 0; i < this.longDest.length; i++) {
-          console.log(this.longDest[i], "pruebas de longitud")
-        }
       }, err => {
         console.log(err)
       })
@@ -340,9 +334,6 @@ export class HelloIonicPage implements OnInit{
     
 
     for (var i=0; i<=100; i++){
-      console.log("pisicion conductores", this.latDest[i], this.longDest[i])
-    
-
         let markerOptions = new google.maps.Marker ({
           position: new google.maps.LatLng(this.latDest[i], this.longDest[i]),
           title: "",

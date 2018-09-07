@@ -27,7 +27,7 @@ export class PerfilusuarioPage {
   categorys: any = []
   responseDatas : any = [];
   userDetails: any;
-  actualizar = {"username":"","email":"","ubication":""};
+  actualizar = {"user_id":"","username":"","email":"","ubication":""};
   userid: number;
 
 
@@ -57,10 +57,11 @@ export class PerfilusuarioPage {
   traerdatos(){
     this.http.get("https://devector.com.mx/PHP-Slim-Restful/api/getDatosUsuario").map(res => res.json()).subscribe(
       data => {
+     for (var i=0; i<=this.userid; i++){
       if(this.userid == this.userDetails.user_id){
-        this.actualizar = data.feedDatas
+        this.actualizar = data.feedDatas[i]
         console.log(this.actualizar);
-      }},
+      }}},
       err => {
         console.log(err)
       }
@@ -128,8 +129,7 @@ export class PerfilusuarioPage {
         er => console.log(er),
        () => console.log('Ok')
        this.traerdatos();
-   
-      
+        
 }, (err) => {
   // Error log
 });

@@ -186,8 +186,8 @@ export class HelloIonicPage implements OnInit{
                 icon: icon
               }));*/
             } else {
-              alert('Dirección erronea: ' + status);
-            }
+             alert('Dirección erronea: ' + status);
+           }
           };
         };
 
@@ -323,7 +323,7 @@ export class HelloIonicPage implements OnInit{
       title: 'Posición actual',
       animation: google.maps.Animation.BOUNCE,
       position: location,
-      icon: '../../assets/img/marker.png'
+      icon: 'assets/img/marker.png'
     })
     
     let content = '<div id="myId" class="item item-thumbnail-left item-text-wrap"><ion-item><ion-row><h6>'+ marker.title +'</ion-row></ion-item></ion-item></div>'
@@ -338,7 +338,7 @@ export class HelloIonicPage implements OnInit{
         let markerOptions = new google.maps.Marker ({
           position: new google.maps.LatLng(this.latDest[i], this.longDest[i]),
           title: "",
-          icon: '../../assets/img/car-icons.png'
+          icon: 'assets/img/car-icons.png'
         })
       
 

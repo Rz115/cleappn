@@ -13,8 +13,10 @@ import 'rxjs/add/operator/map';
 export class PerfilconductorPage {
 
   //variable que guarda todos los datos
-  actualizar: any = []
-  carro: any = []
+  actualizar = {"name":"","email":"","phone":"","adress":"","license":"","date_license":""};
+  carrodatos = {"car":"","car_model":"","year":"","plates":"","circulation_card":""};
+  userid: number;
+  userDetails: any;
   //nullea todos los campos para no ser editados
   ocultar1: boolean = true;
   ocultar2: boolean = true;
@@ -30,6 +32,9 @@ export class PerfilconductorPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController,
     public http: Http, public authService: AuthServiceProvider) {
+  
+      this.userid = this.navParams.get('userid');
+      console.log(this.userid);
   }
 
   ionViewDidEnter(){
@@ -46,9 +51,11 @@ export class PerfilconductorPage {
    //trae los datos del conductor
     this.authService.getdriver().subscribe(
       data => {
-        this.actualizar = data.feedDatas
-        console.log(this.actualizar);
-      },
+        for (var i=0; i<=this.userid; i++){
+          if(this.userid == this.userid){
+          
+            this.actualizar = data.feedDatas[i]
+              }}},
       err => {
         console.log(err)
       }
@@ -56,9 +63,11 @@ export class PerfilconductorPage {
 //tre los datos del carro del conductor
 this.authService.getCar().subscribe(
   data => {
-    this.carro = data.feedDatas
-    console.log(this.carro);
-  },
+    for (var i=0; i<=this.userid; i++){
+      if(this.userid == this.userid){
+      
+        this.carrodatos = data.feedDatas[i]
+      }}},
   err => {
     console.log(err)
   }
@@ -66,9 +75,5 @@ this.authService.getCar().subscribe(
 
 
   }
-
-
-
-
 
 }

@@ -11,7 +11,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { Storage } from '@ionic/storage';
 import { ValoracionesPage } from '../valoraciones/valoraciones';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { Http, Headers } from '@angular/http';
+import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 declare var google: any;
 
@@ -48,11 +48,12 @@ export class HomeconductorPage implements OnInit{
 
   public latitud_conductor;
   public longitud_conductor;
+  variable = {"id_driver":"","latitud": ""};
 
   responseDatas : any = [];
   userDetails : any;
   userid: number
-  latitudess = 333333;
+ 
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, private menu: MenuController, public geolocation: Geolocation,
@@ -65,29 +66,13 @@ export class HomeconductorPage implements OnInit{
   
   
       this.userid = this.userDetails.id_driver;
-      console.log(this.userid);
+     
 
   }
 
   ionViewDidEnter(){
     this.menu.swipeEnable(false);
   }
-
-  ReadData(){
-    this.authService.postData(this.latitudess,'loadlatitud').then((result) => {
-    this.responseDatas = result;
-    console.log("coordenadas actualizados!")
-     
-}, (err) => 
-{
-console.log("Error al mandar coordenadas")// Error log
-});
-
-}
-
-
-
-
 
 
 
@@ -111,7 +96,7 @@ console.log("Error al mandar coordenadas")// Error log
         {
           text: 'Perfil',
           handler: () => {
-              this.navCtrl.push(PerfilconductorPage);
+              this.navCtrl.push(PerfilconductorPage, {"userid": this.userid });
           }
         },
         {
@@ -135,7 +120,7 @@ console.log("Error al mandar coordenadas")// Error log
   ionViewWillEnter() {
     this.platform.ready().then(() => {
       this.initPage();
-      this.ReadData();
+      
         
   
 
@@ -193,6 +178,20 @@ console.log("Error al mandar coordenadas")// Error log
       this.createMap(result.coords.latitude, result.coords.longitude);      
        this.latitud_conductor = result.coords.latitude;
        this.longitud_conductor = result.coords.longitude;
+
+       this.variable.id_driver = this.userDetails.id_driver;
+       this.variable.latitud = this.latitud_conductor;
+       
+      
+       this.authService.postData(this.variable,'loadlatitud').then((result) => {
+        this.responseDatas = result[0];
+        console.log("coordenadas actualizados!")
+         
+    }, (err) => 
+    {
+    console.log("Error al mandar coordenadas")// Error log
+    });
+    
        
       
       /*
@@ -232,7 +231,7 @@ console.log("Error al mandar coordenadas")// Error log
     let marker = new google.maps.Marker({
       title: 'Posición actual',
       position: location,
-      icon: '../../assets/img/car-icons.png'
+      icon: 'assets/img/car-icons.png'
     })
 
     let content = '<div id="myId" class="item item-thumbnail-left item-text-wrap"><ion-item><ion-row><h6>' + marker.title + '</h6></ion-row></ion-item></ion-item></div>'

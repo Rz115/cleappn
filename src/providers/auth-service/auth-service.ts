@@ -14,33 +14,14 @@ export class AuthServiceProvider {
     console.log('Hello AuthServiceProvider Provider');
   }
 
-  /*             COORDENADAS TAXISTA UNO                       */ 
+  /*             COORDENADAS TAXISTAS                      */ 
   getlongitud1() {
     return this.http.get(apiUrl+"getlongituduno").map(res => res.json())
   }
   getlatitud1() {
     return this.http.get(apiUrl+"getlatituduno").map(res => res.json())
   }
-
-  /*             COORDENADAS TAXISTA DOS                      */ 
-  getlongitud2() {
-    return this.http.get(apiUrl+"getlongituddos").map(res => res.json())
-  }
-  getlatitud2() {
-    return this.http.get(apiUrl+"getlatituddos").map(res => res.json())
-  }
-
-getData(){
-  return this.http.get(apiUrl+"getlatituddos").map(res => res.json())
-}
-/*              METODOS DE USUARIO TRAER DATOS EN PERFIL, VIAJES Y AYUDA */
-  getusuario() {
-    return this.http.get(apiUrl+"getDatosUsuario").map(res => res.json())
-  }
-  getCorreo() {
-    return this.http.get(apiUrl+"getCorreo").map(res => res.json())
-  }
-
+ 
   //METODOS DEL CONDUCTOR
   getdriver() {
     return this.http.get(apiUrl+"getDriver").map(res => res.json())

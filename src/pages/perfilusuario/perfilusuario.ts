@@ -57,10 +57,18 @@ export class PerfilusuarioPage {
   traerdatos(){
     this.http.get("https://devector.com.mx/PHP-Slim-Restful/api/getDatosUsuario").map(res => res.json()).subscribe(
       data => {
-      if(this.userid == this.userDetails.user_id){
-        this.actualizar = data.feedDatas
-        console.log(this.actualizar);
-      }},
+
+        for(var i = 0; i <= this.userid; i++){
+          
+          if(this.userid == this.userDetails.user_id){
+            this.actualizar = data.feedDatas[i]
+            console.log(this.actualizar);
+          }
+        }
+
+
+
+    },
       err => {
         console.log(err)
       }

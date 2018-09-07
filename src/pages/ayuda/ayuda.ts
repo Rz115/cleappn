@@ -41,15 +41,7 @@ export class AyudaPage {
 
   traerdatos(){
    //trae los datos del conductor
-    this.authService.getCorreo().subscribe(
-      data => {
-        this.correo.email = data.feedDatas
-        console.log(this.correo);
-      },
-      err => {
-        console.log(err)
-      }
-    )
+   
   }
 
   send(){

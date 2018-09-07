@@ -48,11 +48,15 @@ export class HomeconductorPage implements OnInit{
 
   public latitud_conductor;
   public longitud_conductor;
-  variable = {"id_driver":"","latitud": ""};
+
+  variablelatitud = {"id_driver":"","latitud": ""};
+
+  variablelongitud = {"id_driver":"","longitud":""};
 
   responseDatas : any = [];
+  responseDatass : any = [];
   userDetails : any;
-  userid: number
+  userid: string
  
 
 
@@ -179,19 +183,15 @@ export class HomeconductorPage implements OnInit{
        this.latitud_conductor = result.coords.latitude;
        this.longitud_conductor = result.coords.longitude;
 
-       this.variable.id_driver = this.userDetails.id_driver;
-       this.variable.latitud = this.latitud_conductor;
-       
+       //variables de latitud
+       this.variablelatitud.id_driver = this.userid;
+       this.variablelatitud.latitud = this.latitud_conductor;
+       //variables de longitud
+       this.variablelongitud.id_driver = this.userid;
+       this.variablelongitud.longitud = this.longitud_conductor;
+       this.postt();
       
-       this.authService.postData(this.variable,'loadlatitud').then((result) => {
-        this.responseDatas = result[0];
-        console.log("coordenadas actualizados!")
-         
-    }, (err) => 
-    {
-    console.log("Error al mandar coordenadas")// Error log
-    });
-    
+       
        
       
       /*
@@ -209,9 +209,33 @@ export class HomeconductorPage implements OnInit{
     })
   }
 
+  postt (){
+    this.authService.postData(this.variablelatitud,'loadlatitud').then((result) => {
+      this.responseDatas = result[0];
+      console.log("coordenadas actualizados!")
+       
+  }, (err) => 
+  {
+  console.log("Error al mandar coordenadas")// Error log
+  });
+
+  this.authService.postData(this.variablelongitud,'loadlongitud').then((result) => {
+    this.responseDatass = result[0];
+    console.log("coordenadas actualizados!")
+     
+}, (err) => 
+{
+console.log("Error al mandar coordenadas")// Error log
+});
+
+
+  
+  }
+
 
   ngOnInit() {
   this.map = GoogleMaps.create('map_canvas1');
+  
   }
 
 

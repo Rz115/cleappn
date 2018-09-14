@@ -28,7 +28,8 @@ export class HelloIonicPage implements OnInit{
 
   @Input() public isPickupRequested: boolean;
   @Input() destination: string;
-
+  ocultar: boolean = true;
+  buscador: any[];
   
 
   map: GoogleMap;
@@ -77,7 +78,7 @@ export class HelloIonicPage implements OnInit{
   distancias: any[] = [1,2,3]
 
   userPostData = {"user_id":"","token":"", "username":"","email":""};
-  userid: number
+  userid: number;
 
   constructor(public navCtrl: NavController,
     public authService:AuthServiceProvider,
@@ -287,13 +288,12 @@ export class HelloIonicPage implements OnInit{
   }
 
   ngOnInit() {
-    console.log("este es el id" ,this.userDetails.user_id)
     this.map = GoogleMaps.create('map_canvas');
     this.presentToast();
     document.getElementById("right-panel").hidden = true;
 
     this.initPage();
-
+    this.metodobotonservicio();
   }
   //obtener las coordenadas del chofer
   getCoordsDriver(){
@@ -312,9 +312,20 @@ export class HelloIonicPage implements OnInit{
         console.log(err)
       })
 
-
+    
   }
-
+/* METODO PARA ACTIVAR O DESACTIVAR BOTON DE CONTRATAR SERVICIO */
+metodobotonservicio(){
+  this.authService.getidtarjeta().subscribe(dataz => {
+    for (var i=0; i<=this.userid; i++){
+      if(this.userDetails.user_id == dataz[i]){
+        this.ocultar = false;
+        console.log(this.buscador)
+      }}},
+       err => {
+      console.log(err)
+    })
+}
   createMap(lat, lng) {
     
     let location = new google.maps.LatLng(lat, lng);

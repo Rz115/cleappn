@@ -11,8 +11,13 @@ export class AuthServiceProvider {
 
   constructor(public http: Http) {
     
-    console.log('Hello AuthServiceProvider Provider');
+   
   }
+
+/* ACTIVAR O DESACTIVAR BOTON EN INICIO DEPENDIENDO DATOS */
+getidtarjeta() {
+  return this.http.get(apiUrl+"getidtarjetas").map(res => res.json())
+}
 
   /*             COORDENADAS TAXISTAS                      */ 
   getlongitud1() {

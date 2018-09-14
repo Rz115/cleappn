@@ -73,7 +73,8 @@ export class HelloIonicPage implements OnInit{
   longDest: any[];
   latresult: any;
   lonresult: any;
-  distance: any;
+  distance: any[];
+  distancias: any[] = [1,2,3]
 
   userPostData = {"user_id":"","token":"", "username":"","email":""};
   userid: number
@@ -215,8 +216,16 @@ export class HelloIonicPage implements OnInit{
               '<br>Distancia: ' + results[j].distance.text + ' <br>Tiempo de llegada' +
               results[j].duration.text + '</ion-item></div>'
             this.distance = results[j].distance.value;
-                console.log("distancias", this.distance)
+            
             ;
+            console.log("distancias", this.distance)
+            var count = 2000000;
+            for(var i=0; i<=10;i++){
+              if (results[j].distance.value < count){
+                count = results[j].distance.value
+              }
+              console.log("el menor es ", count)
+            }
           }
         }
       }
@@ -273,6 +282,8 @@ export class HelloIonicPage implements OnInit{
       }).catch((error) => {
         console.log(error);
       })  
+
+      console.log(this.distance, "estas son las distancias")
   }
 
   ngOnInit() {

@@ -9,7 +9,6 @@ import 'rxjs/add/operator/filter';
 import { PerfilusuarioPage } from '../perfilusuario/perfilusuario';
 import { ViajesusuarioPage } from '../viajesusuario/viajesusuario';
 import { FormadepagoPage } from '../formadepago/formadepago';
-import { AyudaPage } from '../ayuda/ayuda';
 import { TerminosPage } from '../terminos/terminos';
 import { LoginPage } from '../login/login';
 import { Storage } from '@ionic/storage';
@@ -151,7 +150,9 @@ export class HelloIonicPage implements OnInit{
 
     var map = new google.maps.Map(document.getElementById('map'), {
       center: { lat: latOri, lng: lngOri },
-      zoom: 100
+      zoom: 70,
+      mapTypeId: 'roadmap',
+      disableDefaultUI: true
     });
     directionsDisplay.setMap(map);
     var geocoder = new google.maps.Geocoder;
@@ -218,7 +219,7 @@ export class HelloIonicPage implements OnInit{
               results[j].duration.text + '</ion-item></div>'
             this.distance = results[j].distance.value;
             
-            ;
+            
             console.log("distancias", this.distance)
             var count = 2000000;
             for(var i=0; i<=10;i++){
@@ -359,7 +360,7 @@ metodobotonservicio(){
     for (var i=0; i<=100; i++){
         let markerOptions = new google.maps.Marker ({
           position: new google.maps.LatLng(this.latDest[i], this.longDest[i]),
-          title: "",
+          title: "Conductor en servicio",
           icon: 'assets/img/car-icons.png'
         })
       
@@ -416,21 +417,16 @@ perfil(){
 
 //PAGINA DE VIAJES REECIENTES
 viajes(){
-  this.navCtrl.push(ViajesusuarioPage);
+  this.navCtrl.push(ViajesusuarioPage, {"userid": this.userid });
   this.menu.close();
 }
 
 //PAGINA DE FORMAS DE PAGO
 formapago(){
-  this.navCtrl.push(FormadepagoPage);
+  this.navCtrl.push(FormadepagoPage, {"userid": this.userid });
   this.menu.close();
 }
 
-//PAGINA DE AYUDA
-ayudapage(){
-  this.navCtrl.push(AyudaPage);
-  this.menu.close();
-}
 
 //PAGINA DE TERMINOS Y CONDICIONES
 politicas(){

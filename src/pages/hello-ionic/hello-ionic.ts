@@ -12,6 +12,7 @@ import { FormadepagoPage } from '../formadepago/formadepago';
 import { TerminosPage } from '../terminos/terminos';
 import { LoginPage } from '../login/login';
 import { Storage } from '@ionic/storage';
+import { parse } from 'path';
 
 declare var google: any;
 @Component({
@@ -73,8 +74,10 @@ export class HelloIonicPage implements OnInit{
   longDest: any[];
   latresult: any;
   lonresult: any;
-  distance: any[];
-  distancias: any[] = [1,2,3]
+  distance: any[] = []
+  contadorlat: any = 100
+  contadorlon: any = 100
+
 
   userPostData = {"user_id":"","token":"", "username":"","email":""};
   userid: number;
@@ -120,17 +123,23 @@ export class HelloIonicPage implements OnInit{
       
       
       for(var i = 0; i<= 10; i++){
-        this.latresult = this.latOri - (this.latDest[i])
-        this.lonresult = (this.longOri) - (this.longDest[i])
-        console.log(this.latresult, this.lonresult ,"resultado de la resta")
-
-        if (this.latresult && this.lonresult){
-          this.loadMap(this.latOri, this.longOri, parseFloat(this.latDest[i]), parseFloat(this.longDest[i])); 
+        
+        for(var men = 0; men<=10; men++){
+          //menor de la latitud
+          if (this.latDest[i] < this.contadorlat){
+            this.contadorlat = this.latDest[i]
+             }
+             //menor de la longitud
+          if (this.longDest[i]<this.contadorlon){
+            this.contadorlon = this.longDest[i]
+          }
         }
 
-      }
+          this.loadMap(this.latOri, this.longOri, parseFloat(this.contadorlat), parseFloat(this.contadorlon)); 
 
-      console.log(this.distance)
+      }
+      console.log("el menor de las latitudes es: " , this.contadorlat)
+      console.log("el menor de las longitudes es ", this.contadorlon)
 
     }).catch((error) => {
       console.log(error);
@@ -205,7 +214,6 @@ export class HelloIonicPage implements OnInit{
             window.alert('Dirección erronea ' + status);
           }
         });
-
         
         for (var i = 0; i < originList.length; i++) {
           var results = response.rows[i].elements;
@@ -217,17 +225,9 @@ export class HelloIonicPage implements OnInit{
             outputDiv.innerHTML += '<div id="myId" class="item item-thumbnail-left item-text-wrap"><ion-item> Posicion actual: ' + originList[i] + ' <br>Posición conductor: ' + destinationList[j] +
               '<br>Distancia: ' + results[j].distance.text + ' <br>Tiempo de llegada' +
               results[j].duration.text + '</ion-item></div>'
-            this.distance = results[j].distance.value;
+
+            ;
             
-            
-            console.log("distancias", this.distance)
-            var count = 2000000;
-            for(var i=0; i<=10;i++){
-              if (results[j].distance.value < count){
-                count = results[j].distance.value
-              }
-              console.log("el menor es ", count)
-            }
           }
         }
       }
@@ -285,7 +285,6 @@ export class HelloIonicPage implements OnInit{
         console.log(error);
       })  
 
-      console.log(this.distance, "estas son las distancias")
   }
 
   ngOnInit() {

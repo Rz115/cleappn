@@ -120,58 +120,24 @@ export class HelloIonicPage implements OnInit{
       this.createMap(result.coords.latitude, result.coords.longitude);
       this.latOri = result.coords.latitude;
       this.longOri = result.coords.longitude
-      
-      
-      for(var i = 0; i<= 10; i++){
-        
-        for(var men = 0; men<=10; men++){
-          //menor de la latitud
-          if (this.latDest[i] < this.contadorlat){
-            this.contadorlat = this.latDest[i]
-             }
-             //menor de la longitud
-          if (this.longDest[i]<this.contadorlon){
-            this.contadorlon = this.longDest[i]
-          }
-          var rad = function (x) { return x * Math.PI / 180; }
-          var R = 6378.137 //radio de la tierra en km
-          var dLat = rad(this.latDest[i] - this.latOri);
-          var dLong = rad(this.longDest[i] - this.longOri);
-          var a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
-          + Math.cos(rad(this.latOri))
-          * Math.cos(rad(this.latDest[i]))
-          * Math.sin(dLong / 2)
-          * Math.sin(dLong / 2);
-          var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-          var d = R * c;
-          var km = d / 1;
 
-          if(km < this.distance){
-            this.distance = km
-          }
 
-          console.log(this.distance, "   ")
-          /*
-          if(){
-            for(var n = 0; n ==i; n++){
-              
-            }
-          }*/
-        }
-        
-        if(this.distance){
-          this.loadMap(this.latOri, this.longOri, parseFloat(this.latDest[i]), parseFloat(this.longDest[i])); 
+      for (var i = 0; i <= 10; i++) {
+        this.latresult = this.latOri - (this.latDest[i])
+        this.lonresult = (this.longOri) - (this.longDest[i])
+        console.log(this.latresult, this.lonresult, "resultado de la resta")
 
+        if (this.latresult && this.lonresult) {
+          this.loadMap(this.latOri, this.longOri, parseFloat(this.latDest[i]), parseFloat(this.longDest[i]));
         }
 
       }
-      console.log("el menor de las latitudes es: " , this.contadorlat)
-      console.log("el menor de las longitudes es ", this.contadorlon)
+
+      console.log(this.distance)
 
     }).catch((error) => {
       console.log(error);
     })
-    
 
   }
   //INICIO CALCULO...calculo de distancia, mostrar marca de distancia, mostrar origen y destino

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController, Platform, AlertController } from 'ionic-angular';
 import { ActionSheetController } from 'ionic-angular';
 import { StatusconductorPage } from '../statusconductor/statusconductor';
 import { PerfilconductorPage } from '../perfilconductor/perfilconductor';
@@ -57,12 +57,23 @@ export class HomeconductorPage implements OnInit{
   responseDatass : any = [];
   userDetails : any;
   userid: string
- 
 
+  indi: any; 
+  solicitud = {"id_driver":"","indicator":""};
+  respuest : any = [];
+  getlati: any;
+  getlongi: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, private menu: MenuController, public geolocation: Geolocation,
-    public platform: Platform, public storage: Storage,
-    public authService: AuthServiceProvider, public http: Http) {
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public actionSheetCtrl: ActionSheetController, 
+    private menu: MenuController, 
+    public geolocation: Geolocation,
+    public platform: Platform, 
+    public storage: Storage,
+    public authService: AuthServiceProvider, 
+    public http: Http,
+    private alertCtrl: AlertController) {
 
       const data = JSON.parse(localStorage.getItem('userData'));
       this.userDetails = data.userData;
@@ -232,10 +243,90 @@ console.log("Error al mandar coordenadas")// Error log
   
   }
 
+  // METODO DE ALERTA PARA RECIBIR SI ACEPTAR O NO SERVICIO
+  presentConfirm() {
+    let alert = this.alertCtrl.create({
+      title: 'Se ha encontrado un nuevo servicio',
+      buttons: [
+        {
+          text: 'Rechazar',
+          role: 'cancel',
+          handler: () => {
+          //METODO PARA CAMBIAR EL VALOR DEL INDICADOR UNA VEZ RECHAZE EL CONDUCTOR
+          this.authService.postData(this.solicitud,'cancelarsolicitudes').then((result) => {
+            this.respuest = result[0];
+                       
+    }, (err) => {
+      // Error log
+    });
+          }
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+           //METODO PARA CAMBIAR EL VALOR DEL INDICADOR UNA VEZ ACEPTE EL CONDUCTOR
+            this.authService.postData(this.solicitud,'aceptarservicio').then((result) => {
+              this.respuest = result[0];
+              //METODO PARA CARGAR EL MAPA DE LAS COORDENADAS DEL USUARIO Y LAS DE CONDUCTOR
+              
+      }, (err) => {
+        // Error log
+      });
+
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
 
   ngOnInit() {
   this.map = GoogleMaps.create('map_canvas1');
-  
+  // BUSCA EL CAMBIO EN EL CAMPO INDICADOR DEL CONDUCTOR
+  this.authService.buscarcambiodeindicador()
+  .subscribe(data => {
+    this.indi = data.indicator
+ console.log(this.indi);
+
+ if(this.indi == 1){
+
+this.presentConfirm();
+
+ } 
+}, err => {
+  console.log(err)
+}
+)
+
+
+//OBTENER COORDENADAS DEL USUARIO PARA TRAZAR RUTA LATITUD
+this.authService.getlat()
+.subscribe(data => {
+  this.getlati = data.usuariolat
+console.log(this.getlati);
+
+}, err => {
+console.log(err)
+}
+)
+
+//OBTENER COORDENADAS DEL USUARIO PARA TRAZAR RUTA LONGITUD
+this.authService.getlong()
+.subscribe(data => {
+  this.getlongi = data.usuariolong
+console.log(this.getlongi);
+
+}, err => {
+console.log(err)
+}
+)
+
+
+
+
+
+
+
   }
 
 

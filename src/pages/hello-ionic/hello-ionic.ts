@@ -77,7 +77,13 @@ export class HelloIonicPage implements OnInit{
   distance: any = 1000000
   contadorlat: any = 100
   contadorlon: any = 100
-
+  responseDatas : any = [];
+  solicitud = {"user_id":"","indicator":""};
+  
+  //SE ENVIAN LAS COORDENADAS A LA TABLA DEL CONDUCTOR
+  variablelatitud = {"usuariolat": ""};
+  variablelongitud = {"usuariolong":""};
+  
 
   userPostData = {"user_id":"","token":"", "username":"","email":""};
   userid: number;
@@ -130,6 +136,9 @@ export class HelloIonicPage implements OnInit{
 
         if (this.latresult && this.lonresult) {
           this.loadMap(this.latOri, this.longOri, parseFloat(this.latDest[i]), parseFloat(this.longDest[i]));
+          this.variablelatitud.usuariolat = this.latOri;
+          this.variablelongitud.usuariolong = this.longOri;
+          this.Postdecoordenadas();
         }
 
       }
@@ -139,8 +148,48 @@ export class HelloIonicPage implements OnInit{
     }).catch((error) => {
       console.log(error);
     })
+        //METODO PARA CAMBIAR EL ESTADO DEL CONDUCTOR 
+      this.authService.postData(this.solicitud,'solicitudes').then((result) => {
+        this.responseDatas = result[0],
+        er => console.log(er),
+       () => console.log('Ok')
+      
+        
+}, (err) => {
+  // Error log
+});
 
   }
+
+  Postdecoordenadas(){
+    // METODO PARA ENVIAR TUS COORDENADAS LATITUD
+     this.authService.postData(this.variablelatitud,'sendcoordenadaslat').then((result) => {
+            this.responseDatas = result[0],
+            er => console.log(er),
+           () => console.log('Ok')
+          
+            
+    }, (err) => {
+      // Error log
+    });
+    
+    // METODO PARA ENVIAR TUS COORDENADAS LONGITUD
+    this.authService.postData(this.variablelongitud,'sendcoordenadaslong').then((result) => {
+      this.responseDatas = result[0],
+      er => console.log(er),
+     () => console.log('Ok')
+    
+      
+    }, (err) => {
+    // Error log
+    });
+    }
+
+
+
+
+
+
   //INICIO CALCULO...calculo de distancia, mostrar marca de distancia, mostrar origen y destino
   private loadMap(latOri, lngOri, latDest, lngDest) {
     var directionsService = new google.maps.DirectionsService;
@@ -217,8 +266,8 @@ export class HelloIonicPage implements OnInit{
           for (var j = 0; j < results.length; j++) {
             geocoder.geocode({ 'address': destinationList[j] },
               showGeocodedAddressOnMap(true));
-            outputDiv.innerHTML += '<div id="myId" class="item item-thumbnail-left item-text-wrap"><ion-item> Posicion actual: ' + originList[i] + ' <br>Posición conductor: ' + destinationList[j] +
-              '<br>Distancia: ' + results[j].distance.text + ' <br>Tiempo de llegada' +
+            outputDiv.innerHTML += '<div id="myId" class="item item-thumbnail-left item-text-wrap"><ion-item> Posición actual: ' + originList[i] + ' <br>Posición conductor: ' + destinationList[j] +
+              '<br>Distancia: ' + results[j].distance.text + ' <br>Tiempo de llegada: ' +
               results[j].duration.text + '</ion-item></div>'
 
             ;
@@ -247,6 +296,15 @@ export class HelloIonicPage implements OnInit{
   cancelarservicio() {    
     this.ionViewWillEnter();
     this.isPickupRequested = false;
+    this.authService.postData(this.solicitud,'cancelarsolicitudes').then((result) => {
+      this.responseDatas = result[0],
+      er => console.log(er),
+     () => console.log('Ok')
+    
+      
+}, (err) => {
+// Error log
+});
   }
 
   presentToastservicio() {

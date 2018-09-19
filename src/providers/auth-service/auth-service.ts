@@ -29,6 +29,13 @@ getidtarjeta() {
   getiddrivers() {
     return this.http.get(apiUrl+"getiddriver").map(res => res.json())
   }
+// RECIBIR COORDENADAS DEL USUARIO PARA EL CONDUCTOR 14
+  getlat(){
+    return this.http.get(apiUrl+"buscarlatitud").map(res => res.json())
+  }
+  getlong(){
+    return this.http.get(apiUrl+"buscarlongitud").map(res => res.json())
+  }
  
   //METODOS DEL CONDUCTOR
   getdriver() {
@@ -36,6 +43,10 @@ getidtarjeta() {
   }
   getCar() {
     return this.http.get(apiUrl+"getCar").map(res => res.json())
+  }
+
+  buscarcambiodeindicador(){
+    return this.http.get(apiUrl+"cambioindicador").map(res => res.json())
   }
 
   

@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 
-/**
- * Generated class for the ViajesusuarioPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 
 @IonicPage()
 @Component({
@@ -14,11 +9,17 @@ import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angul
   templateUrl: 'viajesusuario.html',
 })
 export class ViajesusuarioPage {
+  userid: number;
 
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
   private menu: MenuController) {
+
+    this.userid = this.navParams.get('userid');
+    console.log(this.userid);
+
   }
+
   ionViewDidEnter(){
     this.menu.swipeEnable(false);
   }

@@ -11,62 +11,68 @@ import { PayPal, PayPalPayment, PayPalConfiguration, PayPalPaymentDetails } from
 })
 export class FormadepagoPage {
 
+  userid: number;
+
   constructor(public navCtrl: NavController,
-     public navParams: NavParams,
+    public navParams: NavParams,
     private menu: MenuController,
-    private payPal: PayPal) {}
+    private payPal: PayPal) {
 
-    comprarpaypal(){
-      this.payPal.init({
-        PayPalEnvironmentProduction: 'YOUR_PRODUCTION_CLIENT_ID',
-        PayPalEnvironmentSandbox: 'ATkkbT2la5FR6zVVpgOOON5uNCWfHH7G5Xa8V39ojuhv_gcGT9nJg8uK1QVzsNhIGmnT0AyfLLBAOOJ5'
-      }).then(() => {
-        // Environments: PayPalEnvironmentNoNetwork, PayPalEnvironmentSandbox, PayPalEnvironmentProduction
-        this.payPal.prepareToRender('PayPalEnvironmentSandbox', new PayPalConfiguration({
+    this.userid = this.navParams.get('userid');
+    console.log(this.userid);
+  }
 
-          acceptCreditCards: false,
-          languageOrLocale: "en_AU" && "es",
-          merchantPrivacyPolicyURL: '',
-          merchantUserAgreementURL: ''
+  comprarpaypal() {
+    this.payPal.init({
+      PayPalEnvironmentProduction: 'YOUR_PRODUCTION_CLIENT_ID',
+      PayPalEnvironmentSandbox: 'ATkkbT2la5FR6zVVpgOOON5uNCWfHH7G5Xa8V39ojuhv_gcGT9nJg8uK1QVzsNhIGmnT0AyfLLBAOOJ5'
+    }).then(() => {
+      // Environments: PayPalEnvironmentNoNetwork, PayPalEnvironmentSandbox, PayPalEnvironmentProduction
+      this.payPal.prepareToRender('PayPalEnvironmentSandbox', new PayPalConfiguration({
 
-        })).then(() => {
-          let payment = new PayPalPayment('1.00', 'USD', 'Description', 'sale');
-          this.payPal.renderSinglePaymentUI(payment).then((response) => {
-            console.log('Su pago ha sido realizado con exito!')
-            // Successfully paid
+        acceptCreditCards: false,
+        languageOrLocale: "en_AU" && "es",
+        merchantPrivacyPolicyURL: '',
+        merchantUserAgreementURL: ''
 
-            // Example sandbox response
-            //
-            // {
-            //   "client": {
-            //     "environment": "sandbox",
-            //     "product_name": "PayPal iOS SDK",
-            //     "paypal_sdk_version": "2.16.0",
-            //     "platform": "iOS"
-            //   },
-            //   "response_type": "payment",
-            //   "response": {
-            //     "id": "PAY-1AB23456CD789012EF34GHIJ",
-            //     "state": "approved",
-            //     "create_time": "2016-10-03T13:33:33Z",
-            //     "intent": "sale"
-            //   }
-            // }
-          }, () => {
-            console.log('Error al realizar el pago');
-          });
+      })).then(() => {
+        let payment = new PayPalPayment('1.00', 'USD', 'Description', 'sale');
+        this.payPal.renderSinglePaymentUI(payment).then((response) => {
+          console.log('Su pago ha sido realizado con exito!')
+          // Successfully paid
+
+          // Example sandbox response
+          //
+          // {
+          //   "client": {
+          //     "environment": "sandbox",
+          //     "product_name": "PayPal iOS SDK",
+          //     "paypal_sdk_version": "2.16.0",
+          //     "platform": "iOS"
+          //   },
+          //   "response_type": "payment",
+          //   "response": {
+          //     "id": "PAY-1AB23456CD789012EF34GHIJ",
+          //     "state": "approved",
+          //     "create_time": "2016-10-03T13:33:33Z",
+          //     "intent": "sale"
+          //   }
+          // }
         }, () => {
-          // Error in configuration
+          console.log('Error al realizar el pago');
         });
       }, () => {
-        // Error in initialization, maybe PayPal isn't supported or something else
+        // Error in configuration
       });
-    }
+    }, () => {
+      // Error in initialization, maybe PayPal isn't supported or something else
+    });
+  }
 
-    ionViewDidEnter(){
-      this.menu.swipeEnable(false);
-    }
-  nuevacard(){
+  ionViewDidEnter() {
+    this.menu.swipeEnable(false);
+  }
+  nuevacard() {
     this.navCtrl.push(NuevaTarjetaPage);
-}
+  }
 }

@@ -74,14 +74,14 @@ export class HelloIonicPage implements OnInit{
   longDest: any[];
   latresult: any;
   lonresult: any;
-  idConductor: any[];
-  distance: any[] = []
+  distance: any = 1000000
   contadorlat: any = 100
   contadorlon: any = 100
 
 
   userPostData = {"user_id":"","token":"", "username":"","email":""};
   userid: number;
+  idConductor: any[];
 
   constructor(public navCtrl: NavController,
     public authService:AuthServiceProvider,
@@ -121,26 +121,20 @@ export class HelloIonicPage implements OnInit{
       this.createMap(result.coords.latitude, result.coords.longitude);
       this.latOri = result.coords.latitude;
       this.longOri = result.coords.longitude
-      
-      
-      for(var i = 0; i<= 10; i++){
-        
-        for(var men = 0; men<=10; men++){
-          //menor de la latitud
-          if (this.latDest[i] < this.contadorlat){
-            this.contadorlat = this.latDest[i]
-             }
-             //menor de la longitud
-          if (this.longDest[i]<this.contadorlon){
-            this.contadorlon = this.longDest[i]
-          }
+
+
+      for (var i = 0; i <= 10; i++) {
+        this.latresult = this.latOri - (this.latDest[i])
+        this.lonresult = (this.longOri) - (this.longDest[i])
+        console.log(this.latresult, this.lonresult, "resultado de la resta")
+
+        if (this.latresult && this.lonresult) {
+          this.loadMap(this.latOri, this.longOri, parseFloat(this.latDest[i]), parseFloat(this.longDest[i]));
         }
 
-          this.loadMap(this.latOri, this.longOri, parseFloat(this.contadorlat), parseFloat(this.contadorlon)); 
- 
       }
-      console.log("el menor de las latitudes es: " , this.contadorlat)
-      console.log("el menor de las longitudes es ", this.contadorlon)
+
+      console.log(this.distance)
 
     }).catch((error) => {
       console.log(error);

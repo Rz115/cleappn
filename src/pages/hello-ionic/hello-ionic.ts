@@ -185,11 +185,6 @@ export class HelloIonicPage implements OnInit{
     });
     }
 
-
-
-
-
-
   //INICIO CALCULO...calculo de distancia, mostrar marca de distancia, mostrar origen y destino
   private loadMap(latOri, lngOri, latDest, lngDest) {
     var directionsService = new google.maps.DirectionsService;

@@ -182,6 +182,8 @@ export class HomeconductorPage implements OnInit{
     });
   }
 
+  
+
   //localizar posicion actual del usuario
   public initPage() {
 
@@ -267,8 +269,10 @@ console.log("Error al mandar coordenadas")// Error log
            //METODO PARA CAMBIAR EL VALOR DEL INDICADOR UNA VEZ ACEPTE EL CONDUCTOR
             this.authService.postData(this.solicitud,'aceptarservicio').then((result) => {
               this.respuest = result[0];
+
+              this.loadMap(this.latitud_conductor, this.longitud_conductor,parseFloat(this.getlati), parseFloat(this.getlongi));
               //METODO PARA CARGAR EL MAPA DE LAS COORDENADAS DEL USUARIO Y LAS DE CONDUCTOR
-              
+
       }, (err) => {
         // Error log
       });
@@ -280,6 +284,101 @@ console.log("Error al mandar coordenadas")// Error log
     alert.present();
   }
 
+  //INICIO CALCULO...calculo de distancia, mostrar marca de distancia, mostrar origen y destino
+  private loadMap(latOri, lngOri, latDest, lngDest) {
+    var directionsService = new google.maps.DirectionsService;
+    var directionsDisplay = new google.maps.DirectionsRenderer;
+    directionsDisplay = new google.maps.DirectionsRenderer();
+    var bounds = new google.maps.LatLngBounds;
+    var markersArray = [];
+
+    var origin1 = { lat: parseFloat(latOri), lng: parseFloat(lngOri) };
+    var destinationA = { lat: latDest, lng: lngDest };
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: { lat: latOri, lng: lngOri },
+      zoom: 70,
+      mapTypeId: 'roadmap',
+      disableDefaultUI: true
+    });
+    directionsDisplay.setMap(map);
+    var geocoder = new google.maps.Geocoder;
+
+    var service = new google.maps.DistanceMatrixService;
+    service.getDistanceMatrix({
+      origins: [origin1],
+      destinations: [destinationA],
+      travelMode: 'DRIVING',
+      unitSystem: google.maps.UnitSystem.METRIC,
+      avoidHighways: false,
+      avoidTolls: false
+    }, function (response, status) {
+      if (status !== 'OK') {
+        alert('Error was: ' + status);
+      } else {
+        var originList = response.originAddresses;
+        var destinationList = response.destinationAddresses;
+        var outputDiv = document.getElementById('output');
+        //outputDiv.innerHTML = '';
+        deleteMarkers(markersArray);
+
+        var destinationIcon = '../../assets/img/marker.png';
+        var originIcon = '../../assets/img/car-icons.png';
+
+        var showGeocodedAddressOnMap = function (asDestination) {
+          var icon = asDestination ? destinationIcon : originIcon;
+          return function (results, status) {
+            if (status === 'OK') {
+              map.fitBounds(bounds.extend(results[0].geometry.location));
+              /*markersArray.push(new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location,
+                icon: icon
+              }));*/
+            } else {
+              alert('Dirección erronea: ' + status);
+            }
+          };
+        };
+
+        directionsService.route({
+          origin: origin1,
+          destination: destinationA,
+          travelMode: 'DRIVING'
+        }, function (response, status) {
+          if (status === 'OK') {
+            directionsDisplay.setDirections(response);
+          } else {
+            window.alert('Dirección erronea ' + status);
+          }
+        });
+
+        for (var i = 0; i < originList.length; i++) {
+          var results = response.rows[i].elements;
+          geocoder.geocode({ 'address': originList[i] },
+            showGeocodedAddressOnMap(false));
+          for (var j = 0; j < results.length; j++) {
+            geocoder.geocode({ 'address': destinationList[j] },
+              showGeocodedAddressOnMap(true));
+            /*outputDiv.innerHTML += '<div id="myId" class="item item-thumbnail-left item-text-wrap"><ion-item> Posición actual: ' + originList[i] + ' <br>Posición conductor: ' + destinationList[j] +
+              '<br>Distancia: ' + results[j].distance.text + ' <br>Tiempo de llegada: ' +
+              results[j].duration.text + '</ion-item></div>'*/
+
+              ;
+
+          }
+        }
+      }
+    });
+
+    function deleteMarkers(markersArray) {
+      for (var i = 0; i < markersArray.length; i++) {
+        markersArray[i].setMap(null);
+      }
+      markersArray = [];
+    }
+  }
+    //FIN CALCULO
   ngOnInit() {
   this.map = GoogleMaps.create('map_canvas1');
   // BUSCA EL CAMBIO EN EL CAMPO INDICADOR DEL CONDUCTOR

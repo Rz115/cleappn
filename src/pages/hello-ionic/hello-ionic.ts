@@ -75,7 +75,7 @@ export class HelloIonicPage implements OnInit{
   longDest: any[];
   latresult: any;
   lonresult: any;
-  distance: any[] = []
+  distance: any = 1000000
   contadorlat: any = 100
   contadorlon: any = 100
 
@@ -134,9 +134,36 @@ export class HelloIonicPage implements OnInit{
           if (this.longDest[i]<this.contadorlon){
             this.contadorlon = this.longDest[i]
           }
-        }
+          var rad = function (x) { return x * Math.PI / 180; }
+          var R = 6378.137 //radio de la tierra en km
+          var dLat = rad(this.latDest[i] - this.latOri);
+          var dLong = rad(this.longDest[i] - this.longOri);
+          var a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+          + Math.cos(rad(this.latOri))
+          * Math.cos(rad(this.latDest[i]))
+          * Math.sin(dLong / 2)
+          * Math.sin(dLong / 2);
+          var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+          var d = R * c;
+          var km = d / 1;
 
-          this.loadMap(this.latOri, this.longOri, parseFloat(this.contadorlat), parseFloat(this.contadorlon)); 
+          if(km < this.distance){
+            this.distance = km
+          }
+
+          console.log(this.distance, "   ")
+          /*
+          if(){
+            for(var n = 0; n ==i; n++){
+              
+            }
+          }*/
+        }
+        
+        if(this.distance){
+          this.loadMap(this.latOri, this.longOri, parseFloat(this.latDest[i]), parseFloat(this.longDest[i])); 
+
+        }
 
       }
       console.log("el menor de las latitudes es: " , this.contadorlat)
@@ -145,6 +172,7 @@ export class HelloIonicPage implements OnInit{
     }).catch((error) => {
       console.log(error);
     })
+    
 
   }
   //INICIO CALCULO...calculo de distancia, mostrar marca de distancia, mostrar origen y destino

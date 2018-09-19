@@ -26,6 +26,9 @@ getidtarjeta() {
   getlatitud1() {
     return this.http.get(apiUrl+"getlatituduno").map(res => res.json())
   }
+  getiddrivers() {
+    return this.http.get(apiUrl+"getiddriver").map(res => res.json())
+  }
  
   //METODOS DEL CONDUCTOR
   getdriver() {

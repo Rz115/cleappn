@@ -12,7 +12,7 @@ import { FormadepagoPage } from '../formadepago/formadepago';
 import { TerminosPage } from '../terminos/terminos';
 import { LoginPage } from '../login/login';
 import { Storage } from '@ionic/storage';
-import { parse } from 'path';
+
 
 declare var google: any;
 @Component({
@@ -74,6 +74,7 @@ export class HelloIonicPage implements OnInit{
   longDest: any[];
   latresult: any;
   lonresult: any;
+  idConductor: any[];
   distance: any[] = []
   contadorlat: any = 100
   contadorlon: any = 100
@@ -136,7 +137,7 @@ export class HelloIonicPage implements OnInit{
         }
 
           this.loadMap(this.latOri, this.longOri, parseFloat(this.contadorlat), parseFloat(this.contadorlon)); 
-
+ 
       }
       console.log("el menor de las latitudes es: " , this.contadorlat)
       console.log("el menor de las longitudes es ", this.contadorlon)
@@ -311,6 +312,15 @@ export class HelloIonicPage implements OnInit{
       }, err => {
         console.log(err)
       })
+
+       // obtener todos los id de conductores para relacionarlos con sus coordenadas
+       this.authService.getiddrivers()
+       .subscribe(datass => {
+           this.idConductor = datass
+           console.log(this.idConductor)
+         }, err => {
+           console.log(err)
+         })
 
     
   }

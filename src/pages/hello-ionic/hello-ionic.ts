@@ -70,11 +70,13 @@ export class HelloIonicPage implements OnInit{
 
   latOri: any;
   longOri: any;
-  latDest: any[];
+  latDesti: any[];
   longDest: any[];
   latresult: any;
   lonresult: any;
   distance: any = 1000000
+  cerca: any
+  mindif: any
   contadorlat: any = 100
   contadorlon: any = 100
   responseDatas : any = [];
@@ -116,6 +118,17 @@ export class HelloIonicPage implements OnInit{
 
 }
 
+  EcuacionDistancia(lat1, lon1, lat2, lon2) {
+  lat1 = lat1 * Math.PI / 180;
+  lat2 = lat2 * Math.PI / 180;
+  lon1 = lon1 * Math.PI / 180;
+  lon2 = lon2 * Math.PI / 180;
+  var R = 6371; // km
+  var x = (lon2 - lon1) * Math.cos((lat1 + lat2) / 2);
+  var y = (lat2 - lat1);
+  var d = Math.sqrt(x * x + y * y) * R;
+  return d;
+  }
 
   calcRota(latDest, lngDest) {
     this.isPickupRequested = true;
@@ -127,37 +140,34 @@ export class HelloIonicPage implements OnInit{
       this.createMap(result.coords.latitude, result.coords.longitude);
       this.latOri = result.coords.latitude;
       this.longOri = result.coords.longitude
+  
 
-
-      for (var i = 0; i <= 10; i++) {
-        this.latresult = this.latOri - (this.latDest[i])
-        this.lonresult = (this.longOri) - (this.longDest[i])
-        console.log(this.latresult, this.lonresult, "resultado de la resta")
-
-        if (this.latresult && this.lonresult) {
-          this.loadMap(this.latOri, this.longOri, parseFloat(this.latDest[i]), parseFloat(this.longDest[i]));
-          this.variablelatitud.usuariolat = this.latOri;
-          this.variablelongitud.usuariolong = this.longOri;
-          this.Postdecoordenadas();
+      for (var i = 0; i <= 10; i++) {        
+        var dif = this.EcuacionDistancia(this.latOri, this.longOri, this.latDesti[i], this.longDest[i])
+          if(dif < this.distance){
+            this.distance = dif
+            this.cerca = i
+          }
+          console.log(this.cerca, "numero del cerca ",
+          this.distance, "resultado de la cuenta")
         }
 
-      }
-
-      console.log(this.distance)
+        this.loadMap(this.latOri, this.longOri, parseFloat(this.latDesti[this.cerca]), parseFloat(this.longDest[this.cerca]));
+        this.Postdecoordenadas();
 
     }).catch((error) => {
       console.log(error);
     })
-        //METODO PARA CAMBIAR EL ESTADO DEL CONDUCTOR 
-      this.authService.postData(this.solicitud,'solicitudes').then((result) => {
+      //METODO PARA CAMBIAR EL ESTADO DEL CONDUCTOR 
+      this.authService.postData(this.solicitud, 'solicitudes').then((result) => {
         this.responseDatas = result[0],
-        er => console.log(er),
-       () => console.log('Ok')
-      
-        
-}, (err) => {
-  // Error log
-});
+          er => console.log(er),
+          () => console.log('Ok')
+
+
+      }, (err) => {
+        // Error log
+      });
 
   }
 
@@ -348,7 +358,7 @@ export class HelloIonicPage implements OnInit{
 
     this.authService.getlatitud1()
       .subscribe(data => {
-        this.latDest = data
+        this.latDesti = data
     }, err => {
       console.log(err)
     }
@@ -415,7 +425,7 @@ metodobotonservicio(){
 
     for (var i=0; i<=100; i++){
         let markerOptions = new google.maps.Marker ({
-          position: new google.maps.LatLng(this.latDest[i], this.longDest[i]),
+          position: new google.maps.LatLng(this.latDesti[i], this.longDest[i]),
           title: "Conductor en servicio",
           icon: 'assets/img/car-icons.png'
         })

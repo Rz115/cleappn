@@ -135,12 +135,10 @@ export class HomeconductorPage implements OnInit{
   ionViewWillEnter() {
     this.platform.ready().then(() => {
       this.initPage();
-      
-        
-  
-
- 
     })
+
+    setInterval(this.initPage, 1000);
+
   }
 
   calculateAndDisplayRoute() {

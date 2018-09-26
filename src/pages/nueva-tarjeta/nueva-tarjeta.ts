@@ -16,10 +16,15 @@ import { IonicPage, NavController, NavParams, LoadingController, MenuController 
 })
 export class NuevaTarjetaPage {
 
+  id: any;
+
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
     public loadingCtrl: LoadingController,
   private menu: MenuController) {
+    this.id = this.navParams.get('id');
+    
+    console.log(this.id);
   }
 
   ionViewDidEnter(){

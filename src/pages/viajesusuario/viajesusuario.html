@@ -11,12 +11,15 @@
     
   <ion-content padding class="fondoprincipal">
 
+    <ion-list [virtualScroll]="datos" [approxItemHeight]=" '100px'" no-lines >
+      <ion-item *virtualItem="let imageDatass" no-lines  class="itemscolor">
           <ion-card class="cardrounded">
-            <h3 class="letrasadaptadas espacio">02-07-2018</h3>
-            <h3 class="letrasadaptadas" text-wrap>Desde: Fracc. Palmar 264</h3>
-            <h3 class="letrasadaptadas" text-wrap>Hasta: Fracc. Villa del sol #1</h3>
-            <h3 class="letrasadaptadas" text-wrap>Nombre del conductor: Germán Torres Vidrio</h3>
+            <h3 class="letrasadaptadas espacio">Fecha: {{imageDatass.fecha}}</h3>
+            <h3 class="letrasadaptadas" text-wrap>Desde: {{imageDatass.desde}}</h3>
+            <h3 class="letrasadaptadas" text-wrap>Hasta: {{imageDatass.hasta}}</h3>
+            <h3 class="letrasadaptadas" text-wrap>Nombre del conductor: {{imageDatass.nombre_conductor}}</h3>
           </ion-card>
-
+        </ion-item>
+      </ion-list>
   
   </ion-content>

@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angul
 import { NuevaTarjetaPage } from '../nueva-tarjeta/nueva-tarjeta';
 
 import { PayPal, PayPalPayment, PayPalConfiguration, PayPalPaymentDetails } from '@ionic-native/paypal';
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 @IonicPage()
 @Component({
@@ -11,15 +12,20 @@ import { PayPal, PayPalPayment, PayPalConfiguration, PayPalPaymentDetails } from
 })
 export class FormadepagoPage {
 
-  userid: number;
+  userid: any;
+  id: any;
+  tarjetas = {"user_id":"","username":""};
+  datos: any = []
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private menu: MenuController,
+    public authService: AuthServiceProvider,
     private payPal: PayPal) {
 
     this.userid = this.navParams.get('userid');
-    console.log(this.userid);
+    this.id = this.userid
+    console.log(this.id);
   }
 
   comprarpaypal() {
@@ -68,11 +74,30 @@ export class FormadepagoPage {
       // Error in initialization, maybe PayPal isn't supported or something else
     });
   }
+ 
+  ngOnInit(){
+ 
+    this.traerdatos();
+  
+  }
 
   ionViewDidEnter() {
     this.menu.swipeEnable(false);
   }
   nuevacard() {
-    this.navCtrl.push(NuevaTarjetaPage);
+    this.navCtrl.push(NuevaTarjetaPage, {"id": this.id });
   }
+
+  traerdatos(){
+    this.tarjetas.user_id = this.userid
+    this.authService.postData(this.tarjetas,'getCard').then((result) => {
+      this.datos = result;
+      //console.log(this.datos); 
+    
+    }, (err) => {
+      // Error log
+      });
+      
+  }
+
 }

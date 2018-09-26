@@ -53,6 +53,9 @@ export class HomeconductorPage implements OnInit{
 
   variablelongitud = {"id_driver":"","longitud":""};
 
+  //VARIABLE PARA BUSQUEDA DE ID DE CONDUCTOR Y LE LLEGUE O NO SOLICITUD D SERVICIO
+  soli:any;
+
   responseDatas : any = [];
   responseDatass : any = [];
   userDetails : any;
@@ -255,7 +258,8 @@ console.log("Error al mandar coordenadas")// Error log
           role: 'cancel',
           handler: () => {
           //METODO PARA CAMBIAR EL VALOR DEL INDICADOR UNA VEZ RECHAZE EL CONDUCTOR
-          this.authService.postData(this.solicitud,'cancelarsolicitudes').then((result) => {
+          this.solicitud.id_driver = this.userid
+          this.authService.postData(this.solicitud,'rechazarServicio').then((result) => {
             this.respuest = result[0];
                        
     }, (err) => {
@@ -267,9 +271,11 @@ console.log("Error al mandar coordenadas")// Error log
           text: 'Aceptar',
           handler: () => {
            //METODO PARA CAMBIAR EL VALOR DEL INDICADOR UNA VEZ ACEPTE EL CONDUCTOR
+           this.solicitud.id_driver = this.userid
             this.authService.postData(this.solicitud,'aceptarservicio').then((result) => {
               this.respuest = result[0];
-
+              this.getlati = 18.018304
+              this.getlongi = -102.2132224
               this.loadMap(this.latitud_conductor, this.longitud_conductor,parseFloat(this.getlati), parseFloat(this.getlongi));
               //METODO PARA CARGAR EL MAPA DE LAS COORDENADAS DEL USUARIO Y LAS DE CONDUCTOR
 
@@ -283,6 +289,32 @@ console.log("Error al mandar coordenadas")// Error log
     });
     alert.present();
   }
+
+  alertaCancelacionDeUsuario() {
+    let alert = this.alertCtrl.create({
+      title: 'Se ha cancelado el servicio solicitado',
+      
+      buttons: [
+        {
+          text: 'De acuerdo',
+          handler: () => {
+            //METODO PARA CAMBIAR EL VALOR DEL INDICADOR UNA VEZ EL CONDUCTOR SEA NOTIFICADO QUE CANCELARON
+            //SU SERVICIO
+          this.solicitud.id_driver = this.userid;
+          this.authService.postData(this.solicitud,'rechazarServicio').then((result) => {
+            this.respuest = result[0];
+                       
+    }, (err) => {
+      // Error log
+    });
+          }
+        }
+       ]
+    });
+    alert.present();
+  }
+
+
 
   //INICIO CALCULO...calculo de distancia, mostrar marca de distancia, mostrar origen y destino
   private loadMap(latOri, lngOri, latDest, lngDest) {
@@ -381,28 +413,38 @@ console.log("Error al mandar coordenadas")// Error log
     //FIN CALCULO
   ngOnInit() {
   this.map = GoogleMaps.create('map_canvas1');
+ 
   // BUSCA EL CAMBIO EN EL CAMPO INDICADOR DEL CONDUCTOR
-  this.authService.buscarcambiodeindicador()
-  .subscribe(data => {
-    this.indi = data.indicator
- console.log(this.indi);
+  this.solicitud.id_driver = this.userid
+  this.authService.postData(this.solicitud,'cambioindicador').then((result) => {
+    this.soli = result;
+    console.log(this.soli.indicator); 
 
- if(this.indi == 1){
+    if(this.soli.indicator == 0){
+      console.log("Disponible")
+    }
+    
+     if(this.soli.indicator == 1){
+      this.presentConfirm();
+    }
+   
+     if(this.soli.indicator == 2){
+      this.alertaCancelacionDeUsuario();
+    }
 
-this.presentConfirm();
-
- } 
-}, err => {
-  console.log(err)
-}
-)
-
+    //AQUI PUEDE IR OTRO ELSE IF PARA VER QUE SI EL INDICADOR ES IGUAL A 0 
+    //EL NG ONINIT ESTE CARGANDOSE CADA CIERTO TIEMPO (SI, ESTE MISMO MÉTODO)
+    
+     
+}, (err) => {
+// Error log
+});
 
 //OBTENER COORDENADAS DEL USUARIO PARA TRAZAR RUTA LATITUD
 this.authService.getlat()
 .subscribe(data => {
   this.getlati = data.usuariolat
-console.log(this.getlati);
+//console.log(this.getlati);
 
 }, err => {
 console.log(err)
@@ -413,18 +455,12 @@ console.log(err)
 this.authService.getlong()
 .subscribe(data => {
   this.getlongi = data.usuariolong
-console.log(this.getlongi);
+//console.log(this.getlongi);
 
 }, err => {
 console.log(err)
 }
 )
-
-
-
-
-
-
 
   }
 

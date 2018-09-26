@@ -86,7 +86,7 @@ export class HelloIonicPage implements OnInit{
   variablelatitud = {"usuariolat": ""};
   variablelongitud = {"usuariolong":""};
   
-
+  public unregisterBackButtonAction: any;
   userPostData = {"user_id":"","token":"", "username":"","email":""};
   userid: number;
   idConductor: any[];
@@ -154,11 +154,8 @@ export class HelloIonicPage implements OnInit{
 
         this.loadMap(this.latOri, this.longOri, parseFloat(this.latDesti[this.cerca]), parseFloat(this.longDest[this.cerca]));
         this.Postdecoordenadas();
-
-    }).catch((error) => {
-      console.log(error);
-    })
-      //METODO PARA CAMBIAR EL ESTADO DEL CONDUCTOR 
+          //METODO PARA CAMBIAR EL ESTADO DEL CONDUCTOR 
+      this.solicitud.indicator = this.cerca
       this.authService.postData(this.solicitud, 'solicitudes').then((result) => {
         this.responseDatas = result[0],
           er => console.log(er),
@@ -168,6 +165,11 @@ export class HelloIonicPage implements OnInit{
       }, (err) => {
         // Error log
       });
+
+    }).catch((error) => {
+      console.log(error);
+    })
+    
 
   }
 
@@ -295,12 +297,13 @@ export class HelloIonicPage implements OnInit{
     this.navCtrl.push(ProcesandoServicioPage);
     this.isPickupRequested = true;
     if(activarServicio == true){
-      
+    
     }
   }
   cancelarservicio() {    
     this.ionViewWillEnter();
     this.isPickupRequested = false;
+    this.solicitud.indicator = this.cerca
     this.authService.postData(this.solicitud,'cancelarsolicitudes').then((result) => {
       this.responseDatas = result[0],
       er => console.log(er),
@@ -340,7 +343,7 @@ export class HelloIonicPage implements OnInit{
         this.createMap(result.coords.latitude, result.coords.longitude);
 
       }).catch((error) => {
-        console.log(error);
+       // console.log(error);
       })  
 
   }
@@ -374,7 +377,7 @@ export class HelloIonicPage implements OnInit{
        this.authService.getiddrivers()
        .subscribe(datass => {
            this.idConductor = datass
-           console.log(this.idConductor)
+         //  console.log(this.idConductor)
          }, err => {
            console.log(err)
          })
@@ -387,7 +390,7 @@ metodobotonservicio(){
     for (var i=0; i<=this.userid; i++){
       if(this.userDetails.user_id == dataz[i]){
         this.ocultar = false;
-        console.log(this.buscador)
+       // console.log(this.buscador)
       }}},
        err => {
       console.log(err)

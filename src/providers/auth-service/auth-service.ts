@@ -36,20 +36,7 @@ getidtarjeta() {
   getlong(){
     return this.http.get(apiUrl+"buscarlongitud").map(res => res.json())
   }
- 
-  //METODOS DEL CONDUCTOR
-  getdriver() {
-    return this.http.get(apiUrl+"getDriver").map(res => res.json())
-  }
-  getCar() {
-    return this.http.get(apiUrl+"getCar").map(res => res.json())
-  }
-
-  buscarcambiodeindicador(){
-    return this.http.get(apiUrl+"cambioindicador").map(res => res.json())
-  }
-
-  
+   
 
 //METODO POST PARA REGISTRO - LOGIN Y ACTUALIZACION
   postData(withCredentials, type) {

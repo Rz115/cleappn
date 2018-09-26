@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
 
 
 @IonicPage()
@@ -13,9 +11,11 @@ import 'rxjs/add/operator/map';
 export class PerfilconductorPage {
 
   //variable que guarda todos los datos
-  actualizar = {"name":"","email":"","phone":"","adress":"","license":"","date_license":""};
-  carrodatos = {"car":"","car_model":"","year":"","plates":"","circulation_card":""};
-  userid: number;
+  actualizar = {"id_driver":"","name":"","email":"","phone":"","adress":"","license":"","date_license":""};
+  carrodatos = {"id_driver":"","car":"","car_model":"","year":"","plates":"","circulation_card":""};
+  userid: any;
+  datos: any = [];
+  datoscarro: any = [];
   userDetails: any;
   //nullea todos los campos para no ser editados
   ocultar1: boolean = true;
@@ -30,8 +30,10 @@ export class PerfilconductorPage {
   ocultar10: boolean = true;
   ocultar11: boolean = true;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController,
-    public http: Http, public authService: AuthServiceProvider) {
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams,
+     private menu: MenuController, 
+     public authService: AuthServiceProvider) {
   
       this.userid = this.navParams.get('userid');
       console.log(this.userid);
@@ -39,9 +41,7 @@ export class PerfilconductorPage {
 
   ionViewDidEnter(){
     this.menu.swipeEnable(false);
-  }
-
-  
+  } 
 
   ngOnInit(){
     this.traerdatos();
@@ -49,30 +49,34 @@ export class PerfilconductorPage {
 
   traerdatos(){
    //trae los datos del conductor
-    this.authService.getdriver().subscribe(
-      data => {
-        for (var i=0; i<=this.userid; i++){
-          if(this.userid == this.userid){
-          
-            this.actualizar = data.feedDatas[i]
-              }}},
-      err => {
-        console.log(err)
-      }
-    )
+   this.actualizar.id_driver = this.userid
+    this.authService.postData(this.actualizar,'getDriver').then((result) => {
+      this.datos = result;
+     // console.log(this.datos); 
+     //El array toma los datos cargados en la consulta para mostrarlos 
+      this.actualizar.name = this.datos.name
+      this.actualizar.email = this.datos.email
+      this.actualizar.phone = this.datos.phone
+      this.actualizar.adress = this.datos.adress
+      this.actualizar.license = this.datos.license
+      this.actualizar.date_license = this.datos.date_license
+    }, (err) => {
+      // Error log
+      });
 //tre los datos del carro del conductor
-this.authService.getCar().subscribe(
-  data => {
-    for (var i=0; i<=this.userid; i++){
-      if(this.userid == this.userid){
-      
-        this.carrodatos = data.feedDatas[i]
-      }}},
-  err => {
-    console.log(err)
-  }
-)
-
+this.carrodatos.id_driver = this.userid;
+this.authService.postData(this.carrodatos,'getCar').then((result) => {
+  this.datoscarro = result;
+ console.log(this.datoscarro); 
+ //El array toma los datos cargados en la consulta para mostrarlos 
+  this.carrodatos.car = this.datoscarro.car
+  this.carrodatos.car_model = this.datoscarro.car_model
+  this.carrodatos.year = this.datoscarro.year
+  this.carrodatos.plates = this.datoscarro.plates
+  this.carrodatos.circulation_card = this.datoscarro.circulation_card
+}, (err) => {
+  // Error log
+  });
 
   }
 

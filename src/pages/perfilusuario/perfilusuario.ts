@@ -4,9 +4,6 @@ import {
   AlertController, MenuController
 } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
-
 
 
 @IonicPage()
@@ -24,11 +21,11 @@ export class PerfilusuarioPage {
   ocultar5: boolean = true;
   ocultartodos: boolean = false;
   
-  categorys: any = []
   responseDatas : any = [];
   userDetails: any;
   actualizar = {"user_id":"","username":"","email":"","ubication":""};
-  userid: number;
+  userid: any;
+  datos: any = [];
 
 
   constructor(public navCtrl: NavController,
@@ -36,15 +33,14 @@ export class PerfilusuarioPage {
     public loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
     public menu: MenuController,
-    public authService: AuthServiceProvider,
-    public http: Http
+    public authService: AuthServiceProvider
   ) {
 
     const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.userData;
 
     this.userid = this.navParams.get('userid');
-    console.log(this.userid);
+   // console.log(this.userid);
   
   }
 
@@ -55,17 +51,18 @@ export class PerfilusuarioPage {
   }
   
   traerdatos(){
-    this.http.get("https://devector.com.mx/PHP-Slim-Restful/api/getDatosUsuario").map(res => res.json()).subscribe(
-      data => {
-     for (var i=0; i<=this.userid; i++){
-      if(this.userid == this.userDetails.user_id){
-        this.actualizar = data.feedDatas[i]
-        console.log(this.actualizar);
-      }}},
-      err => {
-        console.log(err)
-      }
-    )
+    this.actualizar.user_id = this.userid
+    this.authService.postData(this.actualizar,'gets').then((result) => {
+      this.datos = result;
+     // console.log(this.datos); 
+     //El array toma los datos cargados en la consulta para mostrarlos 
+      this.actualizar.username = this.datos.username
+      this.actualizar.email = this.datos.email
+      this.actualizar.ubication = this.datos.ubication
+    }, (err) => {
+      // Error log
+      });
+      
   }
 
 

@@ -141,7 +141,7 @@ export class HelloIonicPage implements OnInit{
       this.latOri = result.coords.latitude;
       this.longOri = result.coords.longitude
   
-
+      //detectar conductor mas cercano
       for (var i = 0; i <= 10; i++) {        
         var dif = this.EcuacionDistancia(this.latOri, this.longOri, this.latDesti[i], this.longDest[i])
           if(dif < this.distance){
@@ -324,6 +324,7 @@ export class HelloIonicPage implements OnInit{
     this.platform.ready().then(() => {
       this.initPage();
     })
+    setInterval(this.initPage, 1000)
   }
 
   //localizar posicion actual del usuario
@@ -379,6 +380,20 @@ export class HelloIonicPage implements OnInit{
 
     
   }
+<<<<<<< HEAD
+  /* METODO PARA ACTIVAR O DESACTIVAR BOTON DE CONTRATAR SERVICIO */
+  metodobotonservicio(){
+    this.authService.getidtarjeta().subscribe(dataz => {
+      for (var i=0; i<=this.userid; i++){
+        if(this.userDetails.user_id == dataz[i]){
+          this.ocultar = false;
+          console.log(this.buscador)
+        }}},
+        err => {
+        console.log(err)
+      })
+  }
+=======
 /* METODO PARA ACTIVAR O DESACTIVAR BOTON DE CONTRATAR SERVICIO */
 metodobotonservicio(){
   this.authService.getidtarjeta().subscribe(dataz => {
@@ -391,6 +406,7 @@ metodobotonservicio(){
       console.log(err)
     })
 }
+>>>>>>> e4ce6852f634493205d4051fd7bf827b51c04242
   createMap(lat, lng) {
     
     let location = new google.maps.LatLng(lat, lng);
@@ -420,7 +436,7 @@ metodobotonservicio(){
     this.addInfoWindow(marker, content);
     marker.setMap(this.map);
     
-
+    //mostrar todos los autos disponibles
     for (var i=0; i<=100; i++){
         let markerOptions = new google.maps.Marker ({
           position: new google.maps.LatLng(this.latDesti[i], this.longDest[i]),
@@ -433,7 +449,7 @@ metodobotonservicio(){
         this.addInfoWindow(markerOptions, contents);
         markerOptions.setMap(this.map);
       }
-    }
+  }
 
   addMarker(options) {
     let mapOptions = {

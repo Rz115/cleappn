@@ -83,7 +83,7 @@ export class HelloIonicPage implements OnInit{
   solicitud = {"user_id":"","indicator":""};
   
   //SE ENVIAN LAS COORDENADAS A LA TABLA DEL CONDUCTOR
-  variablelatitud = {"usuariolat": ""};
+  variablescoordenadas = {"id_driver":"","usuariolat": "","usuariolong":""};
   variablelongitud = {"usuariolong":""};
   
   public unregisterBackButtonAction: any;
@@ -174,8 +174,12 @@ export class HelloIonicPage implements OnInit{
   }
 
   Postdecoordenadas(){
-    // METODO PARA ENVIAR TUS COORDENADAS LATITUD
-     this.authService.postData(this.variablelatitud,'sendcoordenadaslat').then((result) => {
+    // METODO PARA ENVIAR TUS COORDENADAS LATITUD Y LONGITUD AL CONDUCTOR MÁS CERCANO  CON SU ID DE CONDUCTOR
+    //AQUÍ MISMO SE PUEDE AGREGAR MANDAR EL ID DEL USUARIO PARA QUE EL CONDUCTOR SEPA A QUÉ USUARIO ATENDIÓ
+    this.variablescoordenadas.id_driver = this.cerca
+    this.variablescoordenadas.usuariolat = this.latOri
+    this.variablescoordenadas.usuariolong = this.longOri
+     this.authService.postData(this.variablescoordenadas,'sendcoordenadasParaConductor').then((result) => {
             this.responseDatas = result[0],
             er => console.log(er),
            () => console.log('Ok')
@@ -185,16 +189,7 @@ export class HelloIonicPage implements OnInit{
       // Error log
     });
     
-    // METODO PARA ENVIAR TUS COORDENADAS LONGITUD
-    this.authService.postData(this.variablelongitud,'sendcoordenadaslong').then((result) => {
-      this.responseDatas = result[0],
-      er => console.log(er),
-     () => console.log('Ok')
-    
-      
-    }, (err) => {
-    // Error log
-    });
+  
     }
 
   //INICIO CALCULO...calculo de distancia, mostrar marca de distancia, mostrar origen y destino

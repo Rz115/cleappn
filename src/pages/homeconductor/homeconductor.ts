@@ -63,6 +63,10 @@ export class HomeconductorPage implements OnInit{
 
   indi: any; 
   solicitud = {"id_driver":"","indicator":""};
+  coordenadasdelusuario = {"id_driver":"","coordenadasvariable":""};
+  //VARIABLE PARA BUSQUEDA DE COORDENADAS DE USUARIO PARA EL CONDUCTOR EN CASO DE ACEPTAR SERVICIO 
+  coordenadasdeluser: any;
+
   respuest : any = [];
   getlati: any;
   getlongi: any;
@@ -274,11 +278,21 @@ console.log("Error al mandar coordenadas")// Error log
            this.solicitud.id_driver = this.userid
             this.authService.postData(this.solicitud,'aceptarservicio').then((result) => {
               this.respuest = result[0];
-              this.getlati = 18.018304
-              this.getlongi = -102.2132224
+                 //OBTENER COORDENADAS DEL USUARIO PARA TRAZAR RUTA DEL CONDUCTOR AL USUARIO
+    // BUSCA EL CAMBIO EN EL CAMPO INDICADOR DEL CONDUCTOR
+              this.coordenadasdelusuario.id_driver = this.userid
+              this.authService.postData(this.coordenadasdelusuario,'buscarcoordenandasusuario').then((result) => {
+                this.coordenadasdeluser = result;
+                
+                this.getlati = this.coordenadasdeluser.usuariolat
+                this.getlongi = this.coordenadasdeluser.usuariolong
+                console.log(this.getlati, this.getlongi); 
               this.loadMap(this.latitud_conductor, this.longitud_conductor,parseFloat(this.getlati), parseFloat(this.getlongi));
               //METODO PARA CARGAR EL MAPA DE LAS COORDENADAS DEL USUARIO Y LAS DE CONDUCTOR
-
+     
+            }, (err) => {
+              // Error log
+              });
       }, (err) => {
         // Error log
       });
@@ -439,28 +453,6 @@ console.log("Error al mandar coordenadas")// Error log
 }, (err) => {
 // Error log
 });
-
-//OBTENER COORDENADAS DEL USUARIO PARA TRAZAR RUTA LATITUD
-this.authService.getlat()
-.subscribe(data => {
-  this.getlati = data.usuariolat
-//console.log(this.getlati);
-
-}, err => {
-console.log(err)
-}
-)
-
-//OBTENER COORDENADAS DEL USUARIO PARA TRAZAR RUTA LONGITUD
-this.authService.getlong()
-.subscribe(data => {
-  this.getlongi = data.usuariolong
-//console.log(this.getlongi);
-
-}, err => {
-console.log(err)
-}
-)
 
   }
 

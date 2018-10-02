@@ -29,13 +29,7 @@ getidtarjeta() {
   getiddrivers() {
     return this.http.get(apiUrl+"getiddriver").map(res => res.json())
   }
-// RECIBIR COORDENADAS DEL USUARIO PARA EL CONDUCTOR 14
-  getlat(){
-    return this.http.get(apiUrl+"buscarlatitud").map(res => res.json())
-  }
-  getlong(){
-    return this.http.get(apiUrl+"buscarlongitud").map(res => res.json())
-  }
+
    
 
 //METODO POST PARA REGISTRO - LOGIN Y ACTUALIZACION

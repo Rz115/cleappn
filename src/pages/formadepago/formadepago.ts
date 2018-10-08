@@ -31,7 +31,7 @@ export class FormadepagoPage {
   comprarpaypal() {
     this.payPal.init({
       PayPalEnvironmentProduction: 'YOUR_PRODUCTION_CLIENT_ID',
-      PayPalEnvironmentSandbox: 'ATkkbT2la5FR6zVVpgOOON5uNCWfHH7G5Xa8V39ojuhv_gcGT9nJg8uK1QVzsNhIGmnT0AyfLLBAOOJ5'
+      PayPalEnvironmentSandbox: 'AReTJIQx3Rko7QnsKAag2X6PBma-HlyFJKbdKmzjgN9L9EOLvteP8Y0ulGT0bi1v6V5Gum7wOPsh1ecr'
     }).then(() => {
       // Environments: PayPalEnvironmentNoNetwork, PayPalEnvironmentSandbox, PayPalEnvironmentProduction
       this.payPal.prepareToRender('PayPalEnvironmentSandbox', new PayPalConfiguration({
